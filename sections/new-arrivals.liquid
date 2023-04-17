@@ -1,0 +1,96 @@
+<link
+  rel="stylesheet"
+  href="{{ 'new-arrivals.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+<div class="arrival">
+  <h1 class="arrival-title" style="--text-color:{{ section.settings.title_color  | escape_css }}">
+    {{ section.settings.text_title }}
+  </h1>
+  <div class="arrival-list scroll-snap-x">
+    {% for item in section.settings.collection.products %}
+      <a href={{ item.url }}>
+        <div class="arrival-list__item scroll-snap-x-item">
+          <div class="arrival-list__item-card">
+            <img
+              src="{{item.featured_media | image_url }}"
+              alt="card img"
+              class="arrival-list__item-card-image">
+            <div class="arrival-list__item-card-top-left">
+              <span class="primary">{{ item.tags }}</span>
+              {% if item.compare_at_price_max != blank and item.compare_at_price_max > 0 %}
+                {% assign discount = item.compare_at_price | minus: item.price | times: 100.0 | divided_by: item.compare_at_price | round %}
+                <span class="secondary">- {{ discount }}%</span>
+              {% endif %}
+            </div>
+            <div class="arrival-list__item-card-top-right">
+              <span class="arrival-list__item-card-top-right-icon">
+                {% render 'icon-heart' %}
+              </span>
+              <span class="arrival-list__item-card-top-right-icon">
+                {% render 'icon-compare' %}
+              </span>
+              <span class="arrival-list__item-card-top-right-icon">
+                {% render 'icon-search' %}
+              </span>
+
+            </div>
+            <div class="arrival-list__item-cart-button">
+              <button class="arrival-list__item-cart-button-add-cart">
+                Add to cart
+              </button>
+            </div>
+          </div>
+          <div class="arrival-list__item-info">
+            <span class="arrival-list__item-info-name truncate">{{ item.vendor }}
+            </span>
+
+            <span class="arrival-list__item-info-desc truncate-multiline" title="{{ item.title }}">{{ item.title }}</span>
+
+            <div class="arrival-list__item-info-money">
+              <span class="arrival-list__item-info-money-price">{{ item.price | money }}</span>
+              {% if item.compare_at_price_max != blank and item.compare_at_price_max > 0 %}
+                <span class="arrival-list__item-info-money-discount">{{ item.compare_at_price_max | money }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </a>
+    {% endfor %}
+  </div>
+  <div class="arrivals__show-all">
+    <div class="arrivals__show-all-btn">
+      <a href="{{ section.settings.collection.url }}">Show all new arrivals</a>
+    </div>
+  </div>
+</div>
+
+
+{% schema %}
+  {
+    "name": "New Arrivals",
+    "settings": [
+      {
+        "id": "collection",
+        "type": "collection",
+        "label": "New Arricals"
+      }, {
+        "id": "text_title",
+        "type": "text",
+        "label": "Title",
+        "default": "New Arrivals"
+      }, {
+        "id": "title_color",
+        "type": "color",
+        "label": "Color title",
+        "default": "#000"
+      }
+    ],
+    "presets": [
+      {
+        "name": "New Arrivals"
+      }
+    ]
+  }
+{% endschema %}

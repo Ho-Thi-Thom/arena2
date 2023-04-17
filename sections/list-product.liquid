@@ -1,0 +1,104 @@
+<link
+  rel="stylesheet"
+  href="{{ 'list-product.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+
+<style>
+
+  .list-product__item-button {
+    {% case section.settings.list-product__item-button %}
+      {% when 'primary' %}
+      --background-color: transparent;
+      {% when 'secondary' %}
+      --background-color: rgba(230, 126, 34, 0.7);
+      {% when 'tertiary' %}
+      --background-color: rgba(155, 89, 182, 0.7);
+
+      {% when 'quaternary' %}
+      --background-color: rgba(52, 152, 219, 0.7);
+
+    {% else %}
+      --background-color: rgba(241, 196, 15, 0.7);
+    {% endcase %}
+  }
+</style>
+
+<div class="list-product scroll-snap-x">
+  {% for item in section.blocks %}
+    <div class="list-product__item scroll-snap-x-item">
+      <img
+        src="{{item.settings.list-product-item-img | image_url }}"
+        alt="img-1"
+        class="list-product__item-img">
+      <div class="list-product__item-button">
+        <a href={{ item.list-product-item-url }} type="button">
+          {{ item.settings.list-product-item-button | capitalize }}</a>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+
+{% schema %}
+  {
+    "name": "List Product",
+    "blocks": [
+      {
+        "name": "Product Item",
+        "type": "list",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Product Item"
+          }, {
+            "id": "list-product-item-img",
+            "type": "image_picker",
+            "label": "Image Product"
+          }, {
+            "id": "list-product-item-button",
+            "type": "text",
+            "label": "Category",
+            "default": "T-Shirt"
+          }, {
+            "id": "list-product-item-url",
+            "type": "url",
+            "label": "Url"
+          }
+        ]
+      }
+    ],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Button Style"
+      }, {
+        "label": "Color Button",
+        "type": "select",
+        "id": "list-product__item-button",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary"
+          }, {
+            "value": "secondary",
+            "label": "Secondary"
+          }, {
+            "value": "tertiary",
+            "label": "Tertiary"
+          }, {
+            "value": "quaternary",
+            "label": "Quaternary"
+          }
+        ],
+        "default": "primary"
+      }
+    ],
+    "presets": [
+      {
+        "name": "List Product"
+      }
+    ]
+  }
+{% endschema %}

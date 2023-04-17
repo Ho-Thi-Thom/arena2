@@ -1,0 +1,74 @@
+.tns-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+.tns-nav button {
+  display: none;
+  width: 10px;
+  height: 10px;
+  background: #eff5fd;
+  border-radius: 100%;
+  border: none;
+  transition: all 0.2s linear;
+}
+.tns-nav-active {
+  background: #232368 !important;
+  width: 40px !important;
+  border-radius: 10px !important;
+}
+
+button {
+  border: none;
+}
+
+button a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+a,
+button {
+  cursor: pointer;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.truncate-multiline {
+  display: -webkit-box;
+  -webkit-line-clamp: var(--line);
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+}
+
+@media (min-width: 1000px) {
+  .container {
+    max-width: 1410px;
+  }
+}
+
+@media (max-width: 768px) {
+  .scroll-snap-x::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-snap-x {
+    flex-wrap: nowrap;
+    overflow: auto;
+    scroll-snap-type: x proximity;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+
+  .scroll-snap-x-item {
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+}

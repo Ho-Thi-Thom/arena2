@@ -1,0 +1,396 @@
+{
+  "sections": {
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "menu-header",
+        "text_color": "black",
+        "select_position": "1"
+      }
+    },
+    "005a1776-635d-4207-8373-25440df91642": {
+      "type": "slider1",
+      "blocks": {
+        "9f7339a8-2fef-4bc4-b72f-64442b64bae8": {
+          "type": "Image",
+          "settings": {
+            "image_url": "shopify:\/\/shop_images\/manny-moreno-TbXRTGdDaHY-unsplash_1.png",
+            "title-text": "Extra 50% off Sale",
+            "font-size-title": "80,30",
+            "sub-text": "Use code “ss22” in cart to check the discount.",
+            "font-size-sub-title": "18,14",
+            "text-color": "#ffffff",
+            "button1": "Clothes on sale",
+            "slider-content-button1-url": "",
+            "button2": "Shoes on sale",
+            "slider-content-button2-url": "",
+            "btn-style": "secondary"
+          }
+        },
+        "3ebed69a-c1ea-41c3-97cd-a58fcfa613b2": {
+          "type": "Image",
+          "settings": {
+            "image_url": "shopify:\/\/shop_images\/imgpsh_fullsize_anim.jpg",
+            "title-text": "Extra 50% off Sale A",
+            "font-size-title": "80,30",
+            "sub-text": "Use code “ss22” A",
+            "font-size-sub-title": "18,14",
+            "text-color": "#ffffff",
+            "button1": "Clothes on sale",
+            "slider-content-button1-url": "",
+            "button2": "Shoes on sale",
+            "slider-content-button2-url": "",
+            "btn-style": "primary"
+          }
+        }
+      },
+      "block_order": [
+        "9f7339a8-2fef-4bc4-b72f-64442b64bae8",
+        "3ebed69a-c1ea-41c3-97cd-a58fcfa613b2"
+      ],
+      "settings": {}
+    },
+    "46f77db1-2e16-42cb-8f62-e5cad056d084": {
+      "type": "banner",
+      "blocks": {
+        "7d7e952f-9d61-4a37-9270-e89550dd9d40": {
+          "type": "list",
+          "settings": {
+            "banner_item-image": "shopify:\/\/shop_images\/alex-hudson-ALDmHPj9b7Q-unsplash_1.png",
+            "banner_item-title": "Looking<br>\nfor new<br>\nshoes?",
+            "banner_item-sub-title": "Upcoming trends",
+            "banner-item-content-sub-title-url": "",
+            "banner_item-content-color": "#ffffff"
+          }
+        },
+        "a4e4dbd4-20b0-4da2-8780-5a056baf85fd": {
+          "type": "list",
+          "settings": {
+            "banner_item-image": "shopify:\/\/shop_images\/pexels-marco-trinidad-2881785_1.png",
+            "banner_item-title": "Be ready <br>\nfor Summer<br>\n2023",
+            "banner_item-sub-title": "Upcoming trends",
+            "banner-item-content-sub-title-url": "",
+            "banner_item-content-color": "#000000"
+          }
+        },
+        "3b3dbc88-7585-4c9b-b820-8a40b8191372": {
+          "type": "list",
+          "settings": {
+            "banner_item-image": "shopify:\/\/shop_images\/coast1_2ea6824a-3b66-4c92-a982-da9d695eba58.png",
+            "banner_item-title": "Be ready for Summer 2021",
+            "banner_item-sub-title": "Upcoming trends",
+            "banner-item-content-sub-title-url": "",
+            "banner_item-content-color": "#ffffff"
+          }
+        },
+        "31e42d4a-e97f-4577-84cd-74cdc807caad": {
+          "type": "list",
+          "settings": {
+            "banner_item-image": "shopify:\/\/shop_images\/shirts.png",
+            "banner_item-title": "Be ready for Summer 2021",
+            "banner_item-sub-title": "Upcoming trends",
+            "banner-item-content-sub-title-url": "",
+            "banner_item-content-color": "#000000"
+          }
+        }
+      },
+      "block_order": [
+        "7d7e952f-9d61-4a37-9270-e89550dd9d40",
+        "a4e4dbd4-20b0-4da2-8780-5a056baf85fd",
+        "3b3dbc88-7585-4c9b-b820-8a40b8191372",
+        "31e42d4a-e97f-4577-84cd-74cdc807caad"
+      ],
+      "settings": {}
+    },
+    "532a03c7-f35f-4432-ae3d-52fdc483d688": {
+      "type": "list-product",
+      "blocks": {
+        "3f2fb106-e105-43a2-b7d4-e86d79de25f9": {
+          "type": "list",
+          "settings": {
+            "list-product-item-img": "shopify:\/\/shop_images\/jeans.png",
+            "list-product-item-button": "Jeans",
+            "list-product-item-url": ""
+          }
+        },
+        "fb1a6529-5559-4007-9bdb-84811a5a8581": {
+          "type": "list",
+          "settings": {
+            "list-product-item-img": "shopify:\/\/shop_images\/shoes.png",
+            "list-product-item-button": "Shoes",
+            "list-product-item-url": ""
+          }
+        },
+        "d02db4cd-0dad-4569-be57-0550278a3212": {
+          "type": "list",
+          "settings": {
+            "list-product-item-img": "shopify:\/\/shop_images\/coats.png",
+            "list-product-item-button": "Coats",
+            "list-product-item-url": ""
+          }
+        },
+        "07a0069a-60c7-4011-962d-8ad7eb3e5212": {
+          "type": "list",
+          "settings": {
+            "list-product-item-img": "shopify:\/\/shop_images\/shirts.png",
+            "list-product-item-button": "Shirts",
+            "list-product-item-url": ""
+          }
+        },
+        "82794024-3267-45b5-87e9-b1054c9944c5": {
+          "type": "list",
+          "settings": {
+            "list-product-item-img": "shopify:\/\/shop_images\/accessories.png",
+            "list-product-item-button": "Accessories",
+            "list-product-item-url": ""
+          }
+        },
+        "0ed65713-acca-46a2-9d55-97bdc38996ff": {
+          "type": "list",
+          "settings": {
+            "list-product-item-img": "shopify:\/\/shop_images\/shoes1.png",
+            "list-product-item-button": "T-Shirt",
+            "list-product-item-url": ""
+          }
+        }
+      },
+      "block_order": [
+        "3f2fb106-e105-43a2-b7d4-e86d79de25f9",
+        "fb1a6529-5559-4007-9bdb-84811a5a8581",
+        "d02db4cd-0dad-4569-be57-0550278a3212",
+        "07a0069a-60c7-4011-962d-8ad7eb3e5212",
+        "82794024-3267-45b5-87e9-b1054c9944c5",
+        "0ed65713-acca-46a2-9d55-97bdc38996ff"
+      ],
+      "settings": {
+        "list-product__item-button": "primary"
+      }
+    },
+    "c14552ba-388c-4b8e-ad54-d0513cfb7195": {
+      "type": "new-arrivals",
+      "settings": {
+        "collection": "new-arrivals",
+        "text_title": "New Arrivals",
+        "title_color": "#000000"
+      }
+    },
+    "06803d8e-d7b9-4681-8691-e42b3914a311": {
+      "type": "three-banner",
+      "blocks": {
+        "7c20dfa2-2b55-4d86-86eb-b21b58552a45": {
+          "type": "list",
+          "settings": {
+            "banner_item_img": "shopify:\/\/shop_images\/alex-hudson-ALDmHPj9b7Q-unsplash_2.png",
+            "banner_item_title": "Many styles in one look",
+            "banner_item_link": "Discover more",
+            "banner_item_url": ""
+          }
+        },
+        "0e1efc60-5ba2-4e73-867b-869457b2db85": {
+          "type": "list",
+          "settings": {
+            "banner_item_img": "shopify:\/\/shop_images\/shoes1.png",
+            "banner_item_title": "Shoes for you",
+            "banner_item_link": "Shop now",
+            "banner_item_url": ""
+          }
+        },
+        "7a69fd30-88c5-4ca0-afec-b8b1334703ce": {
+          "type": "list",
+          "settings": {
+            "banner_item_img": "shopify:\/\/shop_images\/coast1_2ea6824a-3b66-4c92-a982-da9d695eba58.png",
+            "banner_item_title": "Sporty elegance",
+            "banner_item_link": "New collection",
+            "banner_item_url": ""
+          }
+        }
+      },
+      "block_order": [
+        "7c20dfa2-2b55-4d86-86eb-b21b58552a45",
+        "0e1efc60-5ba2-4e73-867b-869457b2db85",
+        "7a69fd30-88c5-4ca0-afec-b8b1334703ce"
+      ],
+      "settings": {
+        "banner_item_text_color": "#000000"
+      }
+    },
+    "70b145a3-3706-4542-acdb-c66230c9b9c4": {
+      "type": "newsletter",
+      "settings": {
+        "newseletter-title": "Join our newsletter <br> and get $20 for your first order",
+        "newseletter-title-fontsize": "28,20",
+        "newseletter-title-color": "#000000",
+        "newseletter-input-placeholder": "Your e-mail address",
+        "newseletter-button-text": "Subscribe",
+        "newseletter-form-button": "primary"
+      }
+    },
+    "8ce34b82-817b-4e18-b07d-846227959839": {
+      "type": "social",
+      "blocks": {
+        "7ee93d2e-d3f4-47d8-977b-5aeb15fc97b8": {
+          "type": "desktop",
+          "settings": {
+            "social-icon": "shopify:\/\/shop_images\/facebook-f_1.svg",
+            "social-icon-url": ""
+          }
+        },
+        "3f773930-6753-46f7-87b9-d2e312093781": {
+          "type": "desktop",
+          "settings": {
+            "social-icon": "shopify:\/\/shop_images\/instagram_1.svg",
+            "social-icon-url": ""
+          }
+        },
+        "917b00c2-f90a-477e-b0a0-4b08f1a4fad4": {
+          "type": "desktop",
+          "settings": {
+            "social-icon": "shopify:\/\/shop_images\/youtube_1.svg",
+            "social-icon-url": ""
+          }
+        },
+        "3acafcec-562a-4c61-a6b4-3df77d25068b": {
+          "type": "desktop",
+          "settings": {
+            "social-icon": "shopify:\/\/shop_images\/pinterest-p_1.svg",
+            "social-icon-url": ""
+          }
+        },
+        "d858ba88-673d-4cb5-94b6-a50662ab227f": {
+          "type": "desktop",
+          "settings": {
+            "social-icon": "shopify:\/\/shop_images\/linkedin-in_1.svg",
+            "social-icon-url": ""
+          }
+        },
+        "f110f3af-d107-415c-b577-8f8209fb84b8": {
+          "type": "mobile",
+          "settings": {
+            "social-button-category": "Jackets & Coats",
+            "social-button-category-url": ""
+          }
+        },
+        "9bb0cd5d-9c9f-442d-b764-6cc7f687e62d": {
+          "type": "mobile",
+          "settings": {
+            "social-button-category": "Loungewear",
+            "social-button-category-url": ""
+          }
+        },
+        "c97be6d2-d9fb-4f8e-b9ee-3002de8ebce7": {
+          "type": "mobile",
+          "settings": {
+            "social-button-category": "Polo shirts",
+            "social-button-category-url": ""
+          }
+        }
+      },
+      "block_order": [
+        "7ee93d2e-d3f4-47d8-977b-5aeb15fc97b8",
+        "3f773930-6753-46f7-87b9-d2e312093781",
+        "917b00c2-f90a-477e-b0a0-4b08f1a4fad4",
+        "3acafcec-562a-4c61-a6b4-3df77d25068b",
+        "d858ba88-673d-4cb5-94b6-a50662ab227f",
+        "f110f3af-d107-415c-b577-8f8209fb84b8",
+        "9bb0cd5d-9c9f-442d-b764-6cc7f687e62d",
+        "c97be6d2-d9fb-4f8e-b9ee-3002de8ebce7"
+      ],
+      "settings": {
+        "text-color": "#000000"
+      }
+    },
+    "3a15c7e1-c31a-4afd-9aa4-d57afdf505a3": {
+      "type": "footer1",
+      "blocks": {
+        "0b4ad4f4-8f4e-48ca-94cd-d2806ec7fd74": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/visa_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "d5c1eba8-3e3b-45e5-a70c-d39bb9636dae": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/mastercard_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "f1d7df12-4cfe-410b-99e9-ba942ae4f88a": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/maestro_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "b14ea748-ccc4-405d-9a6f-3970a01b5a8c": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/paypal-39_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "c6beb78b-817e-4725-b7dc-abd5c2b481f4": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/paypal-01_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "c62af4a7-7b5c-4e16-a910-ad0c93d79f2e": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/skrill_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "7fe4e0b5-6c2b-47d6-a3d3-c5802ab3ffc0": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/wepay_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "9b1690cb-1405-4926-be24-735b996683cf": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/moneygram_1.svg",
+            "footer__list-icon-url": ""
+          }
+        },
+        "f93379e0-e195-4113-b1b5-b91f89bcfa70": {
+          "type": "list",
+          "settings": {
+            "footer__list-icon-img": "shopify:\/\/shop_images\/blue-pay_1.svg",
+            "footer__list-icon-url": ""
+          }
+        }
+      },
+      "block_order": [
+        "0b4ad4f4-8f4e-48ca-94cd-d2806ec7fd74",
+        "d5c1eba8-3e3b-45e5-a70c-d39bb9636dae",
+        "f1d7df12-4cfe-410b-99e9-ba942ae4f88a",
+        "b14ea748-ccc4-405d-9a6f-3970a01b5a8c",
+        "c6beb78b-817e-4725-b7dc-abd5c2b481f4",
+        "c62af4a7-7b5c-4e16-a910-ad0c93d79f2e",
+        "7fe4e0b5-6c2b-47d6-a3d3-c5802ab3ffc0",
+        "9b1690cb-1405-4926-be24-735b996683cf",
+        "f93379e0-e195-4113-b1b5-b91f89bcfa70"
+      ],
+      "settings": {
+        "footer-copy-right": "Copyright © 2023 arenacommerce. All Rights Reserved"
+      }
+    }
+  },
+  "order": [
+    "header",
+    "005a1776-635d-4207-8373-25440df91642",
+    "46f77db1-2e16-42cb-8f62-e5cad056d084",
+    "532a03c7-f35f-4432-ae3d-52fdc483d688",
+    "c14552ba-388c-4b8e-ad54-d0513cfb7195",
+    "06803d8e-d7b9-4681-8691-e42b3914a311",
+    "70b145a3-3706-4542-acdb-c66230c9b9c4",
+    "8ce34b82-817b-4e18-b07d-846227959839",
+    "3a15c7e1-c31a-4afd-9aa4-d57afdf505a3"
+  ]
+}

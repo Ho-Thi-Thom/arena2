@@ -1,0 +1,39 @@
+{
+  "name": "root",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "concurrently \"gulp serve\" \"theme watch -a --allow-live --notify=.tmp/theme.update\"",
+    "backup": "concurrently \"cd theme_settings && theme download -a\"",
+    "watch-all": "concurrently \"cd theme_settings && theme watch -a --allow-live\"",
+    "build": "gulp build"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "browser-sync": "^2.26.13",
+    "concurrently": "^5.3.0",
+    "cssnano": "^4.1.10",
+    "esbuild": "^0.12.29",
+    "gulp": "^4.0.2",
+    "gulp-load-plugins": "^2.0.6",
+    "gulp-postcss": "^9.0.0",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^4.1.0",
+    "npm-run": "^5.0.1",
+    "gulp-sourcemaps": "^3.0.0",
+    "yargs": "^16.2.0"
+  },
+  "dependencies": {
+    "@shopify/theme-sections": "^4.0.2",
+    "lazysizes": "^5.3.0-beta1",
+    "localforage": "^1.10.0",
+    "mapbox-gl": "^2.13.0",
+    "nouislider": "^15.7.0",
+    "vanilla-sharing": "^6.1.1",
+    "zenscroll": "^4.0.2"
+  }
+}

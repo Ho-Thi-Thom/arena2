@@ -1,0 +1,127 @@
+<link
+  rel="stylesheet"
+  href="{{ 'newsletter.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+<!--assign-->
+{% assign font-size-title = section.settings.newseletter-title-fontsize %}
+{% assign font-size-title-array = font-size-title | split: "," %}
+{% assign font-title-desktop = font-size-title-array[0] %}
+{% assign font-title-mobile = font-size-title-array[1] %}
+<!--assign-->
+
+  
+<style>
+  .sletter-title{
+    --newseletter-title-color : {{section.settings.newseletter-title-color}};
+    --font-title-desktop: {{ font-title-desktop |append: 'px'}};
+    --font-title-mobile: {{ font-title-mobile |append: 'px'}};
+  }
+
+  .sletter-form__btn {
+    {% case section.settings.newseletter-form-button%}
+      {% when 'primary' %}
+      --background-color: rgba(255, 110, 0);
+      {% when 'secondary' %}
+      --background-color: #34495e;
+      {% when 'tertiary' %}
+      --background-color: rgba(155, 89, 182);
+
+      {% when 'quaternary' %}
+      --background-color: rgba(52, 152, 219);
+
+    {% else %}
+      --background-color: rgba(241, 196, 15);
+    {% endcase %}
+  }
+</style>
+
+<div class="sletter">
+  <span class="sletter-title">
+   {{ section.settings.newseletter-title }}
+  </span>
+  <div class="sletter-form">
+    <input
+      type="text"
+      class="sletter-form__input-email"
+      placeholder="{{ section.settings.newseletter-input-placeholder }}" />
+    <button class="sletter-form__btn">{{ section.settings.newseletter-button-text }}</button>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "New Selectter",
+    "blocks": [],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Title Style"
+      },
+      {
+        "label": "Text Title",
+        "type": "textarea",
+        "id":"newseletter-title",
+        "default":"Join our newsletter <br> and get $20 for your first order"
+      },
+        {
+        "label": "Font Size Title: Desktop,Mobile",
+        "type": "text",
+        "id":"newseletter-title-fontsize",
+        "default":"28,20"
+      }
+      ,
+      {
+        "type":"color",
+        "id":"newseletter-title-color",
+        "label": "Title Color",
+        "default": "#000"
+      },
+      {
+        "type": "header",
+        "content": "Form Style"
+      },
+      {
+        "type": "text",
+        "id":"newseletter-input-placeholder",
+        "label": "Input Placeholder Text",
+        "default": "Your e-mail address"
+      },
+      {
+        "type": "text",
+        "id":"newseletter-button-text",
+        "label": "Button Text",
+        "default": "Subscribe"
+      },
+      {
+        "label": "Button Style",
+        "type": "select",
+        "id": "newseletter-form-button",
+        "options": [
+          {
+            "value": "primary",
+            "label": "Primary"
+          }, {
+            "value": "secondary",
+            "label": "Secondary"
+          }, {
+            "value": "tertiary",
+            "label": "Tertiary"
+          }, {
+            "value": "quaternary",
+            "label": "Quaternary"
+          }
+        ],
+        "default": "primary"
+      }
+    ],
+    "presets": [
+      {
+        "name": "New Selectter"
+      }
+    ]
+  }
+{% endschema %}

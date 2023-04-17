@@ -1,0 +1,248 @@
+.arrival {
+  margin-top: 80px;
+  height: 557px;
+  width: 100%;
+}
+
+.arrival-title {
+  font-weight: 500;
+  font-size: 35px;
+  color: var(--text-color);
+  text-align: center;
+}
+
+.arrival-list {
+  width: 100%;
+  height: 413px;
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+  padding-inline: 40px;
+  align-items: center;
+  gap: 4px;
+}
+
+.arrival-list__item {
+  width: 250px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  column-gap: 10px;
+}
+
+.arrival-list__item-card {
+  position: relative;
+  width: 100%;
+  height: 323px;
+}
+
+.arrival-list__item-card:hover .arrival-list__item-card-top-right,
+.arrival-list__item-card:hover .arrival-list__item-cart-button {
+  opacity: 1;
+}
+
+.arrival-list__item-card-image {
+  width: 100%;
+  height: 100%;
+  border-radius: 4px;
+  object-fit: cover;
+}
+
+.arrival-list__item-card-top-left {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.primary {
+  background-color: white;
+  color: black;
+}
+
+.secondary {
+  background-color: rgba(255, 110, 0, 1);
+  color: white;
+}
+
+.arrival-list__item-card-top-left span {
+  padding: 0px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+}
+
+.arrival-list__item-card-top-right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.arrival-list__item-card-top-right-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+}
+
+.arrival-list__item-cart-button {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  opacity: 0;
+  transition: opacity 0.5s ease-in;
+}
+
+.arrival-list__item-cart-button-add-cart {
+  height: 100%;
+  width: 100%;
+  border-radius: 4px;
+  background-color: rgba(255, 110, 0, 1);
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.arrival-list__item-cart-button-add-cart a {
+  line-height: 30px;
+}
+
+.arrival-list__item-info {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.arrival-list__item-info-name {
+  font-weight: 400;
+  font-size: 11px;
+  color: rgba(128, 128, 128, 1);
+  line-height: 16px;
+}
+
+.arrival-list__item-info-desc {
+  margin-top: 3px;
+  font-weight: 400;
+  font-size: 14px;
+  color: black;
+  --line: 2; /* .truncate-multiline global*/
+  --line-height: 21px;
+  line-height: var(--line-height);
+  height: calc(var(--line) * var(--line-height));
+}
+
+.arrival-list__item-info-money {
+  display: flex;
+  margin-top: 8px;
+  gap: 9px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.arrival-list__item-info-money-price {
+  color: black;
+}
+
+.arrival-list__item-info-money-discount {
+  color: rgba(255, 110, 0, 1);
+  text-decoration: line-through;
+}
+
+.arrivals__show-all {
+  margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.arrivals__show-all-btn {
+  background-color: white;
+  color: black;
+  height: 30px;
+  border-radius: 4px;
+  padding: 0px 40px;
+  border: 1px solid black;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.arrivals__show-all-btn a {
+  line-height: 30px;
+}
+/*  mobile */
+
+/* .list-product::-webkit-scrollbar {
+  display: none;
+} */
+
+@media (max-width: 768px) {
+  .arrival {
+    margin-top: 20px;
+    height: 402px;
+  }
+
+  .arrival-title {
+    font-size: 20px;
+    line-height: 22px;
+  }
+
+  .arrival-list {
+    height: 323px;
+    margin-top: 20px;
+    justify-content: start;
+    scroll-padding-left: 16px;
+    padding-inline: 16px;
+  }
+  .arrival-list__item {
+    width: 160px;
+  }
+
+  .arrival-list__item-card {
+    height: 224px;
+  }
+
+  .arrival-list__item-card:hover .arrival-list__item-card-top-right,
+  .arrival-list__item-card:hover .arrival-list__item-cart-button {
+    opacity: 0;
+  }
+
+  .arrival-list__item-info {
+  }
+
+  .arrival-list__item-info-name {
+    font-size: 12px;
+  }
+
+  .arrival-list__item-info-desc {
+    font-size: 13px;
+  }
+
+  .arrival-list__item-info-money {
+    font-size: 13px;
+  }
+
+  .arrival-list__item-info-money-price {
+  }
+
+  .arrival-list__item-info-money-discount {
+  }
+
+  .arrivals__show-all {
+    margin-top: 7px;
+  }
+
+  .arrivals__show-all-btn {
+    padding: 0px 20px;
+    font-size: 14px;
+  }
+}

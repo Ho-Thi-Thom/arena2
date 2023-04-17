@@ -1,0 +1,363 @@
+// render block
+{% for item in section.blocks %}
+  <div>
+    <img
+      class="slider-image"
+      src="{{ item.settings.image | image_url }}"
+      alt="slider Image">
+  </div>
+{% endfor %}
+
+
+{% comment %} 
+{{ section.settings.collection.title }}
+{% endcomment %}
+
+
+{% for product in section.settings.collection.products %}
+  {{ product.title }}
+{% endfor %}
+
+{% for item in section.settings.collection.products %}
+  <div class="list-product__item">
+    <img
+      src="{{item.featured_media | img_url: '' }}"
+      alt="img-1"
+      class="list-product__item-img">
+    <button class="list-product__item-button">
+      {{ item.title }}
+    </button>
+  </div>
+{% endfor %}
+
+<div class="list-product__item">
+  <img
+    src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/1.svg?v=1680688949"
+    alt="img-1"
+    class="list-product__item-img">
+  <button class="list-product__item-button">
+    Jeans
+  </button>
+
+</div>
+
+<script>
+  console.log({{ item | json }});
+</script>
+
+
+
+<a href="#" class="header__navlink-item">Loungewear</a>
+<a href="#" class="header__navlink-item">Polo shirts</a>
+<a href="#" class="header__navlink-item">Shirts</a>
+<a href="#" class="header__navlink-item">Shorts</a>
+<a href="#" class="header__navlink-item">Suits</a>
+<a href="#" class="header__navlink-item">Swimwear</a>
+<a href="#" class="header__navlink-item">T-shirts</a>
+<a href="#" class="header__navlink-item">Trousers</a>
+
+
+
+<style>
+  .banner__left-content {
+     --text-color: {{ section.settings.banner__left-content-color | escape_css }};
+   }
+   </style>
+
+<div class="banner">
+ <div class="banner__left">
+   {% assign banner_img1 = section.settings.banner_img1 | img_url: '' %}
+   {% if banner_img1 %}
+     <img
+       src="{{banner_img1}}"
+       alt="Banner 1"
+       class="banner_img">
+   {% else %}
+     <img
+       src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/1.svg?v=1680688949"
+       alt="Banner 1"
+       class="banner_img">
+   {% endif %}
+   <div class="banner__left-content banner__left-content-{{section.settings.select_position_content_left}}">
+     <h1 class="banner__left-content-title">
+       {{ section.settings.banner__left-content-title1 }}
+     </h1>
+     <a href="#" class="banner__left-content-sub-title">{{ section.settings.banner__left-content-sub-title1 }}</a>
+   </div>
+ </div>
+ <div class="banner__right">
+   <img
+     class="banner_img"
+     src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/pexels-marco-trinidad-2881785_1.svg?v=1680679690"
+     alt="sneakes2">
+   <div class="banner__right-content">
+     <h1 class="banner__right-content-title" >
+       Be ready for Summer 2021
+     </h1>
+     <a href="#" class="banner__right-content-sub-title">Upcoming trends</a>
+   </div>
+ </div>
+</div>
+
+{% schema %}
+ {
+   "name": "Banner",
+   "tag": "section",
+   "class": "baner",
+   "settings": [
+     {
+       "type": "header",
+       "content": "Banner 1"
+     },
+     {
+       "type": "image_picker",
+       "label": "Img Banner",
+       "id": "banner_img1"
+     },
+     {
+       "type": "text",
+       "label": "Title",
+       "id": "banner__left-content-title1",
+       "default": "Looking for new shoes?"
+     },
+     {
+       "type": "text",
+       "label": "Sub title",
+       "id": "banner__left-content-sub-title1",
+       "default": "Sneakers on sale"
+     }, {
+       "type": "color",
+       "label": "Text Color",
+       "id": "banner__left-content-color",
+       "default": "#fff"
+     }, {
+       "type": "select",
+       "id": "select_position_content_left",
+       "label": "Position Content",
+       "options": [
+         {
+           "value": "top-left",
+           "label": "Top-Left"
+         }, {
+           "value": "bottom-left",
+           "label": "Bottom-Left"
+         }, {
+           "value": "top-right",
+           "label": "Top-Right"
+         }, {
+           "value": "bottom-right",
+           "label": "Buttom-Right"
+         }
+       ],
+       "default": "top-left"
+     }
+   ]
+ }
+{% endschema %}
+
+
+
+
+<div class="slider-content">
+        <div class="slider-content__group">
+          <h1 class="slider-content__title">
+            {{ section.settings['title-text'] }}
+          </h1>
+          <h6 class="slider-content__sub-title">
+            {{ section.settings['sub-text'] }}
+          </h6>
+        </div>
+        <div class="slider-content__group-button">
+          <div class="slider-content__button">
+            <a href={{ section.settings.slider-content-button1-url }}>
+              {{ section.settings.button1 }}</a>
+          </div>
+          <div class="slider-content__button">
+            <a href={{ section.settings.slider-content-button2-url }}>
+              {{ section.settings.button2 }}</a>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      .slider {
+  position: relative;
+  width: 100%;
+  height: 800px;
+}
+.slider-img,
+.slider-img div,
+.slider-image {
+  width: 100%;
+  height: 100%;
+}
+
+.slider-image {
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.slider-content {
+  position: absolute;
+  left: 40px;
+  bottom: 96px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.slider-content__group {
+  gap: 10px;
+  color: var(--text-color);
+}
+
+.slider-content__title {
+  font-weight: 500;
+  font-size: var(--font-size-title-desktop);
+  line-height: 88px;
+  width: 404px;
+  height: 176px;
+}
+
+.slider-content__sub-title {
+  font-size: var(--font-size-sub-title-desktop);
+  font-weight: 400;
+  line-height: 28.8px;
+}
+
+.slider-content__group-button {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+}
+
+.slider-content__button {
+  height: 36px;
+  border-radius: 4px;
+  padding: 0px 60px;
+  font-weight: 500;
+  font-size: 14px;
+
+  color: var(--btn-text-color);
+  background: var(--btn-bg-color);
+  border: 1px solid var(--btn-border-color);
+}
+
+.slider-content__button a {
+  white-space: nowrap;
+  line-height: 36px;
+}
+
+.slider__button-arrow {
+  position: absolute;
+  right: 0px;
+  top: 50%;
+}
+
+.slider__button-arrow button {
+  width: 40px;
+  height: 40px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/*  mobile */
+@media (max-width: 768px) {
+  .slider {
+    height: 260px;
+  }
+
+  .slider-content {
+    left: 16px;
+    right: 16px;
+    bottom: 20px;
+    gap: 20px;
+  }
+
+  .slider-content__group {
+    gap: 10px;
+  }
+
+  .slider-content__title {
+    font-size: var(--font-size-title-mobile);
+    line-height: 33px;
+    width: 152px;
+    height: 66px;
+  }
+
+  .slider-content__sub-title {
+    font-size: var(--font-size-sub-title-desktop);
+    font-weight: 400;
+    line-height: 22.4px;
+  }
+
+  .slider-content__group-button {
+    justify-content: stretch;
+  }
+  .slider-content__button {
+    padding: 0px 30px;
+    flex: 1;
+  }
+
+  .slider__button-arrow {
+    display: none;
+  }
+}
+
+
+{% comment %} 
+
+{% comment %} assgin {% endcomment %}
+{% assign font-size-title = section.blocks.settings.font-size-title %}
+{% assign font-size-title-array = font-size-title | split: "," %}
+{% assign font-title-desktop = font-size-title-array[0] %}
+{% assign font-title-mobile = font-size-title-array[1] %}
+
+{% assign font-size-sub-title = section.blocks.settings.font-size-sub-title %}
+{% assign font-size-sub-title-array = font-size-sub-title | split: "," %}
+{% assign font-sub-title-desktop = font-size-sub-title-array[0] %}
+{% assign font-sub-title-mobile = font-size-sub-title-array[1] %}
+{% comment %} assgin {% endcomment %}
+
+<style>
+  .slider-content__group {
+    --text-color: {{ section.blocks.settings.text-color | escape }}
+  }
+  .slider-content__title {
+    --font-size-title-desktop: {{ font-title-desktop | append: 'px' }}
+    ;
+    --font-size-title-mobile: {{ font-title-mobile  | append: 'px' }}
+  }
+  .slider-content__sub-title {
+    --font-size-sub-title-desktop: {{ font-sub-title-desktop | append: 'px' }}
+    ;
+    --font-size-sub-title-mobile: {{ font-sub-title-mobile  | append: 'px' }}
+  }
+  .slider-content__button {
+    {% case section.blocks.settings.btn-style %}
+      {% when 'primary' %}
+      --btn-text-color: black;
+      --btn-bg-color: #ccc;
+      --btn-border-color: none;
+      {% when 'secondary' %}
+      --btn-text-color: #9b59b6;
+      --btn-bg-color: none;
+      --btn-border-color: #fff;
+      {% when 'tertiary' %}
+      --btn-text-color: #2ecc71;
+      --btn-bg-color: none;
+      --btn-border-color: #fff;
+      {% when 'quaternary' %}
+      --btn-text-color: #1abc9c;
+      --btn-bg-color: none;
+      --btn-border-color: #fff;
+    {% else %}
+      --btn-text-color: #f1c40f;
+      --btn-bg-color: none;
+      --btn-border-color: #f1c40f;
+    {% endcase %}
+  }
+</style>
+{% endcomment %}

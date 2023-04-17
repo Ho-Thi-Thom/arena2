@@ -1,0 +1,235 @@
+<link rel="stylesheet"
+  href="{{ 'slider1.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+<!-- Add the slick-theme.css if you want default styling -->
+<link rel="stylesheet"
+  type="text/css"
+  href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css">
+<!-- Add the slick-theme.css if you want default styling -->
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css">
+<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="slick/slick.min.js"></script>
+
+
+
+<div class="slider">
+  <div class="slider-img" id="my-slider">
+    {% for _item in section.blocks %}
+
+      <div class="slider-item">
+        {% assign item = _item.settings %}
+        {% assign _id = _item.id %}
+        {% assign font-size-title = item.font-size-title %}
+        {% assign font-size-title-array = font-size-title | split: "," %}
+        {% assign font-title-desktop = font-size-title-array[0] %}
+        {% assign font-title-mobile = font-size-title-array[1] %}
+
+        {% assign font-size-sub-title = item.font-size-sub-title %}
+        {% assign font-size-sub-title-array = font-size-sub-title | split: "," %}
+        {% assign font-sub-title-desktop = font-size-sub-title-array[0] %}
+        {% assign font-sub-title-mobile = font-size-sub-title-array[1] %}
+
+        <style>
+          .slider-content[data-element="{{ _id }}"] .slider-content__group {
+            --text-color: {{ item.text-color | escape }}
+          }
+          .slider-content[data-element="{{ _id }}"] .slider-content__title {
+            --font-title-desktop: {{ font-title-desktop | escape |append: 'px' }}
+            ;
+            --font-title-mobile: {{ font-title-mobile | escape | append: 'px'}}; 
+          }
+          .slider-content[data-element="{{ _id }}"] .slider-content__sub-title {
+            --font-sub-title-desktop: {{ font-sub-title-desktop | escape |append: 'px' }}
+            ;
+            --font-sub-title-mobile: {{ font-sub-title-mobile | escape | append: 'px' }}
+            ;
+          }
+          .slider-content[data-element="{{ _id }}"] .slider-content__button {
+            {% case item.btn-style %}
+              {% when 'primary' %}
+              --btn-text-color: black;
+              --btn-bg-color: rgba(255, 255, 255, 1);
+              --btn-border-color: none;
+              {% when 'secondary' %}
+              --btn-text-color: #9b59b6;
+              --btn-bg-color: none;
+              --btn-border-color: #fff;
+              {% when 'tertiary' %}
+              --btn-text-color: #2ecc71;
+              --btn-bg-color: none;
+              --btn-border-color: #fff;
+              {% when 'quaternary' %}
+              --btn-text-color: #1abc9c;
+              --btn-bg-color: none;
+              --btn-border-color: #fff;
+            {% else %}
+              --btn-text-color: #f1c40f;
+              --btn-bg-color: none;
+              --btn-border-color: #f1c40f;
+            {% endcase %}
+          }
+        </style>
+
+        <img
+          src="{{ item.image_url | image_url }}"
+          alt="Block Image"
+          class="slider-image">
+        <div class="slider-content" data-element="{{ _id }}">
+          <div class="slider-content__group">
+            <h1 class="slider-content__title">
+              {{ item.title-text }}
+            </h1>
+            <h6 class="slider-content__sub-title">
+              {{ item.sub-text }}
+            </h6>
+          </div>
+          <div class="slider-content__group-button">
+            <div class="slider-content__button">
+              <a href={{ item.slider-content-button1-url }}>
+                {{ item.button1 }}</a>
+            </div>
+            <div class="slider-content__button">
+              <a href={{ item.slider-content-button2-url }}>
+                {{ item.button2 }}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+  </div>
+  <div class="slider__button-arrow">
+    <button class="next-slide">
+      <svg
+        width="6"
+        height="13"
+        viewBox="0 0 6 13"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path d="M4.03809 6.15431L0 11.1615L0.89429 12.0933L5.74 6.04663L0.89429 0L0 0.931715L4.03809 6.15431Z" fill="black" />
+      </svg>
+    </button>
+  </div>
+  <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+</div>
+<script>
+  $(document).ready(function() {
+    $('#my-slider').slick({autoplay: true, autoplaySpeed: 2000, dots: true, arrows: false});
+
+    $('.next-slide').click(function() {
+      $('#my-slider').slick('slickNext');
+    });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Slider settings",
+    "blocks": [
+      {
+        "type": "Image",
+        "name": "Slide item",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Slider images"
+          },
+          {
+            "id": "image_url",
+            "type": "image_picker",
+            "label": "Image Item"
+          },
+          {
+            "type": "header",
+            "content": "Title"
+          },
+          {
+            "id": "title-text",
+            "type": "text",
+            "label": "Text",
+            "default": "Extra 50% off Sale"
+          }, {
+            "type": "text",
+            "id": "font-size-title",
+            "label": "Font size: Desktop,Mobile",
+            "default": "80,30"
+          }, {
+            "type": "header",
+            "content": "Sub title"
+          }, {
+            "id": "sub-text",
+            "type": "text",
+            "label": "Text",
+            "default": "Use code “ss22” in cart to check the discount."
+          }, {
+            "type": "text",
+            "id": "font-size-sub-title",
+            "label": "Font size: Desktop,Mobile",
+            "default": "18,14"
+          }, {
+            "type": "header",
+            "content": "Text color"
+          }, {
+            "id": "text-color",
+            "type": "color",
+            "label": "Text Color",
+            "default": "#fff"
+          }, {
+            "type": "header",
+            "content": "Button"
+          }, {
+            "id": "button1",
+            "type": "text",
+            "label": "Button Left",
+            "default": "Clothes on sale"
+          }, {
+            "type": "url",
+            "id": "slider-content-button1-url",
+            "label": "Url Button Left"
+          }, {
+            "id": "button2",
+            "type": "text",
+            "label": "Button Right",
+            "default": " Shoes on sale"
+          }, {
+            "type": "url",
+            "id": "slider-content-button2-url",
+            "label": "Url Button Right"
+          }, {
+            "type": "select",
+            "id": "btn-style",
+            "label": "Button Style",
+            "options": [
+              {
+                "value": "primary",
+                "label": "Primary"
+              }, {
+                "value": "secondary",
+                "label": "Secondary"
+              }, {
+                "value": "tertiary",
+                "label": "Tertiary"
+              }, {
+                "value": "quaternary",
+                "label": "Quaternary"
+              }
+            ],
+            "default": "primary"
+          }
+        ]
+      }
+    ],
+    "settings": [],
+    "presets": [
+      {
+        "name": "Slider"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,60 @@
+{%- if section.id == 'header' -%}
+	{%- assign dropdown = true -%}
+{%- endif -%}
+
+{%- capture sublink -%}
+	{%- if link.links.size > 0 -%}
+		{%- capture menuClass -%}{% if dropdown %}dropdown dropdown{% else %}submenu submenu-{% endif %}{%- endcapture -%}
+
+		<div class="{{menuClass}}-link-{{link.levels | replace: '2', 'parent' | replace: '1', 'child' }}{% if dropdown %} pa l0{% endif %}">
+			<ul class="menu-list">
+				{%- for sublink in link.links -%}
+					{%- render 'link', link: sublink, dropdown: dropdown, showSubLink: showSubLink -%}
+				{%- endfor -%}
+			</ul>
+		</div>
+	{%- endif -%}
+{%- endcapture -%}
+
+
+{%- capture LINK -%}
+	{%- if showMegaMenu -%}<mega-dropdown data-id="{{ link.title | escape | sha1 }}">{%- endif -%}
+		<a href="{{link.url}}" class="list-item-link link" title="{{ link.title | escape }}">
+			{{- link.title -}}
+		</a>
+	{%- if showMegaMenu -%}</mega-dropdown>{%- endif -%}
+{%- endcapture -%}
+
+
+<li class="list-item{% if sublink != blank %} has-dropdown{% endif %}{% if link.active or link.child_active %} active{% endif %}{{class}}">
+	{%- if dropdown != true and sublink != blank -%}
+		{%- if showSubLink -%}
+			{{- LINK -}}
+		{%- else -%}
+			<details>
+				<summary>
+					<div class="flex justify-content-between">
+						{{- LINK -}}
+						{%- render 'svg', type: 'caret', class: 'expand c-pointer' -%}
+					</div>
+				</summary>
+		{%- endif -%}
+	{%- else -%}
+		{{- LINK -}}
+	{%- endif -%}
+
+	{%- unless sublink == blank -%}
+		{%- if request.design_mode or showMegaMenu != true -%}
+			{{- sublink -}}
+		{%- elsif section.id contains 'header' -%}
+			<template>{{- sublink -}}</template>
+		{%- endif -%}
+	{%- endunless -%}
+
+
+	{%- if dropdown != true and sublink != blank -%}
+		{%- unless showSubLink -%}
+			</details>
+		{%- endunless -%}
+	{%- endif -%}
+</li>

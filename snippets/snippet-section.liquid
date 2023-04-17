@@ -1,0 +1,9 @@
+{%- case type -%}
+
+    {%- when 'svg' -%}
+      {%- assign ID = ' id="' | append: id -%}
+      {%- assign URL = '="url(#' | append: id -%}
+      {{- svg | replace: ' id="', ID | replace: '="url(#', URL -}}
+  
+
+  {%- endcase -%}

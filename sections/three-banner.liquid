@@ -1,0 +1,88 @@
+<link
+  rel="stylesheet"
+  href="{{ 'three-banner.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+
+<style>
+  .three-banner-list__item-content {
+    --text-color: {{ section.settings.banner_item_text_color | escape}}
+  }
+</style>
+
+<div class="three-banner">
+  <div class="three-banner__top"></div>
+  <div class="three-banner-list scroll-snap-x">
+    {% for item in section.blocks %}
+      <div class="three-banner-list__item scroll-snap-x-item">
+        <img
+          src="{{ item.settings.banner_item_img |image_url }}"
+          alt="img"
+          class="three-banner-list__item-image">
+        <div class="three-banner-list__item-content">
+          <span class="three-banner-list__item-content-name">{{ item.settings.banner_item_title }}</span>
+          <a href={{ item.settings.banner_item_url }} class="three-banner-list__item-content-sub-name">
+            <span>{{ item.settings.banner_item_link }}</span>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="three-banner__bottom"></div>
+</div>
+
+{% schema %}
+  {
+    "name": "Three Banner",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Three Banner"
+      }, {
+        "type": "color",
+        "id": "banner_item_text_color",
+        "label": "Text Color",
+        "default": "#f1c40f"
+      }
+    ],
+    "blocks": [
+      {
+        "name": "Banner Item",
+        "type": "list",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Banner Item"
+          },
+          {
+            "id": "banner_item_img",
+            "type": "image_picker",
+            "label": "Image Product"
+          },
+          {
+            "id": "banner_item_title",
+            "type": "text",
+            "label": "Title",
+            "default": "Many styles in one look"
+          },
+          {
+            "id": "banner_item_link",
+            "type": "text",
+            "label": "Text Link",
+            "default": "Discover more"
+          }, {
+            "id": "banner_item_url",
+            "type": "url",
+            "label": "Url"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name": "Three Banner"
+      }
+    ]
+  }
+{% endschema %}

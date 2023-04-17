@@ -1,0 +1,88 @@
+.sletter {
+  margin-top: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+}
+
+.sletter-title {
+  font-size: var(--font-title-desktop);
+  font-weight: 500;
+  color: var(--new-seletter-title-color);
+  text-align: center;
+}
+
+.sletter-form {
+  display: flex;
+  height: 36px;
+  gap: 2px;
+}
+
+.sletter-form__input-email {
+  height: 100%;
+  width: 360px;
+  background-color: rgba(242, 242, 242, 1);
+  outline: none;
+  border: none;
+  border-radius: 4px;
+  padding: 0px 20px;
+}
+
+.sletter-form__input-email::placeholder {
+  color: #000;
+}
+
+.sletter-form__input-email:focus {
+  border: 1px solid black;
+}
+
+.sletter-form__input-email:focus::placeholder {
+  opacity: 0.5;
+}
+
+.sletter-form__btn {
+  background-color: var(--background-color);
+  outline: none;
+  border-radius: 4px;
+  padding: 0 60px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+}
+
+/*  ipad */
+@media (max-width: 768px) {
+  .sletter {
+    margin-top: 40px;
+  }
+
+  .sletter-title {
+    font-size: var(--font-title-mobile);
+    text-align: center;
+  }
+
+  .sletter-form {
+    gap: 2px;
+  }
+
+  .sletter-form__input-email {
+    width: 209px;
+    font-size: 15px;
+  }
+
+  .sletter-form__input-email::placeholder {
+  }
+
+  .sletter-form__input-email:focus {
+  }
+
+  .sletter-form__input-email:focus::placeholder {
+  }
+
+  .sletter-form__btn {
+    padding: 0 30px;
+    font-size: 16px;
+  }
+}

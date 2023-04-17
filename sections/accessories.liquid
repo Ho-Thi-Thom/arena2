@@ -1,0 +1,112 @@
+<link
+  rel="stylesheet"
+  href="{{ 'accessories.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+<!--assign-->
+{% assign font-size-title = section.settings.accessories-title-fontsize %}
+{% assign font-size-title-array = font-size-title | split: "," %}
+{% assign font-title-desktop = font-size-title-array[0] %}
+{% assign font-title-mobile = font-size-title-array[1] %}
+
+{% assign font-size-link = section.settings.accessories-link-fontsize %}
+{% assign font-size-link-array = font-size-link | split: "," %}
+{% assign font-link-desktop = font-size-link-array[0] %}
+{% assign font-link-mobile = font-size-link-array[1] %}
+<!--assign-->
+
+<!-- style -->
+<style>
+  .accessories-content{
+    --text-color: {{ section.settings.accessories-text-color }}
+  }
+
+  .accessories-content__title{
+    --font-title-desktop: {{ font-title-desktop |append: 'px'}};
+    --font-title-mobile: {{ font-title-mobile |append: 'px'}};
+  }
+
+  .accessories-content__sub-title a{
+    --font-link-desktop: {{ font-link-desktop |append: 'px'}};
+    --font-link-mobile: {{ font-link-mobile |append: 'px'}};
+  }
+</style>
+<!-- style -->
+
+<div class="accessories">
+  <img {% if section.settings.accessories-img == blank %}
+    src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/phil-monte-fRNm4azug0I-unsplash_1.png?v=1680754886"
+    {% else %}
+    src="{{section.settings.accessories-img | image_url }}"
+    {% endif -%}
+    alt="accessories image"
+    class="accessories-image">
+    
+  <div class="accessories-content">
+    <span class="accessories-content__title">{{ section.settings.accessories-title }}</span>
+    <span class="accessories-content__sub-title">
+      <a href={{ section.settings.accessories-url }}>{{ section.settings.accessories-linktext }}</a>
+    </span>
+  </div>
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Accessories",
+    "blocks": [],
+    "settings": [
+      {
+        "type": "header",
+        "content": "Content"
+      },
+      {
+        "type": "text",
+        "label":"Font size Title: Desktop, Mobile",
+        "id": "accessories-title-fontsize",
+        "default": "50,24"
+      }
+      ,
+      {
+        "label": "Text Title",
+        "type": "textarea",
+        "id": "accessories-title",
+        "default": "Luxurious accessories"
+      },
+      {
+        "label": "Link Text",
+        "type": "textarea",
+        "id": "accessories-linktext",
+        "default": "Discover more"
+      },
+      {
+        "type": "text",
+        "label":"Font size Link: Desktop, Mobile",
+        "id": "accessories-link-fontsize",
+        "default": "18,14"
+      }
+      ,
+      {
+        "label": "Url",
+        "type": "url",
+        "id": "accessories-url"
+      }, {
+        "label": "Color",
+        "type": "color",
+        "id": "accessories-text-color",
+        "default": "#fff"
+      }, {
+        "label": "Image",
+        "id": "accessories-img",
+        "type": "image_picker"
+      }
+    ],
+    "presets": [
+      {
+        "name": "Accessories"
+      }
+    ]
+  }
+{% endschema %}

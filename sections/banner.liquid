@@ -1,0 +1,81 @@
+<link
+  rel="stylesheet"
+  href="{{ 'banner.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+<div class="banner">
+  {% for _block in section.blocks %}
+    {% case _block.type %}
+      {% when 'list' %}
+      {% assign item = _block.settings %}
+      <div class="banner__item">
+        <img
+          class="banner__item-img"
+          src={{item.banner_item-image | image_url}}
+          alt="sneakes">
+        <div class="banner__item-content" style="--content-color:{{item.banner_item-content-color | escape }}">
+          <h1 class="banner__item-content-title">
+            {{ item.banner_item-title }}
+          </h1>
+          <a href={{ item.banner-item-content-sub-title-url }} class="banner__item-content-sub-title">
+            {{ item.banner_item-sub-title }}
+          </a>
+        </div>
+      </div>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Banner",
+    "tag": "section",
+    "blocks": [
+      {
+        "name": "Banner",
+        "type": "list",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Banner Item"
+          },
+          {
+            "type": "image_picker",
+            "label": "Image",
+            "id": "banner_item-image"
+          },
+          {
+            "type": "textarea",
+            "label": "Title",
+            "id": "banner_item-title",
+            "default": "Be ready for Summer 2021"
+          },
+          {
+            "type": "text",
+            "label": "Sub Title",
+            "id": "banner_item-sub-title",
+            "default": "Upcoming trends"
+          }, {
+            "type": "url",
+            "label": "Url Sub Title",
+            "id": "banner-item-content-sub-title-url"
+          }, {
+            "type": "color",
+            "label": "Content color",
+            "id": "banner_item-content-color",
+            "default": "#000"
+          }
+        ]
+      }
+
+    ],
+    "presets": [
+      {
+        "name": "Banner"
+      }
+    ]
+  }
+{% endschema %}

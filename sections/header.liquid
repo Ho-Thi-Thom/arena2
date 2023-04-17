@@ -1,0 +1,158 @@
+<link
+  rel="stylesheet"
+  href="{{ 'header.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+
+<header class="header">
+  <div class=" header__logo header__logo__{{ section.settings.select_position }}">
+    <img {% if section.settings.header_logo == blank %}src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/logo.svg?v=1680668505"{% else %}src="{{section.settings.header_logo | image_url }}"{% endif -%}alt="logo"class="header__logo-image">
+  </div>
+
+  <div class="header__navlink header__navlink__{{ section.settings.select_position }} {{section.settings.text_color}}">
+    {% for link in section.settings.menu.links -%}
+      <div>
+        <a href="{{ link.url}}" class="header__navlink-item">{{ link.title }}</a>
+      </div>
+    {%- endfor %}
+  </div>
+
+  <div class="header__icon header__icon__{{ section.settings.select_position }}">
+    <a href="#" class="header__icon-link">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/user-person-profile-account-contact_1.svg?v=1680668890"
+        alt="icon user"
+        class="header__icon-user">
+    </a>
+    <a href="#" class="header__icon-link">
+      <div class="header__icon-healt">
+        <div class="header__icon-healtImage">
+          <img src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/heart_healt.svg?v=1680668907" alt="icon healt">
+        </div>
+        <div class="header__icon-healtNr">
+          <img src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/nr.svg?v=1680668903" alt="nr">
+        </div>
+      </div>
+    </a>
+    <a href="#" class="header__icon-link">
+      <div class="header__icon-cart">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/shopping-cart-cart-shopping-commerce-ecommerce_1.svg?v=1680668903"
+          alt="icon healt"
+          class="header__icon-cardImage">
+        <img
+          src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/nr_1.svg?v=1680668902"
+          alt="nr"
+          class="header__icon-healtNr">
+      </div>
+    </a>
+    <button class="header-bugger">
+      <img
+        src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/home.svg?v=1681019703"
+        alt="nr"
+        class="header__icon-menu">
+    </button>
+  </div>
+  <div class="header-menu">
+    <div class="header-menu__btn-close">
+      <button class="header-close">{% render 'icon-close' %}</button>
+    </div>
+    <div class="header-menu__list-link">
+      {% for link in section.settings.menu.links -%}
+        <div class="header-menu__item">
+          <a href="{{ link.url}}" class="header-menu__item-link">{{ link.title }}</a>
+        </div>
+      {%- endfor %}
+    </div>
+  </div>
+  <div id="bg-color"></div>
+</header>
+
+<script>
+  const menuButton = $(".header-bugger");
+  const menu = $(".header-menu");
+  const closeButton = $(".header-close");
+  const body = $("#bg-color");
+
+  menuButton.click(function() {
+    menu.toggleClass("active");
+    body.toggleClass("body-overlay");
+  });
+
+  closeButton.click(function() {
+    menu.removeClass("active");
+    body.removeClass("body-overlay");
+  });
+</script>
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "tag": "section",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Logo"
+      },
+      {
+        "type": "image_picker",
+        "id": "header_logo",
+        "label": "Logo"
+      },
+      {
+        "type": "header",
+        "content": "Text"
+      },
+      {
+        "type": "link_list",
+        "id": "menu",
+        "label": "Menu"
+      }, {
+        "type": "select",
+        "id": "text_color",
+        "label": "Color",
+        "options": [
+          {
+            "value": "blue",
+            "label": "Blue Color"
+          }, {
+            "value": "red",
+            "label": "Red Color"
+          }, {
+            "value": "black",
+            "label": "Black Color"
+          }
+        ],
+        "default": "black"
+      }, {
+        "type": "header",
+        "content": "Position"
+      }, {
+        "type": "select",
+        "id": "select_position",
+        "label": "Position Item",
+        "options": [
+          {
+            "value": "1",
+            "label": "Logo - NavLink - Icon"
+          }, {
+            "value": "2",
+            "label": "Logo - Icon - NavLink"
+          }, {
+            "value": "3",
+            "label": "NavLink - Logo - Icon"
+          }
+        ],
+        "default": "1"
+      }
+    ],
+    "blocks": [],
+    "presets": [
+      {
+        "name": "Header"
+      }
+    ]
+  }
+{% endschema %}

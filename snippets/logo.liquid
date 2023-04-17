@@ -1,0 +1,14 @@
+{%- assign logoID = '#logo-' | append: section.id -%}
+
+<div class="logo-container" id="{{logoID | remove: '#'}}">
+      <a href="#" class="">
+        {%- liquid
+          assign logoSVG        = section.settings.logo_svg
+          assign logo           = section.settings.logo
+        -%}
+        {%- if logoSVG != blank -%}
+            {%- render 'snippet-section', type: 'svg', svg: logoSVG, id: section.id -%}
+        {%- endif -%}
+      </a>
+
+</div>

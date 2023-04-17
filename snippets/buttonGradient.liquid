@@ -1,0 +1,16 @@
+{%- assign btnID = '#logo-' | append: section.id -%}
+
+<button class="Header__btnHeader-btn" id="{{btnID | remove: '#'}}">
+      <a href="#" class="">
+        {%- liquid
+          assign btnText        = section.settings.btnText
+          
+        -%}
+        {%- if btnText != blank -%}
+            <p class="Header__btnHeader-btn-text">{{btnText}}</p>
+        {%- else -%}
+        <p class="Header__btnHeader-btn-text">Start My Growth</p>
+        {%- endif -%}
+      </a>
+
+</button>
