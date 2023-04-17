@@ -1,0 +1,273 @@
+<link
+  rel="stylesheet"
+  href="{{ 'v2-section.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+
+{% assign position = section.settings.content-position %}
+{% assign position-array = position | split: "," %}
+{% assign space-left = position-array[0] %}
+{% assign space-bottom = position-array[1] %}
+
+{% assign title = section.settings.font-size-title %}
+{% assign title-array = title | split: "," %}
+{% assign font-title-desktop = title-array[0] %}
+{% assign font-title-mobile = title-array[1] %}
+
+{% assign sub-title = section.settings.font-size-sub-title %}
+{% assign sub-title-array = sub-title | split: "," %}
+{% assign font-sub-title-desktop = sub-title-array[0] %}
+{% assign font-sub-title-mobile = sub-title-array[1] %}
+
+<style>
+  .section {
+    {% case section.settings.flex %}
+      {% when 'option1' %}
+      grid-template-columns: 37% 63%;
+      {% when 'option2' %}
+      grid-template-columns: 63% 37%;
+      {% when 'option3' %}
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    {% else %}
+    {% endcase %}
+  }
+  .section {
+    --height: {{ section.settings.height | append: 'px'  }}
+    ;
+    --margin-top: {{ section.settings.margin-top | escape |append: 'px'  }}
+  }
+
+  .section-v2__item-content {
+    --left: {{ space-left  | append: 'px'  }}
+    ;
+    --bottom: {{ space-bottom | append: 'px'  }}
+    ;
+  }
+
+  .section-v2__item-content__group-text-title {
+    --font-title-desktop: {{ font-title-desktop | escape |append: 'px'  }}
+  }
+
+  .section-v2__item-content__group-text-sub-title {
+    --font-sub-title-desktop: {{ font-sub-title-desktop | escape |append: 'px'  }}
+  }
+  .button a {
+    {% if section.settings.text-decoration %}
+      text-decoration: underline;
+    {% else %}
+      text-decoration: none;
+    {% endif %}
+
+  }
+</style>
+<div class="section">
+  {% for _block in section.blocks %}
+    {% case _block.type %}
+      {% when 'banner' %}
+      {% assign item = _block.settings %}
+      {% assign _id = _block.id %}
+
+      <style>
+        .section-v2__item[data-element="{{ _id }}"] .button {
+          {% case item.button-style %}
+            {% when 'option1' %}
+            --font-size: 16px;
+            --color: black;
+            --background: transparent;
+            --border: 1px solid #000;
+            {% when 'option2' %}
+            --font-size: 16px;
+            --color: black;
+            --background: white;
+            --border: none;
+            {% when 'option3' %}
+            --font-size: 15px;
+            --color: #fff;
+            --background: transparent;
+            --border: none;
+            {% when 'option4' %}
+            --font-size: 15px;
+            --color: #000;
+            --background: transparent;
+            --border: none;
+          {% else %}
+          {% endcase %}
+        }
+
+        .section-v2__item[data-element="{{ _id }}"] .section-v2__item-content__group-text {
+          --color: {{ item.content-text-color | escape }}
+          ;
+        }
+      </style>
+      <div class="section-v2__item" data-element="{{ _id }}">
+        <img {% if item.img != blank %}src="{{ item.img | image_url }}"{% else %}src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/image-gallery.png?v=1681718418"{% endif %}alt="img"class="section-v2__item-img">
+        <div class="section-v2__item-content">
+          <div class="section-v2__item-content__group-text">
+            <span class="section-v2__item-content__group-text-title">{{ item.title }}</span>
+            {% if item.sub-title != blank %}
+              <span class="section-v2__item-content__group-text-sub-title">{{ item.sub-title }}</span>
+            {% endif %}
+          </div>
+          <div class="section-v2__item-content__group-button">
+            {% if item.button-left != blank %}
+              <div class="button section-v2__item-content__group-button-left">
+                <a href="{{ item.button-left-url }}">{{ item.button-left }}</a>
+              </div>
+            {% endif %}
+            {% if item.button-right != blank %}
+              <div class="button section-v2__item-content__group-button-right">
+                <a href="{{ item.button-right-url }}">{{ item.button-right }}</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Section V2",
+    "tag": "section",
+    "blocks": [
+      {
+        "name": "Section V2",
+        "type": "banner",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Banner"
+          },
+          {
+            "type": "image_picker",
+            "id": "img",
+            "label": "Image"
+          },
+          {
+            "type": "textarea",
+            "label": "Title",
+            "id": "title",
+            "default": "Extra 50% off Sale"
+          },
+          {
+            "type": "color",
+            "id": "content-text-color",
+            "label": "Content Text Color",
+            "default": "#000"
+          }, {
+            "type": "text",
+            "id": "sub-title",
+            "label": "Sub Title",
+            "default": "Only best, selected brands!"
+          }, {
+            "id": "button-left",
+            "type": "text",
+            "label": "Button Left",
+            "default": "Clothes on sale"
+          }, {
+            "type": "url",
+            "id": "button-left-url",
+            "label": "Url Button Left"
+          }, {
+            "id": "button-right",
+            "type": "text",
+            "label": "Button Right",
+            "default": " Shoes on sale"
+          }, {
+            "type": "url",
+            "id": "button-right-url",
+            "label": "Url Button Right"
+          }, {
+            "type": "text",
+            "id": "height",
+            "label": "Height",
+            "default": "600"
+          }, {
+            "type": "select",
+            "id": "button-style",
+            "label": "Style Button",
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              }, {
+                "label": "Option 2",
+                "value": "option2"
+              }, {
+                "label": "Option 3",
+                "value": "option3"
+              }, {
+                "label": "Option 4",
+                "value": "option4"
+              }
+            ],
+            "default": "option1"
+          }
+        ]
+      }
+
+    ],
+    "settings": [
+      {
+        "type": "text",
+        "id": "margin-top",
+        "label": "Margin-top",
+        "default": "0"
+      },
+      {
+        "type": "select",
+        "label": "Flex",
+        "id": "flex",
+        "options": [
+          {
+            "label": "Flex banner 10/17",
+            "value": "option1"
+          }, {
+            "label": "Flex banner 17/10",
+            "value": "option2"
+          }, {
+            "label": "Flex Item List",
+            "value": "option3"
+          }
+        ],
+        "default": "option1"
+      },
+      {
+        "type": "text",
+        "id": "height",
+        "label": "Section Height",
+        "default": "600"
+      },
+      {
+        "type": "text",
+        "id": "content-position",
+        "label": "Content Position: Left,Bottom",
+        "default": "40,80"
+      }, {
+        "type": "text",
+        "id": "font-size-title",
+        "label": "Font Title : Desktop, Mobile",
+        "default": "50,30"
+      }, {
+        "type": "text",
+        "id": "font-size-sub-title",
+        "label": "Font Title : Desktop, Mobile",
+        "default": "20,18"
+      }, {
+        "type": "checkbox",
+        "id": "text-decoration",
+        "label": "Text Decoration",
+        "default": false
+      }
+    ],
+    "presets": [
+      {
+        "name": "V2 Section"
+      }
+    ]
+  }
+{% endschema %}

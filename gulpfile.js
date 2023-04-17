@@ -175,7 +175,7 @@ async function removeScript(filePath) {
 
 async function startServer() {
   console.log(shopifyHost + "?preview_theme_id=" + themeID);
-  // browserSync.init({
+  browserSync.init({
     proxy,
     port,
     snippetOptions: {
@@ -196,7 +196,7 @@ async function startServer() {
         },
       },
     },
-  // });
+  });
 
   watch("./app/scripts/**/**/*.js").on("change", scriptTask);
   watch("./app/scripts/*.js").on("change", buildScripts);
