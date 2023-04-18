@@ -4,26 +4,27 @@
   media="print"
   onload="this.media='all'">
 
+{% liquid
+ assign position = section.settings.content-position 
+ assign position-array = position | split: "," 
+ assign space-left = position-array[0] 
+ assign space-bottom = position-array[1] 
 
-{% assign position = section.settings.content-position %}
-{% assign position-array = position | split: "," %}
-{% assign space-left = position-array[0] %}
-{% assign space-bottom = position-array[1] %}
+ assign title = section.settings.font-size-title 
+ assign title-array = title | split: "," 
+ assign font-title-desktop = title-array[0] 
+ assign font-title-mobile = title-array[1] 
 
-{% assign title = section.settings.font-size-title %}
-{% assign title-array = title | split: "," %}
-{% assign font-title-desktop = title-array[0] %}
-{% assign font-title-mobile = title-array[1] %}
+ assign sub-title = section.settings.font-size-sub-title 
+ assign sub-title-array = sub-title | split: "," 
+ assign font-sub-title-desktop = sub-title-array[0] 
+ assign font-sub-title-mobile = sub-title-array[1] 
 
-{% assign sub-title = section.settings.font-size-sub-title %}
-{% assign sub-title-array = sub-title | split: "," %}
-{% assign font-sub-title-desktop = sub-title-array[0] %}
-{% assign font-sub-title-mobile = sub-title-array[1] %}
-
-{% assign font-button = section.settings.font-size-button %}
-{% assign font-button-array = font-button | split: "," %}
-{% assign font-button-desktop = font-button-array[0] %}
-{% assign font-button-mobile = font-button-array[1] %}
+ assign font-button = section.settings.font-size-button 
+ assign font-button-array = font-button | split: "," 
+ assign font-button-desktop = font-button-array[0] 
+ assign font-button-mobile = font-button-array[1] 
+%}
 
 <style>
   .shopify-section-{{ section.id}}.section {
@@ -33,28 +34,26 @@
       {% when 'option2' %}
       grid-template-columns: 63% 37%;
       {% when 'option3' %}
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      {% when 'option4' %}
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      {% when 'option5' %}
-      grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
+      {% when 'option4' %}
+      grid-template-columns: repeat({{ section.settings.items-per-line }}, 1fr);
+      grid-row-gap: 0;
     {% else %}
     {% endcase %}
   }
+
   .shopify-section-{{ section.id}}.section {
-    --height: {{ section.settings.item-height | append: 'px'  }}
+    --margin-top: {{ section.settings.margin-top | escape | append: 'px'  }}
     ;
-    --margin-top: {{ section.settings.margin-top | escape |append: 'px'  }}
-    ;
-    --margin-inline: {{ section.settings.margin-inline | escape | append: 'px'  }}
+    --margin-inline: {{ section.settings.margin-vertical | escape |append: 'px'  }}
     ;
     --item-gap: {{ section.settings.item-gap | append: 'px'  }}
     ;
   }
 
-  .shopify-section-{{ section.id}}.section .section-v2__item {
+  .shopify-section-{{ section.id}}.section .section-v2__item img {
     --item-width: {{ section.settings.item-width }}
   }
   .shopify-section-{{ section.id}}.section .section-v2__item-content {
@@ -90,11 +89,11 @@
   }
 
   .shopify-section-{{ section.id}}.section .section-v2__item-content__group-text-title {
-    --font-title-desktop: {{ font-title-desktop | escape |append: 'px'  }}
+    --font-title-desktop: {{ font-title-desktop | append: 'px'  }}
   }
 
   .shopify-section-{{ section.id}}.section .section-v2__item-content__group-text-sub-title {
-    --font-sub-title-desktop: {{ font-sub-title-desktop | escape |append: 'px'  }}
+    --font-sub-title-desktop: {{ font-sub-title-desktop | append: 'px'  }}
   }
 
   .shopify-section-{{ section.id}}.section .button {
@@ -162,6 +161,7 @@
           ;
         }
       </style>
+
       <div class="section-v2__item" data-element="{{ _id }}">
         <img {% if item.img != blank %}src="{{ item.img | image_url }}"{% else %}src="https://cdn.shopify.com/s/files/1/0742/4648/8339/files/image-gallery.png?v=1681718418"{% endif %}alt="img"class="section-v2__item-img">
         <div class="section-v2__item-content">
@@ -284,7 +284,7 @@
       },
       {
         "type": "text",
-        "id": "margin-inline",
+        "id": "margin-vertical",
         "label": "Margin Inline",
         "default": "0"
       },
@@ -294,23 +294,17 @@
         "id": "flex",
         "options": [
           {
-            "label": "Flex banner 10/17",
+            "label": "Flex banner 36%/64%",
             "value": "option1"
-          },
-          {
-            "label": "Flex banner 17/10",
-            "value": "option2"
-          },
-          {
-            "label": "Flex Item List",
-            "value": "option3"
-          },
-          {
-            "label": "Flex Center Item List",
-            "value": "option4"
           }, {
-            "label": "Flex Start Item List",
-            "value": "option5"
+            "label": "Flex banner 64/36%",
+            "value": "option2"
+          }, {
+            "label": "Flex Wrap List",
+            "value": "option3"
+          }, {
+            "label": "Flex Slider",
+            "value": "option4"
           }
         ],
         "default": "option1"
@@ -321,12 +315,6 @@
         "label": "Item Gap: Ex: 2 -> 2px",
         "default": "0",
         "info": "distance between items"
-      }, {
-        "type": "text",
-        "id": "item-height",
-        "label": "Item Height",
-        "default": "600",
-        "info": "height of section"
       }, {
         "type": "text",
         "id": "content-position",
@@ -383,7 +371,12 @@
         "type": "text",
         "id": "item-width",
         "label": "Item Width: 332px / 100%",
-        "default": "100%"
+        "default": "332px"
+      }, {
+        "type": "number",
+        "id": "items-per-line",
+        "label": "Items/line",
+        "default": 3
       }
     ],
     "presets": [

@@ -108,7 +108,7 @@ section {
 body {
   line-height: 1;
   font-family: "Poppins", sans-serif;
-  max-width: 1918px;
+  /* max-width: 1918px; */
   width: 100%;
   margin-inline: auto;
 }

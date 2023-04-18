@@ -5,12 +5,10 @@
   margin-inline: var(--margin-inline);
   .section-v2__item {
     position: relative;
-    height: var(--height);
-    width: var(--item-width);
     .section-v2__item-img {
-      width: 100%;
+      width: var(--item-width);
       height: var(--height-img);
-      object-fit: cover;
+      object-fit: fill;
       border-radius: 4px;
     }
     .section-v2__item-content {

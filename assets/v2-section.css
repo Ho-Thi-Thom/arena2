@@ -7,15 +7,13 @@
 
 .section .section-v2__item {
   position: relative;
-  height: var(--height);
-  width: var(--item-width);
 }
 
 .section .section-v2__item .section-v2__item-img {
-  width: 100%;
+  width: var(--item-width);
   height: var(--height-img);
-  -o-object-fit: cover;
-  object-fit: cover;
+  -o-object-fit: fill;
+  object-fit: fill;
   border-radius: 4px;
 }
 
