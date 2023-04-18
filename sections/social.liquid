@@ -4,50 +4,59 @@
   media="print"
   onload="this.media='all'">
 
-  <style>
-    .social-bottom_item a{
-      --text-color: {{ section.settings.text-color }}
-    }
-  </style>
+<style>
+
+  .social {
+    --padding-inline: {{ section.settings.margin-inline | append: 'px'  }}
+    ;
+  }
+  .social-bottom_item a {
+    --text-color: {{ section.settings.text-color }}
+    ;
+  }
+</style>
 
 
-  {% assign desktopBlock = '' %}
-  {% assign mobileBlock = '' %}
-  
-  {% for block in section.blocks %}
-    {% case block.type %}
-      {% when 'desktop' %}
-        {% assign item = block.settings %}
-        {% capture desktopBlock %}
-          {{ desktopBlock }}
-          <div class="social__item-icon">
-            <img src="{{ item.social-icon | image_url }}" alt="icon" class="social__item-icon-img">
-          </div>
-        {% endcapture %}
-      {% when 'mobile' %}
-        {% assign item = block.settings %}
-        {% capture mobileBlock %}
-          {{ mobileBlock }}
-          <span class="social-bottom_item">
-            <a href="{{ item.social-button-category-url }}" >{{ item.social-button-category }}</a>
-          </span>
-        {% endcapture %}
-    {% endcase %}
-  {% endfor %}
-  
-  <div class="social">
-    <div class="social-top">
-      <div class="social-hr"></div>
-      <div class="social-list">
-        {{ desktopBlock }}
+{% assign desktopBlock = '' %}
+{% assign mobileBlock = '' %}
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'desktop' %}
+    {% assign item = block.settings %}
+    {% capture desktopBlock %}
+      {{ desktopBlock }}
+      <div class="social__item-icon">
+        <img
+          src="{{ item.social-icon | image_url }}"
+          alt="icon"
+          class="social__item-icon-img">
       </div>
-      <div class="social-hr"></div>
-    </div>
-    <div class="social-bottom">
+    {% endcapture %}
+    {% when 'mobile' %}
+    {% assign item = block.settings %}
+    {% capture mobileBlock %}
       {{ mobileBlock }}
+      <span class="social-bottom_item">
+        <a href="{{ item.social-button-category-url }}">{{ item.social-button-category }}</a>
+      </span>
+    {% endcapture %}
+  {% endcase %}
+{% endfor %}
+
+<div class="social">
+  <div class="social-top">
+    <div class="social-hr"></div>
+    <div class="social-list">
+      {{ desktopBlock }}
     </div>
-    <div class="social-bottom-hr"></div>
+    <div class="social-hr"></div>
   </div>
+  <div class="social-bottom">
+    {{ mobileBlock }}
+  </div>
+  <div class="social-bottom-hr"></div>
+</div>
 
 {% schema %}
   {
@@ -57,14 +66,17 @@
       {
         "type": "header",
         "content": "Category"
-      },
-      {
-        "type":"color",
+      }, {
+        "type": "color",
         "id": "text-color",
         "label": "Color",
         "default": "#000"
+      }, {
+        "type": "text",
+        "id": "margin-inline",
+        "label": "Margin Inline",
+        "default": "0"
       }
-
     ],
     "blocks": [
       {

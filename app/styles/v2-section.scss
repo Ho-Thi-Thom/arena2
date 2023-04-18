@@ -1,22 +1,26 @@
 .section {
   margin-top: var(--margin-top);
   display: grid;
-  height: var(--height);
+  gap: var(--item-gap);
+  margin-inline: var(--margin-inline);
   .section-v2__item {
     position: relative;
-    height: 100%;
+    height: var(--height);
+    width: var(--item-width);
     .section-v2__item-img {
       width: 100%;
-      height: var(--height);
+      height: var(--height-img);
       object-fit: cover;
+      border-radius: 4px;
     }
     .section-v2__item-content {
-      position: absolute;
+      position: var(--position);
       left: var(--left);
       bottom: var(--bottom);
       display: flex;
       flex-direction: column;
-      gap: 40px;
+      gap: var(--gap);
+      align-items: var(--align-item);
       .section-v2__item-content__group-text {
         display: flex;
         flex-direction: column;
@@ -37,9 +41,9 @@
         gap: 10px;
         .button {
           border-radius: 4px;
-          padding: 0px 60px;
+          padding: 0px var(--padding);
           font-weight: 500;
-          font-size: var(--font-size);
+          font-size: var(--font-button-desktop);
           color: var(--color);
           background: var(--background);
           text-align: center;

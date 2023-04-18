@@ -5,6 +5,7 @@
   justify-content: space-between;
   align-items: center;
   padding-inline: 40px;
+  margin-inline: var(--margin-inline);
 }
 
 .footer__copy-right {

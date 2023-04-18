@@ -20,8 +20,13 @@
 {% assign font-sub-title-desktop = sub-title-array[0] %}
 {% assign font-sub-title-mobile = sub-title-array[1] %}
 
+{% assign font-button = section.settings.font-size-button %}
+{% assign font-button-array = font-button | split: "," %}
+{% assign font-button-desktop = font-button-array[0] %}
+{% assign font-button-mobile = font-button-array[1] %}
+
 <style>
-  .section {
+  .shopify-section-{{ section.id}}.section {
     {% case section.settings.flex %}
       {% when 'option1' %}
       grid-template-columns: 37% 63%;
@@ -29,39 +34,86 @@
       grid-template-columns: 63% 37%;
       {% when 'option3' %}
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      {% when 'option4' %}
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      {% when 'option5' %}
+      grid-template-columns: repeat(auto-fit, minmax(264px, 1fr));
     {% else %}
     {% endcase %}
   }
-  .section {
-    --height: {{ section.settings.height | append: 'px'  }}
+  .shopify-section-{{ section.id}}.section {
+    --height: {{ section.settings.item-height | append: 'px'  }}
     ;
     --margin-top: {{ section.settings.margin-top | escape |append: 'px'  }}
+    ;
+    --margin-inline: {{ section.settings.margin-inline | escape | append: 'px'  }}
+    ;
+    --item-gap: {{ section.settings.item-gap | append: 'px'  }}
+    ;
   }
 
-  .section-v2__item-content {
+  .shopify-section-{{ section.id}}.section .section-v2__item {
+    --item-width: {{ section.settings.item-width }}
+  }
+  .shopify-section-{{ section.id}}.section .section-v2__item-content {
     --left: {{ space-left  | append: 'px'  }}
     ;
     --bottom: {{ space-bottom | append: 'px'  }}
     ;
+    --gap: {{ section.settings.content-gap | append: 'px'  }}
+    ;
+
+    {% if section.settings.item-content-center %}
+      --left: {{ 50 | escape | append: '%'  }}
+      ;
+      --bottom: {{ 30 | escape |append: 'px' }}
+      ;
+      transform: translateX(-50%);
+    {% endif %}
+    {% if section.settings.content-center %}
+      --align-item: {{ "center" | escape }}
+      ;
+    {% else %}
+      --align-item: {{ "start" | escape}}
+      ;
+    {% endif %}
+
+    {% if section.settings.is-content-position %}
+      --position: {{ "static" | escape }}
+      ;
+    {% else %}
+      --position: {{ "absolute"  | escape}}
+      ;
+    {% endif %}
   }
 
-  .section-v2__item-content__group-text-title {
+  .shopify-section-{{ section.id}}.section .section-v2__item-content__group-text-title {
     --font-title-desktop: {{ font-title-desktop | escape |append: 'px'  }}
   }
 
-  .section-v2__item-content__group-text-sub-title {
+  .shopify-section-{{ section.id}}.section .section-v2__item-content__group-text-sub-title {
     --font-sub-title-desktop: {{ font-sub-title-desktop | escape |append: 'px'  }}
   }
-  .button a {
+
+  .shopify-section-{{ section.id}}.section .button {
+    --font-button-desktop: {{ font-button-desktop | append: 'px' }}
+  }
+
+  .shopify-section-{{ section.id}}.section .button a {
     {% if section.settings.text-decoration %}
       text-decoration: underline;
     {% else %}
       text-decoration: none;
     {% endif %}
-
+  }
+  .shopify-section-{{ section.id}}.section .section-v2__item-img {
+    --height-img: {{ section.settings.img-height | append: 'px'  }}
+    ;
   }
 </style>
-<div class="section">
+<div class="shopify-section-{{ section.id}} section">
   {% for _block in section.blocks %}
     {% case _block.type %}
       {% when 'banner' %}
@@ -72,25 +124,35 @@
         .section-v2__item[data-element="{{ _id }}"] .button {
           {% case item.button-style %}
             {% when 'option1' %}
-            --font-size: 16px;
             --color: black;
             --background: transparent;
             --border: 1px solid #000;
+            --padding: {{ 60 | append: 'px'  }}
+            ;
             {% when 'option2' %}
-            --font-size: 16px;
             --color: black;
             --background: white;
             --border: none;
+            --padding: {{ 60 | append: 'px'  }}
+            ;
             {% when 'option3' %}
-            --font-size: 15px;
             --color: #fff;
             --background: transparent;
             --border: none;
+            --padding: {{ 0 | append: 'px'  }}
+            ;
             {% when 'option4' %}
-            --font-size: 15px;
             --color: #000;
             --background: transparent;
             --border: none;
+            --padding: {{ 0 | append: 'px'  }}
+            ;
+            {% when "option5" %}
+            --color: #fff;
+            --background: transparent;
+            --border: 1px solid #fff;
+            --padding: {{ 40 | append: 'px'  }}
+            ;
           {% else %}
           {% endcase %}
         }
@@ -182,11 +244,6 @@
             "id": "button-right-url",
             "label": "Url Button Right"
           }, {
-            "type": "text",
-            "id": "height",
-            "label": "Height",
-            "default": "600"
-          }, {
             "type": "select",
             "id": "button-style",
             "label": "Style Button",
@@ -194,19 +251,26 @@
               {
                 "label": "Option 1",
                 "value": "option1"
-              }, {
+              },
+              {
                 "label": "Option 2",
                 "value": "option2"
-              }, {
+              },
+              {
                 "label": "Option 3",
                 "value": "option3"
-              }, {
+              },
+              {
                 "label": "Option 4",
                 "value": "option4"
+              }, {
+                "label": "Option 5",
+                "value": "option5"
               }
             ],
             "default": "option1"
           }
+
         ]
       }
 
@@ -215,7 +279,13 @@
       {
         "type": "text",
         "id": "margin-top",
-        "label": "Margin-top",
+        "label": "Margin Top",
+        "default": "0"
+      },
+      {
+        "type": "text",
+        "id": "margin-inline",
+        "label": "Margin Inline",
         "default": "0"
       },
       {
@@ -226,27 +296,43 @@
           {
             "label": "Flex banner 10/17",
             "value": "option1"
-          }, {
+          },
+          {
             "label": "Flex banner 17/10",
             "value": "option2"
-          }, {
+          },
+          {
             "label": "Flex Item List",
             "value": "option3"
+          },
+          {
+            "label": "Flex Center Item List",
+            "value": "option4"
+          }, {
+            "label": "Flex Start Item List",
+            "value": "option5"
           }
         ],
         "default": "option1"
       },
       {
         "type": "text",
-        "id": "height",
-        "label": "Section Height",
-        "default": "600"
-      },
-      {
+        "id": "item-gap",
+        "label": "Item Gap: Ex: 2 -> 2px",
+        "default": "0",
+        "info": "distance between items"
+      }, {
+        "type": "text",
+        "id": "item-height",
+        "label": "Item Height",
+        "default": "600",
+        "info": "height of section"
+      }, {
         "type": "text",
         "id": "content-position",
         "label": "Content Position: Left,Bottom",
-        "default": "40,80"
+        "default": "40,80",
+        "info": "position of content on item"
       }, {
         "type": "text",
         "id": "font-size-title",
@@ -255,13 +341,49 @@
       }, {
         "type": "text",
         "id": "font-size-sub-title",
-        "label": "Font Title : Desktop, Mobile",
+        "label": "Font Sub Title : Desktop, Mobile",
         "default": "20,18"
       }, {
         "type": "checkbox",
         "id": "text-decoration",
         "label": "Text Decoration",
         "default": false
+      }, {
+        "type": "text",
+        "default": "40",
+        "id": "content-gap",
+        "label": "Content Gap",
+        "info": "space between text and button"
+      }, {
+        "type": "checkbox",
+        "id": "content-center",
+        "label": "Content Bottom Center",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "item-content-center",
+        "label": "Item Content Center",
+        "default": false
+      }, {
+        "type": "checkbox",
+        "id": "is-content-position",
+        "label": "Content Bottom",
+        "default": false
+      }, {
+        "type": "text",
+        "id": "font-size-button",
+        "label": "Font Size Buttom: Desktop , Mobile",
+        "default": "16,16"
+      }, {
+        "type": "text",
+        "id": "img-height",
+        "label": "Height Img",
+        "default": "600"
+      }, {
+        "type": "text",
+        "id": "item-width",
+        "label": "Item Width: 332px / 100%",
+        "default": "100%"
       }
     ],
     "presets": [

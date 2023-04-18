@@ -4,6 +4,12 @@
   media="print"
   onload="this.media='all'">
 
+<style>
+  .footer {
+    --margin-inline: {{ section.settings.margin-inline | append: 'px'  }}
+  }
+</style>
+
 <div class="footer">
   <div class="footer__copy-right">{{ section.settings.footer-copy-right }}</div>
   <div class="footer__list-icon">
@@ -47,12 +53,16 @@
       {
         "type": "header",
         "content": "Text Style"
-      },
-      {
-        "type":"text",
-        "id":"footer-copy-right",
-        "label":"Text Footer",
+      }, {
+        "type": "text",
+        "id": "footer-copy-right",
+        "label": "Text Footer",
         "default": "Copyright © 2023 arenacommerce. All Rights Reserved"
+      }, {
+        "type": "text",
+        "id": "margin-inline",
+        "label": "Margin Inline",
+        "default": "0"
       }
     ],
     "presets": [
