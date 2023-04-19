@@ -1,30 +1,35 @@
 .section {
-  margin-top: var(--margin-top);
+  margin-top: var(--margin_top);
   display: grid;
-  gap: var(--item-gap);
-  margin-inline: var(--margin-inline);
+  gap: var(--item_gap);
+  margin-inline: var(--margin_inline);
 }
 
 .section .section-v2__item {
   position: relative;
 }
 
-.section .section-v2__item .section-v2__item-img {
-  width: var(--item-width);
-  height: var(--height-img);
-  -o-object-fit: fill;
-  object-fit: fill;
-  border-radius: 4px;
+.section .section-v2__item .section-v2__item-img, .section .section-v2__item .section-v2__item-img2 {
+  width: var(--item_width);
+  height: var(--height_img);
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: var(--border-radius);
+}
+
+.section .section-v2__item .section-v2__item-img2 {
+  display: none;
 }
 
 .section .section-v2__item .section-v2__item-content {
   position: var(--position);
-  left: var(--left);
-  bottom: var(--bottom);
+  left: var(--left-desktop);
+  bottom: var(--bottom-desktop);
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
-  align-items: var(--align-item);
+  gap: var(--gap_content_desktop);
+  align-items: var(--align_item);
+  transform: translateX(var(--transform));
 }
 
 .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-text {
@@ -36,12 +41,14 @@
 
 .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-text .section-v2__item-content__group-text-title {
   font-weight: 500px;
-  font-size: var(--font-title-desktop);
+  font-size: var(--font_title_desktop);
+  line-height: 60px;
 }
 
 .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-text .section-v2__item-content__group-text-sub-title {
   font-weight: 400px;
-  font-size: var(--font-sub-title-desktop);
+  font-size: var(--font_sub_title_desktop);
+  line-height: 32px;
 }
 
 .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-button {
@@ -52,8 +59,8 @@
 .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-button .button {
   border-radius: 4px;
   padding: 0 var(--padding);
-  font-weight: 500;
-  font-size: var(--font-button-desktop);
+  font-weight: var(--font-weight-button);
+  font-size: var(--font_button_desktop);
   color: var(--color);
   background: var(--background);
   text-align: center;
@@ -63,4 +70,6 @@
 .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-button .section-v2__item-content__group-button-left a, .section .section-v2__item .section-v2__item-content .section-v2__item-content__group-button .section-v2__item-content__group-button-right a {
   white-space: nowrap;
   line-height: 36px;
+  -webkit-text-decoration: var(--text-decoration);
+  text-decoration: var(--text-decoration);
 }

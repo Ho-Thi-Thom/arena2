@@ -1,0 +1,254 @@
+<link
+  rel="stylesheet"
+  href="{{ 'v3-section.css' | asset_url }}"
+  media="print"
+  onload="this.media='all'">
+
+{% liquid
+%}
+
+<div class="shopify-section-{{ section.id}} section-container">
+  {% for _block in section.blocks %}
+    {% case _block.type %}
+      {% when 'component_first' %}
+      {% assign item = _block.settings %}
+      {% assign _id = _block.id %}
+      <div class="section-container__heading">Tn</div>
+      <div class="section-container__item">
+        <div class="section-container__image">
+          <img src="path/to/image.jpg" alt="img">
+        </div>
+        <div class="section-container__content">
+          <div class="section-container__text">
+            <h5>Tiêu đề nhỏ</h5>
+            <p>Phụ đề</p>
+          </div>
+        </div>
+        <div class="section-container__buttons">
+          <div class="button button--first">
+            <a href="#"></a>
+          </div>
+          <div class="button button--second">
+            <a href="#"></a>
+          </div>
+        </div>
+      </div>
+    {% endcase %}
+  {% endfor %}
+</div>
+
+
+
+{% schema %}
+  {
+    "name": "Section V3",
+    "tag": "section",
+    "blocks": [
+      {
+        "name": "Section V3",
+        "type": "component_first",
+        "settings": [
+          {
+            "type": "header",
+            "content": "Heading"
+          },
+          {
+            "type": "checkbox",
+            "id": "is_heading",
+            "label": "Heading Show",
+            "default": false
+          },
+          {
+            "type": "text",
+            "id": "heading",
+            "label": "Heading Text"
+          },
+          {
+            "type": "number",
+            "label": "Heading Margin Bottom",
+            "id": "heading_margin_bottom"
+          }, {
+            "type": "number",
+            "id": "font_heading",
+            "label": "Font Size Heading",
+            "default": 30
+          }, {
+            "type": "image_picker",
+            "id": "img_desktop",
+            "label": "Image Desktop:"
+          }, {
+            "type": "image_picker",
+            "id": "img_mobile",
+            "label": "Image Mobile:"
+          }, {
+            "type": "textarea",
+            "label": "Title",
+            "id": "title",
+            "info": "Ex: Extra 50% off Sale"
+          }, {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Sub Title",
+            "info": "Ex: Only best, selected brands!"
+          }, {
+            "type": "color",
+            "id": "content_text_color",
+            "label": "Content Text Color",
+            "default": "#000"
+          }, {
+            "id": "button_left",
+            "type": "text",
+            "label": "Button Left",
+            "info": "Ex: Clothes on sale"
+          }, {
+            "type": "url",
+            "id": "button_left_url",
+            "label": "Url Button Left"
+          }, {
+            "id": "button_right",
+            "type": "text",
+            "label": "Button Right",
+            "info": " Shoes on sale"
+          }, {
+            "type": "url",
+            "id": "button_right_url",
+            "label": "Url Button Right"
+          }, {
+            "type": "select",
+            "id": "button_style",
+            "label": "Style Button",
+            "options": [
+              {
+                "label": "Option 1",
+                "value": "option1"
+              }, {
+                "label": "Option 2",
+                "value": "option2"
+              }, {
+                "label": "Option 3",
+                "value": "option3"
+              }, {
+                "label": "Option 4",
+                "value": "option4"
+              }
+            ],
+            "default": "option1"
+          }
+
+        ]
+      }
+
+    ],
+    "settings": [
+      {
+        "type": "text",
+        "id": "margin_top",
+        "label": "Margin Top",
+        "default": "0"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_slide_show",
+        "label": "Slide Show",
+        "default": false
+      },
+      {
+        "type": "select",
+        "label": "Flex Item Style",
+        "id": "flex",
+        "options": [
+          {
+            "label": "Flex banner 36%/64%",
+            "value": "option1"
+          }, {
+            "label": "Flex banner 64/36%",
+            "value": "option2"
+          }, {
+            "label": "Flex Wrap List",
+            "value": "option3"
+          }, {
+            "label": "Flex Slider",
+            "value": "option4"
+          }
+        ],
+        "default": "option1"
+      },
+      {
+        "type": "number",
+        "id": "items_per_line",
+        "label": "Items/line",
+        "default": 3
+      }, {
+        "type": "text",
+        "id": "item_gap",
+        "label": "Item Gap: Ex: 2 -> 2px",
+        "default": "0",
+        "info": "distance between items"
+      }, {
+        "type": "select",
+        "id": "content_position",
+        "label": "Content Position",
+        "options": [
+          {
+            "label": "Position 1",
+            "value": "position1"
+          }, {
+            "label": "Position 2",
+            "value": "position2"
+          }, {
+            "label": "Position 3",
+            "value": "position3"
+          }, {
+            "label": "Position 4",
+            "value": "position4"
+          }
+        ],
+        "default": "position1"
+      }, {
+        "type": "text",
+        "id": "font_size_title",
+        "label": "Font Title : Mobile, Desktop",
+        "default": "30,50",
+        "info": "In case the following value is not entered, the font size is calculated according to mobile"
+      }, {
+        "type": "text",
+        "id": "font_size_sub_title",
+        "label": "Font Sub Title : Mobile, Desktop",
+        "default": "20,18",
+        "info": "In case the following value is not entered, the font size is calculated according to mobile"
+      }, {
+        "type": "select",
+        "id": "gap_content",
+        "label": "Content Gap",
+        "options": [
+          {
+            "label": "Space 17,40",
+            "value": "option1"
+          }, {
+            "label": "Space 12,20",
+            "value": "option2"
+          }, {
+            "label": "Space 10,10",
+            "value": "option3"
+          }
+        ],
+        "info": "space between text and button"
+      }, {
+        "type": "text",
+        "id": "font_size_button",
+        "label": "Font Size Buttom: Mobile, Desktop",
+        "default": "16,16"
+      }, {
+        "type": "checkbox",
+        "id": "is_border_radius",
+        "label": "Image Border Radius",
+        "default": true
+      }
+    ],
+    "presets": [
+      {
+        "name": "V3 Section"
+      }
+    ]
+  }
+{% endschema %}
