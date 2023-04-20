@@ -1,40 +1,201 @@
-<link
-  rel="stylesheet"
-  href="{{ 'v3-section.css' | asset_url }}"
-  media="print"
-  onload="this.media='all'">
-
 {% liquid
+ assign title = section.settings.font_size_title
+ assign title_array = title | split: "," 
+ assign font_title_mobile = title_array[0] 
+ assign font_title_desktop = title_array[1] 
+
+ assign sub_title = section.settings.font_size_sub_title
+ assign sub_title_array = sub_title | split: "," 
+ assign font_sub_title_mobile = sub_title_array[0] 
+ assign font_sub_title_desktop = sub_title_array[1] 
+
+ assign gap_content = section.settings.gap_content
+ assign gap_content_array = gap_content | split: "," 
+ assign gap_content_mobile = gap_content_array[0] 
+ assign gap_content_desktop = gap_content_array[1] 
+
+ assign font_button = section.settings.font_size_button 
+ assign font_button_array = font_button | split: "," 
+ assign font_button_mobile = font_button_array[0] 
+ assign font_button_desktop = font_button_array[1] 
 %}
 
-<div class="shopify-section-{{ section.id}} section-container">
-  {% for _block in section.blocks %}
-    {% case _block.type %}
-      {% when 'component_first' %}
-      {% assign item = _block.settings %}
-      {% assign _id = _block.id %}
-      <div class="section-container__heading">Tn</div>
-      <div class="section-container__item">
-        <div class="section-container__image">
-          <img src="path/to/image.jpg" alt="img">
-        </div>
-        <div class="section-container__content">
-          <div class="section-container__text">
-            <h5>Tiêu đề nhỏ</h5>
-            <p>Phụ đề</p>
-          </div>
-        </div>
-        <div class="section-container__buttons">
-          <div class="button button--first">
-            <a href="#"></a>
-          </div>
-          <div class="button button--second">
-            <a href="#"></a>
-          </div>
-        </div>
-      </div>
+<style>
+  .shopify-section-{{ section.id}}.section-container .section-container__list {
+    {% case section.settings.flex %}
+      {% when 'option1' %}
+      grid-template-columns: 37% 63%;
+      {% when 'option2' %}
+      grid-template-columns: 63% 37%;
+      {% when 'option3' %}
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      {% when 'option4' %}
+      grid-template-columns: repeat({{ section.settings.items_per_line }}, 1fr);
+      grid-row-gap: 0;
+    {% else %}
     {% endcase %}
-  {% endfor %}
+  }
+
+  .shopify-section-{{ section.id}}.section-container {
+    --section_margin_top: {{ section.settings.margin_top | escape | append: 'px'  }}
+    ;
+    {% if section.settings.is_heading %}
+      --display: {{ "flex" | escape }}
+      ;
+    {% else %}
+      --display: {{ "none" | escape }}
+      ;
+    {% endif %}
+    --heading_text: {{- section.settings.heading -}}
+    ;
+    --font_size_heading: {{ section.settings.font_heading | append: 'px'  }}
+    ;
+    --list_margin_top: {{ section.settings.list_margin_top | append: 'px'  }}
+    ;
+    --item_gap: {{ section.settings.item_gap |append: 'px'  }}
+    ;
+
+    --item_per_line: {{ section.settings.items_per_line }}
+    ;
+
+    {% case section.settings.content_position %}
+      {% when 'position1' %}
+      --left-desktop: {{ 40 | append: 'px'  }}
+      ;
+      --bottom-desktop: {{ 80 | append: 'px'  }}
+      ;
+      --left-mobile: {{ 16 | append: 'px'  }}
+      ;
+      --bottom-mobile: {{ 14 | append: 'px'  }}
+      ;
+      --position: {{ "absolute" | escape }}
+      ;
+      {% when 'position2' %}
+      --left-desktop: {{ 40 | append: 'px'  }}
+      ;
+      --bottom-desktop: {{ 111 | append: 'px'  }}
+      ;
+      --left-mobile: {{ 16 | append: 'px'  }}
+      ;
+      --bottom-mobile: {{ 61 | append: 'px'  }}
+      ;
+      --transform: {{ -50 | escape | append: '%' }}
+      ;
+      --align_item: {{ "center" | escape }}
+      ;
+      --position: {{ "static" | escape }}
+      ;
+    {% else %}
+    {% endcase %}
+    --font_title_mobile: {{ font_title_mobile | append: 'px' }}
+    ;
+    --font_title_desktop: {{ font_title_desktop |append: 'px' | default: font_title_mobile }}
+    ;
+    --font_sub_title_mobile: {{ font_sub_title_mobile | append: 'px'   }}
+    ;
+    --font_sub_title_desktop: {{ font_sub_title_desktop | append: 'px' |default: font_sub_title_mobile }}
+    ;
+    --gap_content_mobile: {{ gap_content_mobile | append: 'px'  }}
+    ;
+    --gap_content_desktop: {{ gap_content_desktop | append: 'px' | default: gap_content_mobile }}
+    ;
+    --font_button_mobile: {{ font_button_mobile | append: 'px' }}
+    ;
+    --font_button_desktop: {{ font_button_desktop | append: 'px' | default:  font_button_mobile }}
+    ;
+
+    {% if section.settings.is_border_radius %}
+      --border_radius: {{ "4px" |escape  }}
+      ;
+    {% else %}
+      --border_redius: {{ "0px" |escape }}
+    {% endif %}
+  }
+</style>
+
+<div class="shopify-section-{{ section.id}} section-container">
+  <div class="section-container__heading">{{ section.settings.heading }}</div>
+  <div class="section-container__list">
+    {% for _block in section.blocks %}
+      {% case _block.type %}
+        {% when 'component_first' %}
+        {% assign item = _block.settings %}
+        {% assign _id = _block.id %}
+        <style>
+          .shopify-section-block-{{ _id}}.section-container__list__item {
+            {% assign imgDesktop = item.img_desktop %}
+            {% assign imgMobile = item.img_mobile | default: imgDesktop %}
+
+            {% case item.button_style %}
+              {% when 'btn_style1' %}
+              --btn_color: red;
+              --btn_background: transparent;
+              --btn_border: 1px solid #000;
+              --btn_padding: {{ 60 | append: 'px'  }}
+              ;
+              {% when 'btn_style2' %}
+              --color: black;
+              --background: white;
+              --border: none;
+              --padding: {{ 60 | append: 'px'  }}
+              ;
+              {% when 'btn_style3' %}
+              --color: #fff;
+              --background: transparent;
+              --border: none;
+              --padding: {{ 0 | append: 'px'  }}
+              ;
+              {% when 'btn_style4' %}
+              --color: #000;
+              --background: transparent;
+              --border: none;
+              --padding: {{ 0 | append: 'px'  }}
+              ;
+            {% else %}
+            {% endcase %}
+
+            --content_text_color: {{ item.content_text_color | escape }}
+            ;
+
+            --padding-top: {{ 1 | divided_by: imgDesktop.aspect_ratio | times: 100 | append: '%'  }}
+          }
+        </style>
+        <div class="shopify-section-block-{{_id}} section-container__list__item">
+
+          <div class="section-container__list__item__image1">
+            <img src={{ imgDesktop | image_url}} alt="img">
+          </div>
+
+          <div class="section-container__list__item__image2">
+            <img src={{ imgMobile | image_url}} alt="img">
+          </div>
+
+          <div class="section-container__list__item__content">
+            <div class="section-container__list__item__content__text">
+              <h5>{{ item.title }}</h5>
+              <p>{{ item.sub_title }}</p>
+            </div>
+          </div>
+          <div class="section-container__list__item__content__buttons">
+            {% if item.button_left != blank %}
+              <div class="section-container__list__item__content__buttons--first">
+                <a href={{ item.button_left_url }}>{{ item.button_left }}</a>
+              </div>
+            {% endif %}
+            {% if item.button_right != blank %}
+              <div class="section-container__list__item__content__buttons--second">
+                <a href={{ item.button_right_url }}>
+                  {{ item.button_right }}</a>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      {% endcase %}
+    {% endfor %}
+  </div>
+
 </div>
 
 
@@ -49,43 +210,22 @@
         "type": "component_first",
         "settings": [
           {
-            "type": "header",
-            "content": "Heading"
-          },
-          {
-            "type": "checkbox",
-            "id": "is_heading",
-            "label": "Heading Show",
-            "default": false
-          },
-          {
-            "type": "text",
-            "id": "heading",
-            "label": "Heading Text"
-          },
-          {
-            "type": "number",
-            "label": "Heading Margin Bottom",
-            "id": "heading_margin_bottom"
-          }, {
-            "type": "number",
-            "id": "font_heading",
-            "label": "Font Size Heading",
-            "default": 30
-          }, {
             "type": "image_picker",
             "id": "img_desktop",
             "label": "Image Desktop:"
-          }, {
+          },
+          {
             "type": "image_picker",
             "id": "img_mobile",
             "label": "Image Mobile:"
-          }, {
+          },
+          {
             "type": "textarea",
             "label": "Title",
             "id": "title",
             "info": "Ex: Extra 50% off Sale"
-          }, {
+          },
+          {
             "type": "text",
             "id": "sub_title",
             "label": "Sub Title",
@@ -120,19 +260,19 @@
             "options": [
               {
                 "label": "Option 1",
-                "value": "option1"
+                "value": "btn_style1"
               }, {
                 "label": "Option 2",
-                "value": "option2"
+                "value": "btn_style2"
               }, {
                 "label": "Option 3",
-                "value": "option3"
+                "value": "btn_style3"
               }, {
                 "label": "Option 4",
-                "value": "option4"
+                "value": "btn_style4"
               }
             ],
-            "default": "option1"
+            "default": "btn_style1"
           }
 
         ]
@@ -143,16 +283,39 @@
       {
         "type": "text",
         "id": "margin_top",
-        "label": "Margin Top",
+        "label": "Section Margin Top",
         "default": "0"
       },
       {
+        "type": "header",
+        "content": "Heading"
+      },
+      {
+        "type": "checkbox",
+        "id": "is_heading",
+        "label": "Heading Show",
+        "default": false
+      },
+      {
+        "type": "text",
+        "id": "heading",
+        "label": "Heading Text"
+      }, {
+        "type": "number",
+        "label": "List Margin Top:",
+        "id": "list_margin_top",
+        "default": 0
+      }, {
+        "type": "number",
+        "id": "font_heading",
+        "label": "Font Size Heading",
+        "default": 30
+      }, {
         "type": "checkbox",
         "id": "is_slide_show",
         "label": "Slide Show",
         "default": false
-      },
-      {
+      }, {
         "type": "select",
         "label": "Flex Item Style",
         "id": "flex",
@@ -172,8 +335,7 @@
           }
         ],
         "default": "option1"
-      },
-      {
+      }, {
         "type": "number",
         "id": "items_per_line",
         "label": "Items/line",
