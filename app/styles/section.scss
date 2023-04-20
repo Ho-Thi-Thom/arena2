@@ -1,13 +1,22 @@
 .section-container {
-  margin-top: var(--margin_top);
+  margin-top: var(--section_margin_top_desktop);
+  padding-inline: var(--margin_inline_desktop);
   width: 100%;
+  --btn_padding: 60px;
+  --font-weight-button: 500;
+  --font_button_desktop: 16px;
+  --font_button_mobile: 14px;
+  --btn_color: black;
+  --btn_background: transparent;
+  --btn-border: 1px solid #000;
+  --text-decoration: none;
   .section-container__heading {
     display: var(--display);
     align-items: center;
-    font-size: calc(var(--font_size_heading) + 0.390625vw);
+    font-size: calc(30px + 0.390625vw);
+    margin-bottom: 20px;
   }
   .section-container__list {
-    margin-top: var(--list_margin_top);
     display: grid;
     gap: var(--item_gap);
 
@@ -57,42 +66,47 @@
         flex-direction: column;
         gap: var(--gap_content_desktop);
         align-items: var(--align_item);
+        margin-top: var(--content-margin-top);
         transform: translateX(var(--transform));
-
+        color: var(--content_text_color);
         .section-container__list__item__content__text {
           display: flex;
           flex-direction: column;
           gap: 10px;
           color: var(--color);
           h5 {
-            font-weight: 500px;
-            font-size: var(--font_title_desktop);
+            font-weight: 500;
+            font-size: calc(var(--font_title_desktop) + 0.390625vw);
             line-height: 60px;
+            white-space: var(--title-wap);
           }
 
           p {
             font-weight: 400px;
-            font-size: var(--font_sub_title_desktop);
+            font-size: calc(var(--font_sub_title_desktop) + 0.390625vw);
             line-height: 32px;
           }
         }
         .section-container__list__item__content__buttons {
           display: flex;
           gap: 10px;
+
           @mixin style_a {
             white-space: nowrap;
             line-height: 36px;
             text-decoration: var(--text-decoration);
           }
+
           @mixin button {
+            line-height: 24px;
             border-radius: 4px;
-            padding: 0px var(--btn_padding);
+            padding: 6px var(--btn_padding);
             font-weight: var(--font-weight-button);
-            font-size: var(--font_button_desktop);
+            font-size: calc(var(--font_button_desktop) + 0.390625vw);
             color: var(--btn_color);
             background: var(--btn_background);
             text-align: center;
-            border: var(--btn_border);
+            border: var(--btn-border);
           }
           .section-container__list__item__content__buttons--first {
             @include button;

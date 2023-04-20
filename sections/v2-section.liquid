@@ -443,3 +443,43 @@
     ]
   }
 {% endschema %}
+
+{% comment %} 
+{% case item.button_style %}
+{% when 'btn_style1' %}
+--btn_color: red;
+--btn_background: transparent;
+--btn_border: 1px solid #000;
+--btn_padding: {{ 60 | append: 'px'  }}
+;
+{% when 'btn_style2' %}
+--color: black;
+--background: white;
+--border: none;
+--padding: {{ 60 | append: 'px'  }}
+;
+{% when 'btn_style3' %}
+--color: #fff;
+--background: transparent;
+--border: none;
+--padding: {{ 0 | append: 'px'  }}
+;
+{% when 'btn_style4' %}
+--color: #000;
+--background: transparent;
+--border: none;
+--padding: {{ 0 | append: 'px'  }}
+;
+{% else %}
+{% endcase %} {% endcomment %}
+
+<!--
+{% section 'header1' %}
+<main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+</main>
+
+{% section 'footer' %}
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/tiny-slider/2.9.2/min/tiny-slider.js' defer></script>
+<script src="{{ 'theme.js' | asset_url }}" defer></script>
+NOTE: prior to v2.2.1 tiny-slider.js need to be in <body> -->
