@@ -30,6 +30,14 @@
       {% when 'option3' %}
       display: flex;
       justify-content: center;
+      flex-wrap: wrap;
+      --height_image: {{ "auto" | escape }}
+      ;
+      --item_width: {{ section.settings.items_per_line }}
+      ;
+      --image_width: 100%;
+      --item_padding: 1px;
+      --margin_list: -1px;
       {% when 'option4' %}
       grid-template-columns: repeat({{ section.settings.items_per_line }}, 1fr);
       grid-row-gap: 0;
@@ -88,11 +96,6 @@
       --text_align: {{ "center" | escape }}
       ;
 
-      --height_image: {{ "auto" | escape }}
-      ;
-      --item_width: {{ section.settings.items_per_line }}
-      ;
-      --image_width: 100%;
     {% else %}
     {% endcase %}
 

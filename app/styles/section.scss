@@ -20,8 +20,7 @@
   }
   .section-container__list {
     display: grid;
-    gap: var(--item_gap);
-
+    margin: 0 var(--item_margin);
     .section-container__list__item {
       position: relative;
       width: calc(100% / var(--item_width));
@@ -32,6 +31,7 @@
         position: relative;
         padding-top: var(--padding-top) !important;
         animation: opacity 1.3s cubic-bezier(0, 0.51, 0.25, 1) 0s forwards;
+        padding: var(--item_padding);
       }
 
       @mixin img {
