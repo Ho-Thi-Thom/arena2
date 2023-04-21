@@ -1,6 +1,7 @@
 .section-container {
   margin-top: var(--section_margin_top_desktop);
   padding-inline: var(--margin_inline_desktop);
+  --item_width: 1;
   width: 100%;
   --btn_padding: 60px;
   --font-weight-button: 500;
@@ -10,6 +11,7 @@
   --btn_background: transparent;
   --btn-border: 1px solid #000;
   --text-decoration: none;
+  --height_image: 100%;
   .section-container__heading {
     display: var(--display);
     align-items: center;
@@ -22,10 +24,10 @@
 
     .section-container__list__item {
       position: relative;
-      // width: 100%;
+      width: calc(100% / var(--item_width));
       @mixin wrap__img {
         max-width: 100%;
-        height: 100%;
+        height: var(--height_image);
         overflow: hidden;
         position: relative;
         padding-top: var(--padding-top) !important;
@@ -34,7 +36,8 @@
 
       @mixin img {
         max-width: 100%;
-        height: 100%;
+        width: var(--image_width);
+        height: var(--height_image);
         object-fit: cover;
         border-radius: var(--border-radius);
         position: absolute;
@@ -78,7 +81,8 @@
             font-weight: 500;
             font-size: calc(var(--font_title_desktop) + 0.390625vw);
             line-height: 60px;
-            white-space: var(--title-wap);
+            white-space: var(--title_wap);
+            text-align: var(--text_align);
           }
 
           p {

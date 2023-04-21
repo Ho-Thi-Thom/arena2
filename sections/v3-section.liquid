@@ -18,6 +18,7 @@
  assign margin_inline_array = margin_inline | split: "," 
  assign margin_inline_mobile = margin_inline_array[0] 
  assign margin_inline_desktop = margin_inline_array[1] 
+ 
 %}
 <style>
   .shopify-section-{{ section.id}}.section-container .section-container__list {
@@ -27,7 +28,8 @@
       {% when 'option2' %}
       grid-template-columns: 63% 37%;
       {% when 'option3' %}
-      grid-template-columns: 1fr 1fr 1fr;
+      display: flex;
+      justify-content: center;
       {% when 'option4' %}
       grid-template-columns: repeat({{ section.settings.items_per_line }}, 1fr);
       grid-row-gap: 0;
@@ -78,11 +80,19 @@
       ;
       {% when 'position3' %}
       --content-margin-top: 20px;
-      --title-wap: nowrap;
+      --title_wap: wrap;
       --align_item: {{ "center" | escape }}
       ;
       --position: {{ "static" | escape }}
       ;
+      --text_align: {{ "center" | escape }}
+      ;
+
+      --height_image: {{ "auto" | escape }}
+      ;
+      --item_width: {{ section.settings.items_per_line }}
+      ;
+      --image_width: 100%;
     {% else %}
     {% endcase %}
 
@@ -187,8 +197,12 @@
           {% endif %}
           <div class="section-container__list__item__content">
             <div class="section-container__list__item__content__text">
-              <h5>{{ item.title }}</h5>
-              <p>{{ item.sub_title }}</p>
+              {% if item.title != blank %}
+                <h5>{{ item.title }}</h5>
+              {% endif %}
+              {% if item.sub_title != blank %}
+                <p>{{ item.sub_title }}</p>
+              {% endif %}
             </div>
             <div class="section-container__list__item__content__buttons">
               {% if item.button_left != blank %}
