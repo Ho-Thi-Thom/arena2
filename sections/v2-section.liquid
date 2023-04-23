@@ -179,8 +179,8 @@
       </style>
 
       <div class="section-v2__item" data-element="{{ _id }}">
-        assign imgDesk = setting.desk
-        assign imgMObile = setings.img | default: imgDesk
+        {% comment %} assign imgDesk = setting.desk
+        assign imgMObile = setings.img | default: imgDesk {% endcomment %}
         {% if item.img_desktop == blank %}
           {{ "image" | placeholder_svg_tag: 'section-v2__item-img' }}
         {% else %}

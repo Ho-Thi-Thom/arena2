@@ -14,14 +14,11 @@
  assign margin_top_mobile = margin_top_array[0] 
  assign margin_top_desktop = margin_top_array[1] 
 
- assign margin_inline = section.settings.margin_inline 
- assign margin_inline_array = margin_inline | split: "," 
- assign margin_inline_mobile = margin_inline_array[0] 
- assign margin_inline_desktop = margin_inline_array[1] 
  
 %}
 <style>
   .shopify-section-{{ section.id}}.section-container .section-container__list {
+
     {% case section.settings.flex %}
       {% when 'option1' %}
       grid-template-columns: 37% 63%;
@@ -37,22 +34,31 @@
       ;
       --image_width: 100%;
       --item_padding: 1px;
-      --margin_list: -1px;
+      --item_margin: -1px;
       {% when 'option4' %}
+
+
       grid-template-columns: repeat({{ section.settings.items_per_line }}, 1fr);
-      grid-row-gap: 0;
+      grid-column-gap: {{ section.settings.item_gap |append: 'px'  }}
+      ;
+
     {% else %}
     {% endcase %}
   }
 
   .shopify-section-{{ section.id}}.section-container {
+    {% case section.settings.max_width %}
+      {% when 'container1' %}
+      --max-width: 100%;
+      {% when 'container2' %}
+      --max-width: 1000px;
+      {% when 'container3' %}
+      --max-width: 1600px;
+    {% else %}
+    {% endcase %}
     --section_margin_top_desktop: {{ margin_top_desktop | append: 'px'  }}
     ;
     --section_margin_top_mobile: {{ margin_top_mobile |append: 'px'  }}
-    ;
-    --margin_inline_mobile: {{ margin_inline_mobile | append: 'px'  }}
-    ;
-    --margin_inline_desktop: {{ margin_inline_desktop | append: 'px'  }}
     ;
     {% if section.settings.is_heading %}
       --display: {{ "flex" | escape }}
@@ -61,16 +67,6 @@
       --display: {{ "none" | escape }}
       ;
     {% endif %}
-    --heading_text: {{- section.settings.heading -}}
-    ;
-    --font_size_heading: {{ section.settings.font_heading | append: 'px'  }}
-    ;
-    --item_gap: {{ section.settings.item_gap |append: 'px'  }}
-    ;
-
-    --item_per_line: {{ section.settings.items_per_line }}
-    ;
-
     {% case section.settings.content_position %}
       {% when 'position1' %}
       --left-desktop: 40px;
@@ -95,17 +91,26 @@
       ;
       --text_align: {{ "center" | escape }}
       ;
-
+      {% when 'position4' %}
+      --align_item: {{ "center" | escape }}
+      ;
+      --position: {{ "absolute" | escape }}
+      ;
+      --left-desktop: 50%;
+      --bottom-desktop: 30px;
+      --left-mobile: 50%;
+      --bottom-mobile: 30px;
+      --transform: -50%;
     {% else %}
     {% endcase %}
 
     --font_title_mobile: {{ font_title_mobile | append: 'px' }}
     ;
-    --font_title_desktop: {{ font_title_desktop |append: 'px' | default: font_title_mobile }}
+    --font_title_desktop: {{ font_title_desktop  |append: 'px' | default: font_title_mobile  }}
     ;
     --font_sub_title_mobile: {{ font_sub_title_mobile | append: 'px'   }}
     ;
-    --font_sub_title_desktop: {{ font_sub_title_desktop | append: 'px' |default: font_sub_title_mobile }}
+    --font_sub_title_desktop: {{ font_sub_title_desktop  | default: font_sub_title_mobile| append: 'px' }}
     ;
 
     {% if section.settings.is_border_radius %}
@@ -132,53 +137,63 @@
 </style>
 
 <div class="shopify-section-{{ section.id}} section-container">
-  <div class="section-container__heading">{{ section.settings.heading }}</div>
-  <div class="section-container__list">
+  {% if section.settings.heading != blank %}
+    <div class="section-container__heading">{{ section.settings.heading }}</div>
+  {% endif %}
+  {% if section.settings.is_count_up %}
+    <div id="count_up" class="number_count_up">0</div>
+  {% endif %}
+  <div class="section-container__list {%if section.settings.is_slide_show%}owl-carousel{%endif%}">
     {% for _block in section.blocks %}
       {% case _block.type %}
         {% when 'component_first' %}
         {% assign item = _block.settings %}
         {% assign _id = _block.id %}
-        <style>
-          .shopify-section-block-{{ _id}}.section-container__list__item {
-
-            {% case item.btn_style %}
-              {% when "btn_style1" %}
-              {% when "btn_style2" %}
-              --btn_background: white;
-              --btn-border: none;
-              {% when "btn_style3" %}
-              --btn_padding: 0;
-              --font-weight-button: 400;
-              --font_button_desktop: 15px;
-              --font_button_mobile: 16px;
-              --btn_color: white;
-              --btn-border: none;
-              --text-decoration: underline;
-              {% when "btn_style4" %}
-              --btn_padding: 0;
-              --font-weight-button: 400;
-              --font_button_desktop: 15px;
-              --font_button_mobile: 16px;
-              --btn_color: black;
-              --btn-border: none;
-              --text-decoration: underline;
-              {% when "btn_style5" %}
-            {% else %}
-
-            {% endcase %}
-
-            --content_text_color: {{ item.content_text_color | escape }}
-            ;
-            {% assign imgDesktop = item.img_desktop %}
-            {% assign imgMobile = item.img_mobile | default: imgDesktop %}
-
-            --padding-top: {{ 1 | divided_by: imgDesktop.aspect_ratio | times: 100 | append: '%'  }}
-          }
-
-          .shopify-section-block-{{ _id}}.section-container__list__item.section-container__list__item__content__buttons {}
-        </style>
         <div class="shopify-section-block-{{_id}} section-container__list__item">
+          <style>
+            .shopify-section-block-{{ _id}}.section-container__list__item {
+
+              {% case item.btn_style %}
+                {% when "btn_style1" %}
+                {% when "btn_style2" %}
+                --btn_background: white;
+                --btn-border: none;
+                {% when "btn_style3" %}
+                --btn_padding: 0;
+                --font-weight-button: 400;
+                --font_button_desktop: 15px;
+                --font_button_mobile: 16px;
+                --btn_color: white;
+                --btn-border: none;
+                --text-decoration: underline;
+                {% when "btn_style4" %}
+                --btn_padding: 0;
+                --font-weight-button: 400;
+                --font_button_desktop: 15px;
+                --font_button_mobile: 16px;
+                --btn_color: black;
+                --btn-border: none;
+                --text-decoration: underline;
+                {% when "btn_style5" %}
+                --btn_padding: 0 40px;
+                --font_button_desktop: 14px;
+                --font_button_mobile: 14px;
+                --btn_color: white;
+                --btn-border: 1px solid white;
+              {% else %}
+
+              {% endcase %}
+
+              --content_text_color: {{ item.content_text_color | escape }}
+              ;
+              {% assign imgDesktop = item.img_desktop %}
+              {% assign imgMobile = item.img_mobile | default: imgDesktop %}
+
+              --padding-top: {{ 1 | divided_by: imgDesktop.aspect_ratio | times: 100 | append: '%'  }}
+            }
+
+            .shopify-section-block-{{ _id}}.section-container__list__item.section-container__list__item__content__buttons {}
+          </style>
           {% if imgDesktop == blank %}
             <div class="section-container__list__item__image1">
               {{ "image" | placeholder_svg_tag }}
@@ -225,10 +240,51 @@
       {% endcase %}
     {% endfor %}
   </div>
-
 </div>
 
+<script>
+  $('.owl-carousel').owlCarousel({
+    loop: true,
+    responsiveClass: false,
+    autoplay: false,
+    autoplayTimeout: 1000,{% comment %}autoplayHoverPause : true,{% endcomment %}responsive: {
+      0: {
+        items: 1,
+        loop: true,
+        nav: false,
+        dots: false
+      },
+      768: {
+        items: {{ section.settings.items_per_line }},
+        loop: true,
+        nav: false,
+        dots: false
+      },
+      1600: {
+        items: {{ section.settings.items_per_line }},
+        loop: true,
+        nav: false,
+        dots: false
+      }
+    }
+  })
 
+
+  let observer = new IntersectionObserver(function(entries) {
+    const entry = entries[0]
+    if (entry.isIntersecting) {
+      $('#count_up').countUp({
+        duration: 2000,
+        last: 99999,
+        frame: 1000 / 30
+      })
+    }
+  });
+
+  window.addEventListener("load", function() {
+    observer.observe(document.querySelector("#count_up"))
+  })
+</script>
 
 {% schema %}
   {
@@ -322,21 +378,28 @@
         "default": "0,0"
       },
       {
-        "type": "text",
-        "id": "margin_inline",
-        "label": "Margin Inline",
-        "default": "0,0"
+        "type": "select",
+        "id": "max_width",
+        "label": "Max Width",
+        "options": [
+          {
+            "label": "Container 1",
+            "value": "container1"
+          }, {
+            "label": "Container 2",
+            "value": "container2"
+          }, {
+            "label": "Container 3",
+            "value": "container3"
+          }
+        ],
+        "default": "container1"
       },
       {
         "type": "header",
         "content": "Heading"
       },
       {
-        "type": "checkbox",
-        "id": "is_heading",
-        "label": "Heading Show",
-        "default": false
-      }, {
         "type": "text",
         "id": "heading",
         "label": "Heading Text"
@@ -430,6 +493,11 @@
         "id": "is_border_radius",
         "label": "Image Border Radius",
         "default": true
+      }, {
+        "type": "checkbox",
+        "id": "is_count_up",
+        "label": "Count Up",
+        "default": false
       }
     ],
     "presets": [

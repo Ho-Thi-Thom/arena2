@@ -1,9 +1,10 @@
 .section-container {
+  max-width: var(--max-width);
+  margin: 0 auto;
   margin-top: var(--section_margin_top_desktop);
-  padding-inline: var(--margin_inline_desktop);
   --item_width: 1;
   width: 100%;
-  --btn_padding: 60px;
+  --btn_padding: 0 60px;
   --font-weight-button: 500;
   --font_button_desktop: 16px;
   --font_button_mobile: 14px;
@@ -12,11 +13,21 @@
   --btn-border: 1px solid #000;
   --text-decoration: none;
   --height_image: 100%;
+  position: relative;
+  .number_count_up {
+    position: absolute;
+    left: 40px;
+    bottom: 109px;
+    z-index: 10;
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+  }
   .section-container__heading {
-    display: var(--display);
-    align-items: center;
     font-size: calc(30px + 0.390625vw);
     margin-bottom: 20px;
+    text-align: center;
+    font-weight: 500;
   }
   .section-container__list {
     display: grid;
@@ -24,6 +35,8 @@
     .section-container__list__item {
       position: relative;
       width: calc(100% / var(--item_width));
+      padding-inline: var(--item_padding);
+
       @mixin wrap__img {
         max-width: 100%;
         height: var(--height_image);
@@ -31,7 +44,7 @@
         position: relative;
         padding-top: var(--padding-top) !important;
         animation: opacity 1.3s cubic-bezier(0, 0.51, 0.25, 1) 0s forwards;
-        padding: var(--item_padding);
+        border-radius: var(--border_radius);
       }
 
       @mixin img {
@@ -46,6 +59,7 @@
         bottom: 0;
         right: 0;
         object-position: center !important;
+        border-radius: var(--border_radius);
       }
 
       .section-container__list__item__image1 {
@@ -79,15 +93,15 @@
           color: var(--color);
           h5 {
             font-weight: 500;
-            font-size: calc(var(--font_title_desktop) + 0.390625vw);
+            font-size: var(--font_title_desktop);
             line-height: 60px;
             white-space: var(--title_wap);
             text-align: var(--text_align);
           }
 
           p {
-            font-weight: 400px;
-            font-size: calc(var(--font_sub_title_desktop) + 0.390625vw);
+            font-weight: 400;
+            font-size: var(--font_sub_title_desktop);
             line-height: 32px;
           }
         }
@@ -104,9 +118,9 @@
           @mixin button {
             line-height: 24px;
             border-radius: 4px;
-            padding: 6px var(--btn_padding);
+            padding: var(--btn_padding);
             font-weight: var(--font-weight-button);
-            font-size: calc(var(--font_button_desktop) + 0.390625vw);
+            font-size: var(--font_button_desktop);
             color: var(--btn_color);
             background: var(--btn_background);
             text-align: center;
@@ -122,6 +136,143 @@
             @include button;
             a {
               @include style_a;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .section-container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    margin-top: var(--section_margin_top_desktop);
+    --item_width: 1;
+    width: 100%;
+    --btn_padding: 0 60px;
+    --font-weight-button: 500;
+    --font_button_desktop: 16px;
+    --font_button_mobile: 14px;
+    --btn_color: black;
+    --btn_background: transparent;
+    --btn-border: 1px solid #000;
+    --text-decoration: none;
+    --height_image: 100%;
+
+    .section-container__heading {
+      font-size: calc(30px + 0.390625vw);
+      margin-bottom: 20px;
+      text-align: center;
+      font-weight: 500;
+    }
+    .section-container__list {
+      display: grid;
+      margin: 0 var(--item_margin);
+      .section-container__list__item {
+        position: relative;
+        width: calc(100% / var(--item_width));
+        padding-inline: var(--item_padding);
+
+        @mixin wrap__img {
+          max-width: 100%;
+          height: var(--height_image);
+          overflow: hidden;
+          position: relative;
+          padding-top: var(--padding-top) !important;
+          animation: opacity 1.3s cubic-bezier(0, 0.51, 0.25, 1) 0s forwards;
+        }
+
+        @mixin img {
+          max-width: 100%;
+          width: var(--image_width);
+          height: var(--height_image);
+          object-fit: cover;
+          border-radius: var(--border-radius);
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          object-position: center !important;
+        }
+
+        .section-container__list__item__image1 {
+          @include wrap__img;
+          img {
+            @include img;
+          }
+        }
+        .section-container__list__item__image2 {
+          @include wrap__img;
+          display: none;
+          img {
+            @include img;
+          }
+        }
+        .section-container__list__item__content {
+          position: var(--position);
+          left: var(--left-desktop);
+          bottom: var(--bottom-desktop);
+          display: flex;
+          flex-direction: column;
+          gap: var(--gap_content_desktop);
+          align-items: var(--align_item);
+          margin-top: var(--content-margin-top);
+          transform: translateX(var(--transform));
+          color: var(--content_text_color);
+          .section-container__list__item__content__text {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            color: var(--color);
+            h5 {
+              font-weight: 500;
+              font-size: var(--font_title_desktop);
+              line-height: 60px;
+              white-space: var(--title_wap);
+              text-align: var(--text_align);
+            }
+
+            p {
+              font-weight: 400;
+              font-size: var(--font_sub_title_desktop);
+              line-height: 32px;
+            }
+          }
+          .section-container__list__item__content__buttons {
+            display: flex;
+            gap: 10px;
+
+            @mixin style_a {
+              white-space: nowrap;
+              line-height: 36px;
+              text-decoration: var(--text-decoration);
+            }
+
+            @mixin button {
+              line-height: 24px;
+              border-radius: 4px;
+              padding: var(--btn_padding);
+              font-weight: var(--font-weight-button);
+              font-size: var(--font_button_desktop);
+              color: var(--btn_color);
+              background: var(--btn_background);
+              text-align: center;
+              border: var(--btn-border);
+            }
+            .section-container__list__item__content__buttons--first {
+              @include button;
+              a {
+                @include style_a;
+              }
+            }
+            .section-container__list__item__content__buttons--second {
+              @include button;
+              a {
+                @include style_a;
+              }
             }
           }
         }
