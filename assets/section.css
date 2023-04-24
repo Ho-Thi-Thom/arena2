@@ -4,7 +4,7 @@
   margin-top: var(--section_margin_top);
   --item_width:1;
   width: 100%;
-  --btn_padding:7.5px 60px;
+  --btn_padding:6px 60px;
   --font_weight_button:500;
   --font_button:16px;
   --btn_color:#000;
@@ -13,6 +13,8 @@
   --text_decoration:none;
   --height_image:100%;
   position: relative;
+  --font_weight_sub_title:400;
+  --text-align:center;
 }
 
 .section-container .number_count_up {
@@ -34,6 +36,8 @@
 
 .section-container .section-container__list {
   display: grid;
+  gap: var(--item_gap);
+  margin-inline: var(--margin_list);
 }
 
 .section-container .section-container__list .section-container__list__item {
@@ -99,12 +103,13 @@
   position: var(--position);
   left: var(--left);
   bottom: var(--bottom);
+  top: var(--top);
   display: flex;
   flex-direction: column;
   gap: var(--gap_content);
   align-items: var(--align_item);
   margin-top: var(--content_margin_top);
-  transform: translateX(var(--transform));
+  transform: var(--transform);
   color: var(--content_text_color);
 }
 
@@ -124,7 +129,7 @@
 }
 
 .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__text p {
-  font-weight: 400;
+  font-weight: var(--font_weight_sub_title);
   font-size: var(--font_sub_title);
   line-height: 32px;
 }
@@ -137,7 +142,7 @@
 .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a, .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
   display: block;
   white-space: nowrap;
-  line-height: 36px;
+  line-height: 24px;
   -webkit-text-decoration: var(--text_decoration);
   text-decoration: var(--text_decoration);
   border-radius: 4px;
@@ -145,7 +150,7 @@
   font-size: var(--font_button);
   color: var(--btn_color);
   background: var(--btn_background);
-  text-align: center;
+  text-align: var(--text-align);
   border: var(--btn_border);
   font-weight: var(--font_weight_button);
 }
@@ -194,7 +199,16 @@
     display: flex;
     flex-direction: column;
   }
-  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a, .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first {
+    min-width: var(--min_width);
+  }
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a {
+    line-height: 21px;
+  }
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second {
+    min-width: var(--min_width);
+  }
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
     line-height: 21px;
   }
 }

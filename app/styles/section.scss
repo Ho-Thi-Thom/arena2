@@ -4,7 +4,7 @@
   margin-top: var(--section_margin_top);
   --item_width: 1;
   width: 100%;
-  --btn_padding: 7.5px 60px;
+  --btn_padding: 6px 60px;
   --font_weight_button: 500;
   --font_button: 16px;
   --btn_color: black;
@@ -13,6 +13,8 @@
   --text_decoration: none;
   --height_image: 100%;
   position: relative;
+  --font_weight_sub_title: 400;
+  --text-align: center;
   .number_count_up {
     position: absolute;
     left: 40px;
@@ -30,6 +32,8 @@
   }
   .section-container__list {
     display: grid;
+    gap: var(--item_gap);
+    margin-inline: var(--margin_list);
     .section-container__list__item {
       position: relative;
       width: calc(100% / var(--item_width));
@@ -77,12 +81,13 @@
         position: var(--position);
         left: var(--left);
         bottom: var(--bottom);
+        top: var(--top);
         display: flex;
         flex-direction: column;
         gap: var(--gap_content);
         align-items: var(--align_item);
         margin-top: var(--content_margin_top);
-        transform: translateX(var(--transform));
+        transform: var(--transform);
         color: var(--content_text_color);
         .section-container__list__item__content__text {
           display: flex;
@@ -98,7 +103,7 @@
           }
 
           p {
-            font-weight: 400;
+            font-weight: var(--font_weight_sub_title);
             font-size: var(--font_sub_title);
             line-height: 32px;
           }
@@ -110,14 +115,14 @@
           @mixin style_a {
             display: block;
             white-space: nowrap;
-            line-height: 36px;
+            line-height: 24px;
             text-decoration: var(--text_decoration);
             border-radius: 4px;
             padding: var(--btn_padding);
             font-size: var(--font_button);
             color: var(--btn_color);
             background: var(--btn_background);
-            text-align: center;
+            text-align: var(--text-align);
             border: var(--btn_border);
             font-weight: var(--font_weight_button);
           }
@@ -167,7 +172,7 @@
           }
           .section-container__list__item__content__buttons {
             @mixin style_a {
-              line-height: 18px;
+              line-height: 21px;
             }
           }
         }
@@ -227,6 +232,7 @@
             }
 
             @mixin button {
+              min-width: var(--min_width);
             }
             .section-container__list__item__content__buttons--first {
               @include button;

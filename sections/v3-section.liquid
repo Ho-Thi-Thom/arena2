@@ -37,6 +37,8 @@
       --item_width: {{ items_per_line_desktop | number}}
       ;
       --image_width: 100%;
+      --item_padding: 1px;
+      --margin_list: -1px;
       {% when 'option4' %}
       grid-template-columns: repeat({{ items_per_line_desktop }} , 1fr);
       grid-column-gap: {{ section.settings.item_gap |append: 'px'  }}
@@ -72,7 +74,7 @@
       ;
       {% when 'position2' %}
       --left: 40px;
-      --bottom: 111px;
+      --bottom: 80px;
       --position: {{ "absolute" | escape }}
       ;
       {% when 'position3' %}
@@ -83,6 +85,7 @@
       ;
       --text_align: {{ "center" | escape }}
       ;
+      --font_weight_sub_title: 500;
       {% when 'position4' %}
       --align_item: {{ "center" | escape }}
       ;
@@ -90,7 +93,7 @@
       ;
       --left: 50%;
       --bottom: 30px;
-      --transform: -50%;
+      --transform: translateX(-50%);
     {% else %}
     {% endcase %}
 
@@ -121,22 +124,12 @@
     .shopify-section-{{ section.id}}.section-container .section-container__list {
       {% case section.settings.flex %}
         {% when 'option1' %}
-        grid-template-columns: 37% 63%;
         {% when 'option2' %}
-        grid-template-columns: 63% 37%;
         {% when 'option3' %}
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        --height_image: {{ "auto" | escape }}
-        ;
         --item_width: {{ items_per_line_tablet | number}}
         ;
-        --image_width: 100%;
         {% when 'option4' %}
         grid-template-columns: repeat({{ items_per_line_tablet }} , 1fr);
-        grid-column-gap: {{ section.settings.item_gap |append: 'px'  }}
-        ;
       {% else %}
       {% endcase %}
     }
@@ -161,13 +154,13 @@
         --bottom: 40px;
         {% when 'position2' %}
         --left: 20px;
-        --bottom: 61px;
+        --bottom: 40px;
         {% when 'position3' %}
         --content_margin_top: 10px;
         {% when 'position4' %}
         --left: 50%;
         --bottom: 15px;
-        --transform: -50%;
+        --transform: translateX(-50%);
       {% else %}
       {% endcase %}
 
@@ -211,12 +204,14 @@
         --bottom: 14px;
         {% when 'position2' %}
         --left: 16px;
-        --bottom: 61px;
+        --bottom: auto;
+        --top: 50%;
+        --transform: translateY(-50%);
         {% when 'position3' %}
         {% when 'position4' %}
         --left: 50%;
         --bottom: 30px;
-        --transform: -50%;
+        --transform: translateX(-50%);
       {% else %}
       {% endcase %}
 
@@ -246,8 +241,9 @@
         {% when 'option3' %}
         --item_width: {{ items_per_line_mobile | number}}
         ;
-        --item_gap: {{ section.settings.item_gap |append: 'px'  }}
-        ;
+        --item_padding: 0;
+        --margin_list: 0;
+        --item_gap: 15px;
         {% when 'option4' %}
       {% else %}
       {% endcase %}
@@ -285,6 +281,7 @@
                 --btn_color: white;
                 --btn_border: none;
                 --text_decoration: underline;
+                --text-align: start;
                 {% when "btn_style4" %}
                 --btn_padding: 0;
                 --font_weight_button: 400;
@@ -307,6 +304,16 @@
             @media(max-width: 768px) {
               .shopify-section-block-{{ _id}}.section-container__list__item {
                 {% case item.btn_style %}
+                  {% when "btn_style1" %}
+                  --font_button: 14px;
+                  --btn_padding: 6px 40px;
+                  --btn_background: white;
+                  --btn_border: none;
+                  --min_width: 232px;
+                  {% when "btn_style2" %}
+                  --font_button: 14px;
+                  --btn_padding: 6px 40px;
+                  --min-width: 232px;
                   {% when "btn_style3" %}
                   --font_button: 16px;
                   {% when "btn_style4" %}
@@ -314,7 +321,6 @@
                   {% when "btn_style5" %}
                   --font_button: 14px;
                 {% else %}
-
                 {% endcase %}
                 --padding_top: {{ 1 | divided_by: imgMobile.aspect_ratio | times: 100 | append: '%'  }}
                 ;
@@ -374,6 +380,7 @@
     loop: true,
     responsiveClass: false,
     autoplay: false,
+    margin: {{ section.settings.item_gap }},
     autoplayTimeout: 1000,{% comment %}autoplayHoverPause : true,{% endcomment %}responsive: {
       0: {
         items: {{ items_per_line_mobile }},
