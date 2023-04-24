@@ -4,8 +4,8 @@
   margin-top: var(--section_margin_top);
   --item_width:1;
   width: 100%;
-  --btn_padding:0 60px;
-  --font-weight-button:500;
+  --btn_padding:7.5px 60px;
+  --font_weight_button:500;
   --font_button:16px;
   --btn_color:#000;
   --btn_background:transparent;
@@ -134,42 +134,38 @@
   gap: 10px;
 }
 
-.section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first {
-  line-height: 24px;
+.section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a, .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
+  display: block;
+  white-space: nowrap;
+  line-height: 36px;
+  -webkit-text-decoration: var(--text_decoration);
+  text-decoration: var(--text_decoration);
   border-radius: 4px;
   padding: var(--btn_padding);
-  font-weight: var(--font_weight_button);
   font-size: var(--font_button);
   color: var(--btn_color);
   background: var(--btn_background);
   text-align: center;
   border: var(--btn_border);
-}
-
-.section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a {
-  white-space: nowrap;
-  line-height: 36px;
-  -webkit-text-decoration: var(--text_decoration);
-  text-decoration: var(--text_decoration);
-}
-
-.section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second {
-  line-height: 24px;
-  border-radius: 4px;
-  padding: var(--btn_padding);
   font-weight: var(--font_weight_button);
-  font-size: var(--font_button);
-  color: var(--btn_color);
-  background: var(--btn_background);
-  text-align: center;
-  border: var(--btn_border);
 }
 
-.section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
-  white-space: nowrap;
-  line-height: 36px;
-  -webkit-text-decoration: var(--text_decoration);
-  text-decoration: var(--text_decoration);
+@media (max-width: 1024px) {
+  .section-container .number_count_up {
+    left: 20px;
+    bottom: 54px;
+    font-size: 30px;
+  }
+  .section-container .section-container__list {
+    gap: var(--item_gap);
+    margin-inline: var(--margin_inline);
+  }
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__text h5 {
+    line-height: 40px;
+  }
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__text p {
+    line-height: 30px;
+  }
 }
 
 @media (max-width: 768px) {
