@@ -18,7 +18,8 @@
   .number_count_up {
     position: absolute;
     left: 40px;
-    bottom: 109px;
+    top: 50%;
+    transform: translateY(-50%);
     z-index: 10;
     color: white;
     font-size: 60px;
@@ -38,7 +39,6 @@
       position: relative;
       width: calc(100% / var(--item_width));
       padding-inline: var(--item_padding);
-
       @mixin wrap__img {
         max-width: 100%;
         height: var(--height_image);
@@ -125,6 +125,9 @@
             text-align: var(--text-align);
             border: var(--btn_border);
             font-weight: var(--font_weight_button);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
           }
 
           @mixin button {
@@ -150,8 +153,9 @@
 @media (max-width: 1024px) {
   .section-container {
     .number_count_up {
-      left: 20px;
-      bottom: 54px;
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
       font-size: 30px;
     }
     .section-container__heading {
@@ -159,7 +163,9 @@
     .section-container__list {
       gap: var(--item_gap);
       margin-inline: var(--margin_inline);
+      margin-top: var(--margin_top_list);
       .section-container__list__item {
+        padding-top: var(--padding_top_item);
         .section-container__list__item__content {
           .section-container__list__item__content__text {
             h5 {
@@ -185,7 +191,8 @@
   .section-container {
     .number_count_up {
       left: 20px;
-      bottom: 47px;
+      top: 50%;
+      transform: translateY(-50%);
       font-size: 24px;
     }
     .section-container__heading {
@@ -227,12 +234,12 @@
           .section-container__list__item__content__buttons {
             display: flex;
             flex-direction: column;
+            width: var(--width);
             @mixin style_a {
               line-height: 21px;
             }
 
             @mixin button {
-              min-width: var(--min_width);
             }
             .section-container__list__item__content__buttons--first {
               @include button;

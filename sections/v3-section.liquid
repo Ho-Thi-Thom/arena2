@@ -20,7 +20,9 @@
  assign items_per_line_desktop = items_per_line_array[1] 
 
  assign items_per_line_tablet = items_per_line_mobile | plus:  items_per_line_desktop | divided_by: 2 | ceil 
-%}
+
+ assign count_up_number = section.settings.count_up_number 
+ %}
 <style>
   .shopify-section-{{ section.id}}.section-container .section-container__list {
     {% case section.settings.flex %}
@@ -128,6 +130,10 @@
         {% when 'option3' %}
         --item_width: {{ items_per_line_tablet | number}}
         ;
+        --padding_top_item: {{ section.settings.item_gap |append: 'px'  }}
+        ;
+        --margin_top_list: {{ section.settings.item_gap |append: 'px'  }}
+        ;
         {% when 'option4' %}
         grid-template-columns: repeat({{ items_per_line_tablet }} , 1fr);
       {% else %}
@@ -214,12 +220,10 @@
         --transform: translateX(-50%);
       {% else %}
       {% endcase %}
-
       --font_title: {{ font_title_mobile | append: 'px' }}
       ;
       --font_sub_title: {{ font_sub_title_mobile | append: 'px'   }}
       ;
-
       {% case section.settings.gap_content %}
         {% when 'option1' %}
         --gap_content: 12px;
@@ -232,10 +236,7 @@
     }
     .shopify-section-{{ section.id}}.section-container .section-container__list {
       {% case section.settings.flex %}
-        {% when 'option1' %}
-        display: flex;
-        flex-direction: column;
-        {% when 'option2' %}
+        {% when 'option1' or 'option2'%}
         display: flex;
         flex-direction: column;
         {% when 'option3' %}
@@ -243,8 +244,12 @@
         ;
         --item_padding: 0;
         --margin_list: 0;
-        --item_gap: 15px;
+        --item_gap: {{ section.settings.item_gap |append: 'px' }}
+        ;
         {% when 'option4' %}
+        grid-template-columns: repeat({{ items_per_line_mobile }} , 1fr);
+        grid-row-gap: {{ section.settings.item_gap |append: 'px'  }}
+        ;
       {% else %}
       {% endcase %}
     }
@@ -255,8 +260,8 @@
   {% if section.settings.heading != blank %}
     <div class="section-container__heading">{{ section.settings.heading }}</div>
   {% endif %}
-  {% if section.settings.is_count_up %}
-    <div id="count_up" class="number_count_up">0</div>
+  {% if count_up_number != 0 and count_up_number > 0 %}
+    <div id="{{- section.id -}}_count_up" class="number_count_up">0</div>
   {% endif %}
   <div class="section-container__list {%if section.settings.is_slide_show%}owl-carousel{%endif%}">
     {% for _block in section.blocks %}
@@ -289,6 +294,7 @@
                 --btn_color: black;
                 --btn_border: none;
                 --text_decoration: underline;
+                --text-align: start;
                 {% when "btn_style5" %}
                 --btn_padding: 0 40px;
                 --font_button: 14px;
@@ -305,21 +311,26 @@
               .shopify-section-block-{{ _id}}.section-container__list__item {
                 {% case item.btn_style %}
                   {% when "btn_style1" %}
-                  --font_button: 14px;
-                  --btn_padding: 6px 40px;
-                  --btn_background: white;
-                  --btn_border: none;
-                  --min_width: 232px;
+                  {% if item.difference_button %}
+                    --font_button: 14px;
+                    --btn_padding: 6px 40px;
+                    --btn_background: white;
+                    --btn_border: none;
+                    --width: 223px;
+                  {% else %}
+                    --width: 223px;
+                  {% endif %}
                   {% when "btn_style2" %}
                   --font_button: 14px;
                   --btn_padding: 6px 40px;
-                  --min-width: 232px;
+                  --width: 223px;
                   {% when "btn_style3" %}
                   --font_button: 16px;
                   {% when "btn_style4" %}
                   --font_button: 16px;
                   {% when "btn_style5" %}
                   --font_button: 14px;
+                  --btn_padding: 6px 40px;
                 {% else %}
                 {% endcase %}
                 --padding_top: {{ 1 | divided_by: imgMobile.aspect_ratio | times: 100 | append: '%'  }}
@@ -333,7 +344,7 @@
             </div>
           {% else %}
             <div class="section-container__list__item__image1">
-              <img src={{ imgDesktop | image_url}} alt="img">
+              <img src="{{ imgDesktop | image_url}}" alt="img">
             </div>
           {% endif %}
           {% if imgMobile == blank %}
@@ -343,7 +354,7 @@
             </div>
           {% else %}
             <div class="section-container__list__item__image2">
-              <img src={{ imgMobile | image_url}} alt="img">
+              <img src="{{ imgMobile | image_url}}" alt="img">
             </div>
           {% endif %}
           <div class="section-container__list__item__content">
@@ -358,12 +369,12 @@
             <div class="section-container__list__item__content__buttons">
               {% if item.button_left != blank %}
                 <div class="section-container__list__item__content__buttons--first">
-                  <a href={{ item.button_left_url }}>{{ item.button_left }}</a>
+                  <a href="{{ item.button_left_url }}">{{ item.button_left }}</a>
                 </div>
               {% endif %}
               {% if item.button_right != blank %}
                 <div class="section-container__list__item__content__buttons--second">
-                  <a href={{ item.button_right_url }}>
+                  <a href="{{ item.button_right_url }}">
                     {{ item.button_right }}</a>
                 </div>
               {% endif %}
@@ -404,21 +415,21 @@
   })
 </script>
 
-{% if section.settings.is_count_up %}
+{% if count_up_number != 0 and count_up_number > 0 %}
   <script>
     let observer = new IntersectionObserver(function(entries) {
       const entry = entries[0]
       if (entry.isIntersecting) {
-        $('#count_up').countUp({
+        $('# {{- section.id -}} _count_up').countUp({
           duration: 2000,
-          last: 99999,
+          last: {{ count_up_number }},
           frame: 1000 / 30
         })
       }
     });
 
     window.addEventListener("load", function() {
-      observer.observe(document.querySelector("#count_up"))
+      observer.observe(document.querySelector("#         {{- section.id -}} _count_up"))
     });
   </script>
 
@@ -503,6 +514,11 @@
               }
             ],
             "default": "btn_style1"
+          }, {
+            "type": "checkbox",
+            "id": "difference_button",
+            "label": "Difference Button",
+            "default": false
           }
         ]
       }
@@ -514,6 +530,10 @@
         "id": "v3_margin_top",
         "label": "Margin Top",
         "default": "0,0"
+      },
+      {
+        "type": "header",
+        "content": "Containner"
       },
       {
         "type": "select",
@@ -536,11 +556,13 @@
       {
         "type": "header",
         "content": "Heading"
-      },
-      {
+      }, {
         "type": "text",
         "id": "heading",
         "label": "Heading Text"
+      }, {
+        "type": "header",
+        "content": "List Item"
       }, {
         "type": "checkbox",
         "id": "is_slide_show",
@@ -577,6 +599,9 @@
         "label": "Item Gap: Ex: 2 -> 2px",
         "default": "0",
         "info": "distance between items"
+      }, {
+        "type": "header",
+        "content": "Content"
       }, {
         "type": "select",
         "id": "content_position",
@@ -632,10 +657,10 @@
         "label": "Image Border Radius",
         "default": true
       }, {
-        "type": "checkbox",
-        "id": "is_count_up",
-        "label": "Count Up",
-        "default": false
+        "type": "number",
+        "id": "count_up_number",
+        "label": "Count Up Max Numbber",
+        "default": 0
       }
     ],
     "presets": [

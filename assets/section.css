@@ -20,7 +20,8 @@
 .section-container .number_count_up {
   position: absolute;
   left: 40px;
-  bottom: 109px;
+  top: 50%;
+  transform: translateY(-50%);
   z-index: 10;
   color: #fff;
   font-size: 60px;
@@ -141,7 +142,6 @@
 
 .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a, .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
   display: block;
-  white-space: nowrap;
   line-height: 24px;
   -webkit-text-decoration: var(--text_decoration);
   text-decoration: var(--text_decoration);
@@ -153,17 +153,25 @@
   text-align: var(--text-align);
   border: var(--btn_border);
   font-weight: var(--font_weight_button);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 @media (max-width: 1024px) {
   .section-container .number_count_up {
-    left: 20px;
-    bottom: 54px;
+    left: 30px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 30px;
   }
   .section-container .section-container__list {
     gap: var(--item_gap);
     margin-inline: var(--margin_inline);
+    margin-top: var(--margin_top_list);
+  }
+  .section-container .section-container__list .section-container__list__item {
+    padding-top: var(--padding_top_item);
   }
   .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__text h5 {
     line-height: 40px;
@@ -176,7 +184,8 @@
 @media (max-width: 768px) {
   .section-container .number_count_up {
     left: 20px;
-    bottom: 47px;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 24px;
   }
   .section-container .section-container__list {
@@ -198,17 +207,9 @@
   .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons {
     display: flex;
     flex-direction: column;
+    width: var(--width);
   }
-  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first {
-    min-width: var(--min_width);
-  }
-  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a {
-    line-height: 21px;
-  }
-  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second {
-    min-width: var(--min_width);
-  }
-  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
+  .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--first a, .section-container .section-container__list .section-container__list__item .section-container__list__item__content .section-container__list__item__content__buttons .section-container__list__item__content__buttons--second a {
     line-height: 21px;
   }
 }
