@@ -261,9 +261,14 @@
     <div class="section-container__heading">{{ section.settings.heading }}</div>
   {% endif %}
   {% if count_up_number != 0 and count_up_number > 0 %}
-    <div id="{{- section.id -}}_count_up" class="number_count_up">0</div>
+    <div class="number_count_up" data-item-number-count-up="{{ count_up_number }}">{{ count_up_number }}</div>
   {% endif %}
-  <div class="section-container__list {%if section.settings.is_slide_show%}owl-carousel{%endif%}">
+  <div
+    class="section-container__list {%if section.settings.is_slide_show%}owl-carousel{%endif%}"
+    data-item-gap="{{ section.settings.item_gap }}"
+    data-items-per-line-mobile="{{ items_per_line_mobile }}"
+    data-items-per-line-tablet="{{ items_per_line_tablet }}"
+    data-items-per-line-desktop="{{ items_per_line_desktop }}">
     {% for _block in section.blocks %}
       {% case _block.type %}
         {% when 'component_first' %}
@@ -386,53 +391,17 @@
   </div>
 </div>
 
-<script>
-  $('.owl-carousel').owlCarousel({
-    loop: true,
-    responsiveClass: false,
-    autoplay: false,
-    margin: {{ section.settings.item_gap }},
-    autoplayTimeout: 1000,{% comment %}autoplayHoverPause : true,{% endcomment %}responsive: {
-      0: {
-        items: {{ items_per_line_mobile }},
-        loop: true,
-        nav: false,
-        dots: false
-      },
-      769: {
-        items: {{ items_per_line_tablet }},
-        loop: true,
-        nav: false,
-        dots: false
-      },
-      1025: {
-        items: {{ items_per_line_desktop }},
-        loop: true,
-        nav: false,
-        dots: false
-      }
-    }
-  })
-</script>
+
+{% if section.settings.is_slide_show %}
+  <script>
+    slide()
+  </script>
+{% endif %}
 
 {% if count_up_number != 0 and count_up_number > 0 %}
   <script>
-    let observer = new IntersectionObserver(function(entries) {
-      const entry = entries[0]
-      if (entry.isIntersecting) {
-        $('# {{- section.id -}} _count_up').countUp({
-          duration: 2000,
-          last: {{ count_up_number }},
-          frame: 1000 / 30
-        })
-      }
-    });
-
-    window.addEventListener("load", function() {
-      observer.observe(document.querySelector("#         {{- section.id -}} _count_up"))
-    });
+    countUp()
   </script>
-
 {% endif %}
 
 {% schema %}
