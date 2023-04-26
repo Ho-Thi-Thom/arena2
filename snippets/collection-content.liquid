@@ -1,0 +1,25 @@
+<link
+  rel="stylesheet"
+  href="{{ 'collection-content.css' | asset_url }}"
+  media="all"
+>
+
+{% assign font_title = section.settings.font_title %}
+{% assign font_desciption = section.settings.font_desciption %}
+
+<style>
+  .content {
+      --font-size-title: {{ font_title | append :"px" }};
+      --font-size-description: {{ font_description | append: 'px' }};
+  }
+</style>
+
+<div class="content">
+  <div class="title_wrap">
+    <h4 class="title">{{ title }}</h4>
+    {% if productCount != blank %}
+      <span class="product_count">({{ productCount }})</span>
+    {% endif %}
+  </div>
+  <span class="description">{{ description }}</span>
+</div>

@@ -1,0 +1,30 @@
+.content {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 4px;
+}
+
+.title_wrap {
+    display: inline-flex;
+    position: relative;
+    width: fit-content;
+}
+
+.title {
+    font-size: var(--font-size-title);
+    font-weight: 500;
+}
+
+.product_count {
+    position: absolute;
+    bottom: 100%;
+    left: 100%;
+    color: #05A845;
+    font-size: 14px
+}
+
+.description {
+    font-size: var(--font-size-desc);
+
+}

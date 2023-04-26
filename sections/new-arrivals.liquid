@@ -13,6 +13,9 @@
       <a href={{ item.url }}>
         <div class="arrival-list__item scroll-snap-x-item">
           <div class="arrival-list__item-card">
+            <span class="image__style" style="display: block;position: relative">
+              <img class="overlay-ui w-100 h-100" src="{{product.featured_image}}" alt="" data-item-image>
+            </span>
             <img
               src="{{item.featured_media | image_url }}"
               alt="card img"

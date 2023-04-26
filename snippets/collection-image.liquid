@@ -1,0 +1,15 @@
+<link
+  rel="stylesheet"
+  href="{{ 'collection-image.css' | asset_url }}"
+  media="all"
+>
+
+<style>
+  .image_wrap{
+    --image-height: {{ 1 | divided_by: image.aspect_ratio | times: 100 | append: '%'  }}
+  }
+</style>
+
+<div class="image_wrap">
+  <img class="image" src="{{ image | image_url }}" alt="{{ image.alt }}">
+</div>

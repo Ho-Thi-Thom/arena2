@@ -1,0 +1,13 @@
+<link
+  rel="stylesheet"
+  href="{{ 'collection-filter.css' | asset_url }}"
+  media="all"
+>
+
+<style>
+  .filter {
+    --flexDirection: {{ flexDirection | default: 'row'  }};
+  }
+</style>
+
+<div class="filter"></div>

@@ -1,0 +1,57 @@
+.section_container {}
+
+.collection__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: 12px;
+
+    &-content {}
+}
+
+.collection__toolbar {
+    padding-inline: 12px;
+
+    &-filter-btn {
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 8px 16px;
+        font-size: 20px;
+        min-width: 150px;
+    }
+
+    &-filter-icon {
+        div {
+            display: flex;
+            align-items: center;
+
+            svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+
+    }
+
+    &-sort {
+        display: flex;
+        gap: 16px;
+    }
+}
+
+.collection__toolbar__filter {
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s;
+    padding-inline: 12px;
+
+    &.active {
+        max-height: 200px;
+    }
+}

@@ -1,0 +1,114 @@
+<link
+  rel="stylesheet"
+  href="{{ 'main-collection.css' | asset_url }}"
+  media="all"
+>
+
+{% assign selected_collection = collection.products %}
+
+<script>
+  console.log({{ selected_collection | json }});
+</script>
+{% liquid
+  assign variable = value
+%}
+{% comment %}
+  {% for product in selected_collection %}
+  <div>
+  <h3>{{ product.title }}</h3>
+  <p>{{ product.description }}</p>
+  </div>
+  {% endfor %}
+{% endcomment %}
+<div class="section_container">
+  {% comment %}
+    ------------------------
+    COLLECTION TOP
+    ------------------------
+  {% endcomment %}
+  <div class="collection__header">
+    <div class="collection__header-content">
+      {% render 'collection-content',
+        title: section.settings.text_title,
+        description: section.settings.text_description,
+        productCount: selected_collection.size
+      %}
+    </div>
+    <div class="collection__header-content">
+      {% render 'collection-image', image: collection.image %}
+    </div>
+  </div>
+
+  <div class="collection__toolbar">
+    {% if true %}
+      <button class="collection__toolbar-filter-btn">
+        <span class="collection__toolbar-filter-icon">{% render 'icon-close' %}</span>
+        Filter
+      </button>
+    {% endif %}
+    <div class="collection__toolbar-sort">
+      {% render 'collection-sort', label: 'Sort by' , options: [], defaultValue: 1 %}
+      {% render 'collection-sort', label: 'Show'  , options: [], defaultValue: 1 %}
+    </div>
+  </div>
+
+  {% if true %}
+    <div class="collection__toolbar__filter">
+      {% render 'collection-filter' %}
+    </div>
+  {% endif %}
+
+  {% comment %} Sidebar {% endcomment %}
+  {% comment %} {% render 'collection-filter', flexDirection: 'coloumn' %} {% endcomment %}
+
+  <div class="">abc</div>
+  {%- comment -%}
+    -------------------------------
+    RENDER PRODUCT
+    -------------------------------
+  {%- endcomment -%}
+</div>
+
+{% schema %}
+{
+  "name": "Collection",
+  "settings": [
+    {
+      "id": "collection",
+      "type": "collection",
+      "label": "New Arricals"
+    },
+    {
+      "id": "font_title",
+      "type": "text",
+      "label": "Font title",
+      "default": "30"
+    },
+    {
+      "id": "font_description",
+      "type": "text",
+      "label": "Font Description",
+      "default": "20"
+    },
+    {
+      "id": "text_title",
+      "type": "text",
+      "label": "Title",
+      "default": "car"
+    },
+    {
+      "id": "text_description",
+      "type": "text",
+      "label": "Description",
+      "default": "car description"
+    },
+    {
+      "id": "title_color",
+      "type": "color",
+      "label": "Color title",
+      "default": "#000"
+    }
+  ]
+}
+{% endschema %}
+{{ 'collection.js' | asset_url | script_tag }}
