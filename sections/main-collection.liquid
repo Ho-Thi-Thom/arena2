@@ -4,23 +4,20 @@
   media="all"
 >
 
-{% assign selected_collection = collection.products %}
+{% liquid
+  assign products = collection.products
+  assign productsSize = products.size
+  assign collectionTitle = collection.title
+  assign collectionDescription = collection.description
+%}
 
 <script>
-  console.log({{ selected_collection | json }});
+  console.log({{ products | json }});
 </script>
 {% liquid
-  assign variable = value
+
 %}
-{% comment %}
-  {% for product in selected_collection %}
-  <div>
-  <h3>{{ product.title }}</h3>
-  <p>{{ product.description }}</p>
-  </div>
-  {% endfor %}
-{% endcomment %}
-<div class="section_container">
+<div class="section_container container_wrapper">
   {% comment %}
     ------------------------
     COLLECTION TOP
@@ -29,9 +26,9 @@
   <div class="collection__header">
     <div class="collection__header-content">
       {% render 'collection-content',
-        title: section.settings.text_title,
-        description: section.settings.text_description,
-        productCount: selected_collection.size
+        title: collectionTitle,
+        description: collectionDescription,
+        productCount: productsSize
       %}
     </div>
     <div class="collection__header-content">
@@ -47,8 +44,16 @@
       </button>
     {% endif %}
     <div class="collection__toolbar-sort">
-      {% render 'collection-sort', label: 'Sort by' , options: [], defaultValue: 1 %}
-      {% render 'collection-sort', label: 'Show'  , options: [], defaultValue: 1 %}
+      {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+      {% render 'collection-sort',
+        label: 'Sort by',
+        options: collection.sort_options,
+        collection_url: collection.url,
+        _id: 'sort_by',
+        _name: 'sortby',
+        _form: 'selectform',
+        _sort_by: sort_by
+      %}
     </div>
   </div>
 
@@ -61,54 +66,25 @@
   {% comment %} Sidebar {% endcomment %}
   {% comment %} {% render 'collection-filter', flexDirection: 'coloumn' %} {% endcomment %}
 
-  <div class="">abc</div>
+  <div class="collection__hr"></div>
   {%- comment -%}
     -------------------------------
     RENDER PRODUCT
     -------------------------------
   {%- endcomment -%}
+
+  <div class="collection__products">
+    {% for product in products %}
+      {% render 'collection-product', product: product %}
+    {% endfor %}
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Collection",
-  "settings": [
-    {
-      "id": "collection",
-      "type": "collection",
-      "label": "New Arricals"
-    },
-    {
-      "id": "font_title",
-      "type": "text",
-      "label": "Font title",
-      "default": "30"
-    },
-    {
-      "id": "font_description",
-      "type": "text",
-      "label": "Font Description",
-      "default": "20"
-    },
-    {
-      "id": "text_title",
-      "type": "text",
-      "label": "Title",
-      "default": "car"
-    },
-    {
-      "id": "text_description",
-      "type": "text",
-      "label": "Description",
-      "default": "car description"
-    },
-    {
-      "id": "title_color",
-      "type": "color",
-      "label": "Color title",
-      "default": "#000"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}
 {{ 'collection.js' | asset_url | script_tag }}
+{{ 'filter.js' | asset_url | script_tag }}

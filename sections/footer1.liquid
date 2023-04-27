@@ -2,7 +2,8 @@
   rel="stylesheet"
   href="{{ 'footer1.css' | asset_url }}"
   media="print"
-  onload="this.media='all'">
+  onload="this.media='all'"
+>
 
 <style>
   .footer {
@@ -10,65 +11,69 @@
   }
 </style>
 
-<div class="footer">
-  <div class="footer__copy-right">{{ section.settings.footer-copy-right }}</div>
+<div class="footer container_wrapper">
+  <div class="footer__copy-right">{{ section.settings['footer-copy-right'] }}</div>
   <div class="footer__list-icon">
     {% for item in section.blocks %}
       <div class="footer__list-icon__item">
-        <a href={{ item.settings.footer__list-icon-url}}>
+        <a href="{{ item.settings.footer__list-icon-url}}">
           <img
             src="{{item.settings.footer__list-icon-img| image_url }}"
             alt="img-1"
-            class="footer__list-icon__item-img"></a>
+            class="footer__list-icon__item-img"
+        ></a>
       </div>
     {% endfor %}
   </div>
 </div>
 
-
 {% schema %}
-  {
-    "name": "Footer",
-    "blocks": [
-      {
-        "name": "Block Item",
-        "type": "list",
-        "settings": [
-          {
-            "type": "header",
-            "content": "Pay Item"
-          }, {
-            "id": "footer__list-icon-img",
-            "type": "image_picker",
-            "label": "Image Product"
-          }, {
-            "id": "footer__list-icon-url",
-            "type": "url",
-            "label": "Url"
-          }
-        ]
-      }
-    ],
-    "settings": [
-      {
-        "type": "header",
-        "content": "Text Style"
-      }, {
-        "type": "text",
-        "id": "footer-copy-right",
-        "label": "Text Footer",
-        "default": "Copyright © 2023 arenacommerce. All Rights Reserved"
-      }, {
-        "type": "text",
-        "id": "margin-inline",
-        "label": "Margin Inline",
-        "default": "0"
-      }
-    ],
-    "presets": [
-      {
-        "name": "Footer"
-      }
-    ]
-  }
+{
+  "name": "Footer",
+  "blocks": [
+    {
+      "name": "Block Item",
+      "type": "list",
+      "settings": [
+        {
+          "type": "header",
+          "content": "Pay Item"
+        },
+        {
+          "id": "footer__list-icon-img",
+          "type": "image_picker",
+          "label": "Image Product"
+        },
+        {
+          "id": "footer__list-icon-url",
+          "type": "url",
+          "label": "Url"
+        }
+      ]
+    }
+  ],
+  "settings": [
+    {
+      "type": "header",
+      "content": "Text Style"
+    },
+    {
+      "type": "text",
+      "id": "footer-copy-right",
+      "label": "Text Footer",
+      "default": "Copyright © 2023 arenacommerce. All Rights Reserved"
+    },
+    {
+      "type": "text",
+      "id": "margin-inline",
+      "label": "Margin Inline",
+      "default": "0"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Footer"
+    }
+  ]
+}
 {% endschema %}

@@ -1,12 +1,15 @@
-.collection__header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-inline: 12px;
+.section_container {
+  padding-inline: 20px;
 }
 
-.collection__toolbar {
-  padding-inline: 12px;
+.collection__header {
+  gap: 20px;
+}
+
+.collection__header, .collection__toolbar {
+  margin-top: 50px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .collection__toolbar-filter-btn {
@@ -32,18 +35,24 @@
   height: 20px;
 }
 
-.collection__toolbar-sort {
-  display: flex;
-  gap: 16px;
-}
-
 .collection__toolbar__filter {
   max-height: 0;
   overflow: hidden;
   transition: all .3s;
-  padding-inline: 12px;
 }
 
 .collection__toolbar__filter.active {
   max-height: 200px;
+}
+
+.collection__hr {
+  margin-top: 50px;
+  height: 1px;
+  background-color: #ccc;
+}
+
+.collection__products {
+  margin-top: 50px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }

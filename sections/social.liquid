@@ -2,10 +2,10 @@
   rel="stylesheet"
   href="{{ 'social.css' | asset_url }}"
   media="print"
-  onload="this.media='all'">
+  onload="this.media='all'"
+>
 
 <style>
-
   .social {
     --margin-inline: {{ section.settings.margin-inline | append: 'px'  }}
     ;
@@ -16,15 +16,14 @@
   }
 </style>
 
-
 {% assign desktopBlock = '' %}
 {% assign mobileBlock = '' %}
 
 {% for block in section.blocks %}
   {% case block.type %}
     {% when 'desktop' %}
-    {% assign item = block.settings %}
-    {% capture desktopBlock %}
+      {% assign item = block.settings %}
+      {% capture desktopBlock %}
       {{ desktopBlock }}
       <div class="social__item-icon">
         <img
@@ -34,8 +33,8 @@
       </div>
     {% endcapture %}
     {% when 'mobile' %}
-    {% assign item = block.settings %}
-    {% capture mobileBlock %}
+      {% assign item = block.settings %}
+      {% capture mobileBlock %}
       {{ mobileBlock }}
       <span class="social-bottom_item">
         <a href="{{ item.social-button-category-url }}">{{ item.social-button-category }}</a>
@@ -44,7 +43,7 @@
   {% endcase %}
 {% endfor %}
 
-<div class="social">
+<div class="social container_wrapper">
   <div class="social-top">
     <div class="social-hr"></div>
     <div class="social-list">
@@ -59,70 +58,76 @@
 </div>
 
 {% schema %}
-  {
-    "name": "Social",
-    "tag": "section",
-    "settings": [
-      {
-        "type": "header",
-        "content": "Category"
-      }, {
-        "type": "color",
-        "id": "text-color",
-        "label": "Color",
-        "default": "#000"
-      }, {
-        "type": "text",
-        "id": "margin-inline",
-        "label": "Margin Inline",
-        "default": "0"
-      }
-    ],
-    "blocks": [
-      {
-        "name": "Social Desktop",
-        "type": "desktop",
-        "limit": 5,
-        "settings": [
-          {
-            "type": "header",
-            "content": "Social Top Item"
-          }, {
-            "type": "image_picker",
-            "label": "Image",
-            "id": "social-icon"
-          }, {
-            "type": "url",
-            "id": "social-icon-url",
-            "label": "Url"
-          }
-        ]
-      }, {
-        "name": "Social Mobile",
-        "type": "mobile",
-        "limit": 3,
-        "settings": [
-          {
-            "type": "header",
-            "content": "Social Bottom Item"
-          }, {
-            "type": "text",
-            "label": "Category",
-            "id": "social-button-category",
-            "default": "Jackets & Coats"
-          }, {
-            "type": "url",
-            "id": "social-button-category-url",
-            "label": "Url"
-          }
-        ]
-      }
-
-    ],
-    "presets": [
-      {
-        "name": "Social"
-      }
-    ]
-  }
+{
+  "name": "Social",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Category"
+    },
+    {
+      "type": "color",
+      "id": "text-color",
+      "label": "Color",
+      "default": "#000"
+    },
+    {
+      "type": "text",
+      "id": "margin-inline",
+      "label": "Margin Inline",
+      "default": "0"
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Social Desktop",
+      "type": "desktop",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Social Top Item"
+        },
+        {
+          "type": "image_picker",
+          "label": "Image",
+          "id": "social-icon"
+        },
+        {
+          "type": "url",
+          "id": "social-icon-url",
+          "label": "Url"
+        }
+      ]
+    },
+    {
+      "name": "Social Mobile",
+      "type": "mobile",
+      "limit": 3,
+      "settings": [
+        {
+          "type": "header",
+          "content": "Social Bottom Item"
+        },
+        {
+          "type": "text",
+          "label": "Category",
+          "id": "social-button-category",
+          "default": "Jackets & Coats"
+        },
+        {
+          "type": "url",
+          "id": "social-button-category-url",
+          "label": "Url"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Social"
+    }
+  ]
+}
 {% endschema %}

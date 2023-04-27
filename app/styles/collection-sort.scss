@@ -1,0 +1,36 @@
+.form {
+
+    &_wrapper {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        label {
+            font-size: 16px;
+            font-weight: 400;
+            color: #333;
+        }
+
+        select {
+            padding: 10px;
+            border: none;
+            background-color: #fff;
+            font-size: 16px;
+            color: #333;
+            font-weight: 500;
+
+            option {
+                padding: 5px;
+                font-size: 16px;
+                color: #333;
+            }
+        }
+
+        select:focus {
+            border-color: #666;
+            outline: none;
+        }
+    }
+
+}

@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-inline: var(--margin-inline);
+  /* margin-inline: var(--margin-inline); */
 }
 
 .footer__copy-right {
@@ -18,8 +18,7 @@
   gap: 15px;
 }
 
-.footer__list-icon__item {
-}
+.footer__list-icon__item {}
 
 @media (max-width: 768px) {
   .footer {

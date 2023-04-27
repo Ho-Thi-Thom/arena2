@@ -1,0 +1,41 @@
+<link
+  rel="stylesheet"
+  href="{{ 'collection-product.css' | asset_url }}"
+  media="all"
+>
+
+<div class="card">
+  <div class="card__inner">
+    <div class="card__image-wrapper">
+      <a href="{{ product.url }}">
+        <div class="image__style">
+          <img src="{{ product.featured_image | image_url }}" alt="{{product.featured_image.alt}}">
+        </div>
+      </a>
+      <div class="card__group">
+        <button>
+          {% render 'card' %}
+        </button>
+      </div>
+    </div>
+    <div class="card__content">
+      <h4 class="card-title">
+        <a href="{{ product.url }}">{{ product.title }}</a>
+      </h4>
+      <div class="money">
+        <span
+          class="
+            price  {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
+             price_color
+            {% endif %}
+          "
+        >
+          {{- product.price | money -}}
+        </span>
+        {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
+          <span class="discount">{{ product.compare_at_price_max | money }}</span>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>

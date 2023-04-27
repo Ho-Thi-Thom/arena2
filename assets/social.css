@@ -1,7 +1,7 @@
 .social {
   margin-top: 80px;
   width: 100%;
-  margin-inline: var(--margin-inline);
+  /* margin-inline: var(--margin-inline); */
 }
 
 .social-top {
@@ -27,15 +27,14 @@
   gap: 40px;
 }
 
-.social__item-icon {
-}
+.social__item-icon {}
 
-.social__item-icon-img {
-}
+.social__item-icon-img {}
 
 .social-bottom {
   display: none;
 }
+
 /*  ipad */
 @media (max-width: 768px) {
   .social {
@@ -44,6 +43,7 @@
     flex-direction: column;
     padding-inline: 16px;
   }
+
   .social-top {
     gap: 40px;
   }

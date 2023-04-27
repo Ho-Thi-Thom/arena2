@@ -14,8 +14,9 @@
 }
 
 .title {
-  font-size: var(--font-size-title);
+  line-height: 1.4em;
   font-weight: 500;
+  font-size: 30px;
 }
 
 .product_count {
@@ -27,5 +28,7 @@
 }
 
 .description {
-  font-size: var(--font-size-desc);
+  font-size: 14px;
+  line-height: 1.4;
+  font-weight: 400;
 }

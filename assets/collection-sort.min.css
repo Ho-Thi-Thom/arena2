@@ -1,0 +1,1 @@
+.form_wrapper{width:100%;display:flex;align-items:center;gap:10px}.form_wrapper label{font-size:16px;font-weight:400;color:#333}.form_wrapper select{padding:10px;border:none;background-color:#fff;font-size:16px;color:#333;font-weight:500}.form_wrapper select option{padding:5px;font-size:16px;color:#333}.form_wrapper select:focus{border-color:#666;outline:none}
