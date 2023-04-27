@@ -1,0 +1,19 @@
+<link
+  rel="stylesheet"
+  href="{{ 'paginate_link.css' | asset_url }}"
+  media="all"
+>
+{% if isLink %}
+  <a href="{{ link }}" class="paginate_link">
+    {% case value %}
+      {% when 'previous' %}
+        {% render 'arrow' %}
+      {% when 'next' %}
+        {% render 'arrow', flipY: true %}
+      {% else %}
+        {{ value }}
+    {% endcase %}
+  </a>
+{% else %}
+  <button class="paginate_link active">{{ value }}</button>
+{% endif %}

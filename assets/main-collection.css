@@ -56,3 +56,10 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
+.collection__paginate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}

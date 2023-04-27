@@ -1,0 +1,22 @@
+{% case type %}
+  {% when 'infinity' %}
+    <div id="infinity_point" data-url="{% if paginate.next %}{{paginate.next.url}}{% endif %}"></div>
+  {% else %}
+    {% if paginate.pages > 1 %}
+      {% if paginate.previous %}
+        {% render 'paginate-link', value: 'previous', link: paginate.previous.url, isLink: true %}
+      {% endif %}
+
+      {% for part in paginate.parts %}
+        {% if part.title == '&hellip;' %}
+          <span>...</span>
+        {% else %}
+          {% render 'paginate-link', value: part.title, link: part.url, isLink: part.is_link %}
+        {% endif %}
+      {% endfor %}
+
+      {% if paginate.next %}
+        {% render 'paginate-link', value: 'next', link: paginate.next.url, isLink: true %}
+      {% endif %}
+    {% endif %}
+{% endcase %}

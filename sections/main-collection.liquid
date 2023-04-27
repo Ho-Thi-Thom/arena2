@@ -6,29 +6,25 @@
 
 {% liquid
   assign products = collection.products
-  assign productsSize = products.size
+  assign productSize = products.size
   assign collectionTitle = collection.title
   assign collectionDescription = collection.description
+  assign itemsPerPage = section.settings.items_per_page | default: 20 | times: 1
 %}
 
-<script>
-  console.log({{ products | json }});
-</script>
-{% liquid
-
-%}
 <div class="section_container container_wrapper">
   {% comment %}
     ------------------------
     COLLECTION TOP
     ------------------------
   {% endcomment %}
+
   <div class="collection__header">
     <div class="collection__header-content">
       {% render 'collection-content',
         title: collectionTitle,
         description: collectionDescription,
-        productCount: productsSize
+        productCount: productSize
       %}
     </div>
     <div class="collection__header-content">
@@ -63,28 +59,61 @@
     </div>
   {% endif %}
 
-  {% comment %} Sidebar {% endcomment %}
-  {% comment %} {% render 'collection-filter', flexDirection: 'coloumn' %} {% endcomment %}
-
   <div class="collection__hr"></div>
+
   {%- comment -%}
     -------------------------------
     RENDER PRODUCT
     -------------------------------
   {%- endcomment -%}
-
-  <div class="collection__products">
-    {% for product in products %}
-      {% render 'collection-product', product: product %}
-    {% endfor %}
-  </div>
+  {%- paginate collection.products by itemsPerPage -%}
+    <div class="collection__products" id="collection__products">
+      {% for product in collection.products %}
+        {% render 'collection-product', product: product %}
+      {% endfor %}
+    </div>
+    <div class="collection__paginate">
+      {%- render 'pagination', paginate: paginate, type: section.settings.paginate_style -%}
+    </div>
+  {%- endpaginate -%}
 </div>
 
 {% schema %}
 {
   "name": "Collection",
-  "settings": []
+  "settings": [
+    {
+      "type": "number",
+      "label": "Items per page",
+      "default": 20,
+      "id": "items_per_page"
+    },
+    {
+      "type": "select",
+      "id": "paginate_style",
+      "label": "Paginate Style",
+      "options": [
+        {
+          "label": "Infinity",
+          "value": "infinity"
+        },
+        {
+          "label": "Page",
+          "value": "page"
+        }
+      ],
+      "default": "page"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "filter_availability",
+      "name": "Availability",
+      "limit": 1
+    }
+  ]
 }
 {% endschema %}
 {{ 'collection.js' | asset_url | script_tag }}
 {{ 'filter.js' | asset_url | script_tag }}
+{{ 'infinity.js' | asset_url | script_tag }}
