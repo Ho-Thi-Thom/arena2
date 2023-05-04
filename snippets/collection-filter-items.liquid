@@ -1,0 +1,83 @@
+<link
+  rel="stylesheet"
+  href="{{ 'collection-filter-items.css' | asset_url }}"
+  media="all"
+>
+
+<div class="block__filter">
+  <form class="filter-form">
+    {%- for filter in _filter -%}
+      <div class="filter-wrapper">
+        <div class="filter-title">
+          <span>{{ filter.label }}</span>
+        </div>
+
+        <div class="filter-option">
+          {%- case filter.type -%}
+            {%- when 'boolean', 'list' -%}
+              <ul class="filter-group-display__list">
+                {%- for filter_value in filter.values -%}
+                  <li class="filter-group-display__list-item">
+                    <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
+                      <input
+                        type="checkbox"
+                        name="{{ filter_value.param_name }}"
+                        value="{{ filter_value.value }}"
+                        id="Filter-{{ filter.param_name }}-{{ forloop.index }}"
+                        {% if filter_value.active -%}
+                          checked
+                        {%- endif %}
+                        {% if filter_value.count == 0 and filter_value.active == false -%}
+                          disabled
+                        {%- endif %}
+                        onchange="this.closest('form').submit();"
+                      >
+                      {{- filter_value.label -}}
+                    </label>
+                  </li>
+                {%- endfor -%}
+              </ul>
+
+            {%- when 'price_range' -%}
+              <div class="filter-group-display__price-range">
+                <div class="filter-group-display__price-range-from">
+                  <span>{{ cart.currency.symbol }}</span>
+
+                  <input
+                    name="{{ filter.min_value.param_name }}"
+                    id="Filter-{{ filter.min_value.param_name }}"
+                    {% if filter.min_value.value -%}
+                      value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                    {%- endif %}
+                    type="number"
+                    placeholder="0"
+                    min="0"
+                    max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  >
+                </div>
+                <div class="price-dash inline-block">&nbsp;–&nbsp;</div>
+                <div class="filter-group-display__price-range-to">
+                  <span>{{ cart.currency.symbol }}</span>
+                  <input
+                    name="{{ filter.max_value.param_name }}"
+                    id="Filter-{{ filter.max_value.param_name }}"
+                    {% if filter.max_value.value -%}
+                      value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                    {%- endif %}
+                    type="number"
+                    placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                    min="0"
+                    max="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                  >
+                </div>
+              </div>
+
+              <div class="filter-group-display__submit">
+                <input type="submit" value="Submit">
+              </div>
+          {%- endcase -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </form>
+</div>

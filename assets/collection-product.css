@@ -35,6 +35,11 @@
   border-radius: 4px;
   top: 0;
   left: 0;
+  transition: transform .3s ease;
+}
+
+.card .card__inner .card__image-wrapper a .image__style img:hover {
+  transform: scale(1.1);
 }
 
 .card .card__inner .card__image-wrapper .card__group {
@@ -64,6 +69,18 @@
 
 .card .card__inner .card__image-wrapper .card__group button:hover svg path {
   stroke: #f0f0f0;
+}
+
+.card .card__inner .card__image-wrapper .tag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 400;
+  background-color: #ff9923;
+  padding: 3px 8px;
+  color: #fff;
 }
 
 .card .card__inner .card__content {
@@ -108,4 +125,10 @@
 .card .card__inner .card__content .money .discount {
   color: #999;
   text-decoration: line-through;
+}
+
+.card .card__inner .card__content .sold_out {
+  color: #ccc;
+  font-size: 16px;
+  font-weight: 500;
 }

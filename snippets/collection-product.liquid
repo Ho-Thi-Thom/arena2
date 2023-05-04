@@ -17,25 +17,33 @@
           {% render 'card' %}
         </button>
       </div>
+      {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
+        <div class="tag">Sale</div>
+      {% endif %}
     </div>
     <div class="card__content">
       <h4 class="card-title">
         <a href="{{ product.url }}">{{ product.title }}</a>
       </h4>
-      <div class="money">
-        <span
-          class="
-            price  {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
-             price_color
-            {% endif %}
-          "
-        >
-          {{- product.price | money -}}
-        </span>
-        {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
-          <span class="discount">{{ product.compare_at_price_max | money }}</span>
-        {% endif %}
-      </div>
+      {% if product.available %}
+        <div class="money">
+          <span
+            class="
+              price  {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
+               price_color
+              {% endif %}
+            "
+          >
+            {{- product.price | money -}}
+          </span>
+          {% if product.compare_at_price_max != blank and product.compare_at_price_max > 0 %}
+            <span class="discount">{{ product.compare_at_price_max | money }}</span>
+          {% endif %}
+        </div>
+
+      {% else %}
+        <div class="sold_out">Sold out</div>
+      {% endif %}
     </div>
   </div>
 </div>

@@ -10,9 +10,28 @@
   assign collectionTitle = collection.title
   assign collectionDescription = collection.description
   assign itemsPerPage = section.settings.items_per_page | default: 20 | times: 1
+  assign itemPerRow = section.settings.items_per_row
 %}
 
-<div class="section_container container_wrapper">
+<style>
+  .section_container {
+    --items_per_row: {{itemPerRow}};
+  }
+</style>
+
+{% assign filter = '' %}
+
+{% for block in section.blocks %}
+  {% case block.type %}
+    {% when 'filter' %}
+      {% capture filter %}
+          {{ filter }}
+          {% render 'collection-filter-items', _filter: collection.filters %}
+        {% endcapture %}
+  {% endcase %}
+{% endfor %}
+
+<div class="section_container container_wrapper" data: {{ collection.filters.boolean }}>
   {% comment %}
     ------------------------
     COLLECTION TOP
@@ -44,10 +63,9 @@
       {% render 'collection-sort',
         label: 'Sort by',
         options: collection.sort_options,
-        collection_url: collection.url,
+        _collection_url: collection.url,
         _id: 'sort_by',
-        _name: 'sortby',
-        _form: 'selectform',
+        _name: 'sort_by',
         _sort_by: sort_by
       %}
     </div>
@@ -55,7 +73,7 @@
 
   {% if true %}
     <div class="collection__toolbar__filter">
-      {% render 'collection-filter' %}
+      {% render 'collection-filter', _filter: filter %}
     </div>
   {% endif %}
 
@@ -89,6 +107,15 @@
       "id": "items_per_page"
     },
     {
+      "type": "range",
+      "label": "Max number of item per row",
+      "id": "items_per_row",
+      "min": 3,
+      "max": 6,
+      "default": 3,
+      "step": 1
+    },
+    {
       "type": "select",
       "id": "paginate_style",
       "label": "Paginate Style",
@@ -107,8 +134,8 @@
   ],
   "blocks": [
     {
-      "type": "filter_availability",
-      "name": "Availability",
+      "type": "filter",
+      "name": "Collection Filters",
       "limit": 1
     }
   ]

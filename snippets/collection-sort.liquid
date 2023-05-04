@@ -4,9 +4,9 @@
   media="all"
 >
 
-<form action="{{ collection_url }}" class="form_wrapper">
+<form action="{{ _collection_url }}" class="form_wrapper">
   <label for="{{ _id }}">{{ label }} </label>
-  <select name="{{ _name }}" id="{{ _id }}" form="{{ _form }}" onchange="this.closest('form').submit();">
+  <select name="{{ _name }}" id="{{ _id }}" onchange="this.closest('form').submit();">
     {% for item in options %}
       <option
         value="{{ item.value }}"

@@ -54,7 +54,7 @@
 .collection__products {
   margin-top: 50px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(var(--items_per_row), 1fr);
 }
 
 .collection__paginate {
