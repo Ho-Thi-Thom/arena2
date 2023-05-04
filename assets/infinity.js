@@ -18,7 +18,13 @@
       function appendData(data) {
         const div = document.createElement("div");
         div.innerHTML = data;
-        target.setAttribute("data-url", div.querySelector("#infinity_point").dataset.url);
+        const infinity_point = div.querySelector("#infinity_point").dataset.url;
+        console.log("check", infinity_point);
+        if (infinity_point == "") {
+          observer.disconnect();
+        }
+        ;
+        target.setAttribute("data-url", infinity_point);
         const listProduct = document.querySelector("#collection__products");
         const elements = div.querySelectorAll("#collection__products > *");
         elements.forEach((element) => {

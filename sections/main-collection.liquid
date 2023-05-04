@@ -6,7 +6,7 @@
 
 {% liquid
   assign products = collection.products
-  assign productSize = products.size
+  assign productSize = collection.products_count
   assign collectionTitle = collection.title
   assign collectionDescription = collection.description
   assign itemsPerPage = section.settings.items_per_page | default: 20 | times: 1
@@ -21,16 +21,6 @@
 </style>
 
 {% assign filter = '' %}
-
-{% for block in section.blocks %}
-  {% case block.type %}
-    {% when 'filter' %}
-      {% capture filter %}
-          {{ filter }}
-          {% render 'collection-filter-items', _filter: collection.filters %}
-        {% endcapture %}
-  {% endcase %}
-{% endfor %}
 
 <div class="section_container container_wrapper" data: {{ collection.filters.boolean }}>
   {% comment %}
@@ -98,7 +88,7 @@
   </div>
   {% if true %}
     <div class="collection__toolbar__filter">
-      {% render 'collection-filter', _filter: filter %}
+      {% render 'collection-filter' %}
     </div>
   {% endif %}
 

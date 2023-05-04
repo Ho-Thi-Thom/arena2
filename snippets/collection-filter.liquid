@@ -11,5 +11,10 @@
 </style>
 
 <div class="filter">
-  {{ _filter }}
+  {% for block in section.blocks %}
+    {% case block.type %}
+      {% when 'filter' %}
+        {% render 'collection-filter-items', _filter: collection.filters %}
+    {% endcase %}
+  {% endfor %}
 </div>

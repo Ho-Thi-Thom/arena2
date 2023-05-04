@@ -56,7 +56,8 @@
     transition: all 0.3s;
 
     &.active {
-        max-height: 200px;
+        max-height: 50vh;
+        overflow: auto;
     }
 }
 

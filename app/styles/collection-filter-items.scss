@@ -7,6 +7,7 @@
 .filter {
     &-form {
         display: flex;
+        flex-wrap: wrap;
     }
 
     &-wrapper {
@@ -27,6 +28,8 @@
         gap: 10px;
         display: flex;
         flex-direction: column;
+        max-height: 400px;
+        overflow: auto;
     }
 
     &-group-display__list {

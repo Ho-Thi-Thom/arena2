@@ -4,6 +4,7 @@
 
 .filter-form {
   display: flex;
+  flex-wrap: wrap;
 }
 
 .filter-wrapper {
@@ -23,6 +24,8 @@
   gap: 10px;
   display: flex;
   flex-direction: column;
+  max-height: 400px;
+  overflow: auto;
 }
 
 .filter-group-display__list {
