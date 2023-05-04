@@ -43,7 +43,11 @@
 
     }
 
-    &-sort {}
+    &-sort {
+        display: flex;
+        align-items: center;
+        gap: 10px
+    }
 }
 
 .collection__toolbar__filter {

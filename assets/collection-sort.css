@@ -12,18 +12,21 @@
 }
 
 .form_wrapper select {
-  padding: 10px;
   border: none;
-  background-color: #fff;
-  font-size: 16px;
-  color: #333;
-  font-weight: 500;
+  font-size: inherit;
+  color: #1a1a1a;
+  font-weight: 600;
+  line-height: 40px;
+  min-width: 142px;
+  width: auto;
 }
 
 .form_wrapper select option {
-  padding: 5px;
+  padding: 5px 15px;
   font-size: 16px;
   color: #333;
+  font-weight: 400;
+  transition: all .25s ease-in-out;
 }
 
 .form_wrapper select:focus {

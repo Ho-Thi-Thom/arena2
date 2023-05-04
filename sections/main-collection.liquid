@@ -11,6 +11,7 @@
   assign collectionDescription = collection.description
   assign itemsPerPage = section.settings.items_per_page | default: 20 | times: 1
   assign itemPerRow = section.settings.items_per_row
+  assign itemsPerPageCustom = cart.attributes.IdCart | default: itemsPerPage | times: 1
 %}
 
 <style>
@@ -59,18 +60,42 @@
       </button>
     {% endif %}
     <div class="collection__toolbar-sort">
-      {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
-      {% render 'collection-sort',
-        label: 'Sort by',
-        options: collection.sort_options,
-        _collection_url: collection.url,
-        _id: 'sort_by',
-        _name: 'sort_by',
-        _sort_by: sort_by
-      %}
+      <div class="collection__toolbar-sort-by">
+        {% assign sort_by = collection.sort_by | default: collection.default_sort_by %}
+        {% render 'collection-sort',
+          label: 'Sort by',
+          options: collection.sort_options,
+          _collection_url: collection.url,
+          _id: 'sort_by',
+          _name: 'sort_by',
+          _sort_by: sort_by
+        %}
+      </div>
+      <div class="collection__toolbar-sort-show">
+        <form>
+          {% assign showingList = section.settings.total_viewlist | split: ',' -%}
+          <select
+            name="attributes[itemsPerPageCustom]"
+            id="items_per_page"
+            onchange="showItem()"
+            data-section="{{ section.id }}"
+          >
+            {%- for i in showingList -%}
+              {%- assign view = i | strip | times: 1 -%}
+              <option
+                value="{{view}}"
+                {% if view == itemsPerPageCustom %}
+                  selected
+                {% endif %}
+              >
+                {{ view }}
+              </option>
+            {%- endfor -%}
+          </select>
+        </form>
+      </div>
     </div>
   </div>
-
   {% if true %}
     <div class="collection__toolbar__filter">
       {% render 'collection-filter', _filter: filter %}
@@ -84,7 +109,7 @@
     RENDER PRODUCT
     -------------------------------
   {%- endcomment -%}
-  {%- paginate collection.products by itemsPerPage -%}
+  {%- paginate collection.products by itemsPerPageCustom -%}
     <div class="collection__products" id="collection__products">
       {% for product in collection.products %}
         {% render 'collection-product', product: product %}
@@ -130,6 +155,13 @@
         }
       ],
       "default": "page"
+    },
+    {
+      "type": "text",
+      "id": "total_viewlist",
+      "label": "Total view list",
+      "default": "5,10,15,20",
+      "info": "Blank to hide"
     }
   ],
   "blocks": [

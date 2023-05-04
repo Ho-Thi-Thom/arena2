@@ -35,6 +35,12 @@
   height: 20px;
 }
 
+.collection__toolbar-sort {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .collection__toolbar__filter {
   max-height: 0;
   overflow: hidden;

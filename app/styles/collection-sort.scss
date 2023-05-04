@@ -13,17 +13,20 @@
         }
 
         select {
-            padding: 10px;
             border: none;
-            background-color: #fff;
-            font-size: 16px;
-            color: #333;
-            font-weight: 500;
+            font-size: inherit;
+            color: #1A1A1A;
+            font-weight: 600;
+            line-height: 40px;
+            min-width: 142px;
+            width: auto;
 
             option {
-                padding: 5px;
+                padding: 5px 15px;
                 font-size: 16px;
                 color: #333;
+                font-weight: 400;
+                transition: all .25s ease-in-out;
             }
         }
 

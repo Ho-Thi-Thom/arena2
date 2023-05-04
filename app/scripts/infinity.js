@@ -1,8 +1,7 @@
 const infinityPoint = document.querySelector('#infinity_point')
 if (infinityPoint) {
-
     const service = function (target) {
-        const url = target.dataset.url
+        var url = target.dataset.url
 
         function loading() {
             target.innerHTML = "loading"
@@ -13,11 +12,20 @@ if (infinityPoint) {
         }
 
         async function callApi() {
-
+            const response = await fetch(url);
+            const html = await response.text();
+            return html;
         }
 
         function appendData(data) {
-            target.appendChild(data)
+            const div = document.createElement("div");
+            div.innerHTML = data;
+            target.setAttribute('data-url', div.querySelector("#infinity_point").dataset.url);
+            const listProduct = document.querySelector('#collection__products');
+            const elements = div.querySelectorAll('#collection__products > *');
+            elements.forEach(element => {
+                listProduct.appendChild(element);
+            });
         }
 
         const services = {
@@ -52,3 +60,4 @@ if (infinityPoint) {
 
     observer.observe(infinityPoint)
 }
+

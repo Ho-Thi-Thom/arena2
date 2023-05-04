@@ -1,6 +1,10 @@
 {% case type %}
   {% when 'infinity' %}
-    <div id="infinity_point" data-url="{% if paginate.next %}{{paginate.next.url}}{% endif %}"></div>
+    <div
+      id="infinity_point"
+      style="height: auto;"
+      data-url="{% if paginate.next %}{{paginate.next.url}}&section_id={{section.id}}{% endif %}"
+    ></div>
   {% else %}
     {% if paginate.pages > 1 %}
       {% if paginate.previous %}
