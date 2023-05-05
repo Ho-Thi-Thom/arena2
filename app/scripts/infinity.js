@@ -2,7 +2,6 @@ const infinityPoint = document.querySelector('#infinity_point')
 if (infinityPoint) {
     const service = function (target) {
         var url = target.dataset.url
-
         function loading() {
             target.innerHTML = "loading"
         }
@@ -56,13 +55,63 @@ if (infinityPoint) {
             }
         })
     }
-        // , {
-        //     root: document.getElementById('collection__products'),
-        //     rootMargin: '-50% 0px -50% 0px',
-        //     threshold: []
-        // }
     )
 
     observer.observe(infinityPoint)
 }
+
+
+window.handleChangeSortBy = (event) => {
+    const elementSelect = document.getElementById('sort_by')
+    const sectionUrl = elementSelect.dataset.url
+    const elementForm = document.getElementById('form_sort_by')
+    const sectionId = elementForm.dataset.sectionId
+    const value = event.target.value;
+    const url = sectionUrl + "?" + "sort_by=" + value + "&section_id=" + sectionId + ""
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            appendChild(data)
+        });
+
+}
+window.handleChangeShow = (event) => {
+    const elementForm = document.getElementById('form_show');
+    const sectionId = elementForm.dataset.sectionId;
+    const value = event.target.value;
+    const url = `${window.Shopify.routes.root}cart/update.js`;
+    const data = {
+        attributes: {
+            IdCart: value
+        },
+        sections: [sectionId]
+    };
+    const options = {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    };
+    fetch(url, options)
+        .then(response => response.json())
+        .then(data => {
+            const _data = data.sections[sectionId]
+            appendChild(_data)
+        })
+        .catch(error => console.error(error));
+}
+
+
+appendChild = (data) => {
+    const listProduct = document.querySelector('#collection__products');
+    const div = document.createElement("div");
+    div.innerHTML = data;
+    const elements = div.querySelectorAll('#collection__products > *');
+    listProduct.innerHTML = '';
+    elements.forEach(element => {
+        listProduct.appendChild(element);
+    });
+}
+
 

@@ -13,6 +13,9 @@
   assign itemPerRow = section.settings.items_per_row
   assign itemsPerPageCustom = cart.attributes.IdCart | default: itemsPerPage | times: 1
 %}
+{% if request.design_mode %}
+  {% assign itemsPerPageCustom = itemsPerPage %}
+{% endif %}
 
 <style>
   .section_container {
@@ -28,7 +31,6 @@
     COLLECTION TOP
     ------------------------
   {% endcomment %}
-
   <div class="collection__header">
     <div class="collection__header-content">
       {% render 'collection-content',
@@ -55,39 +57,30 @@
         {% render 'collection-sort',
           label: 'Sort by',
           options: collection.sort_options,
-          _collection_url: collection.url,
-          _id: 'sort_by',
+          _id_select: 'sort_by',
+          _id_form: 'form_sort_by',
           _name: 'sort_by',
-          _sort_by: sort_by
+          _sort: sort_by,
+          _function: 'handleChangeSortBy(event);'
         %}
       </div>
-      <div class="collection__toolbar-sort-show">
-        <form>
-          {% assign showingList = section.settings.total_viewlist | split: ',' -%}
-          <select
-            name="attributes[itemsPerPageCustom]"
-            id="items_per_page"
-            onchange="showItem()"
-            data-section="{{ section.id }}"
-          >
-            {%- for i in showingList -%}
-              {%- assign view = i | strip | times: 1 -%}
-              <option
-                value="{{view}}"
-                {% if view == itemsPerPageCustom %}
-                  selected
-                {% endif %}
-              >
-                {{ view }}
-              </option>
-            {%- endfor -%}
-          </select>
-        </form>
+
+      <div class="collection__toolbar-sort-by">
+        {% assign showingList = section.settings.total_viewlist | split: ',' -%}
+        {% render 'collection-sort',
+          label: 'Show',
+          options: showingList,
+          _id_select: 'items_per_page',
+          _id_form: 'form_show',
+          _name: 'attributes[itemsPerPageCustom]',
+          _sort: itemsPerPageCustom,
+          _function: 'handleChangeShow(event);'
+        %}
       </div>
     </div>
   </div>
   {% if true %}
-    <div class="collection__toolbar__filter">
+    <div class="collection__toolbar__filter active">
       {% render 'collection-filter' %}
     </div>
   {% endif %}
@@ -99,6 +92,7 @@
     RENDER PRODUCT
     -------------------------------
   {%- endcomment -%}
+
   {%- paginate collection.products by itemsPerPageCustom -%}
     <div class="collection__products" id="collection__products">
       {% for product in collection.products %}
