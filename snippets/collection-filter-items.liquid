@@ -5,7 +5,7 @@
 >
 
 <div class="block__filter__items">
-  <form class="filter-form">
+  <div class="filter-form">
     <div class="filter-form__item">
       {%- for filter in _filter -%}
         <div class="filter-wrapper">
@@ -77,8 +77,5 @@
         </div>
       {%- endfor -%}
     </div>
-    <div class="filter-group-display__submit">
-      <input type="submit" value="Submit">
-    </div>
-  </form>
+  </div>
 </div>

@@ -1,10 +1,10 @@
 const infinityPoint = document.querySelector('#infinity_point')
 const sortBy = document.querySelector('#sort_by')
 const show = document.querySelector('#show')
-const filterForms = document.querySelectorAll('.filter-form')
+const filterForms = document.querySelectorAll('input[type="checkbox"]')
 const paginateLinks = document.querySelectorAll('.paginate_link[data-url]')
 
-const { loading, createUrl, hiddenLoading, getApi, appendProduct, setProduct, updateCount, updatePointInfinity, updatePaginate } = collectionService()
+const { loading, createUrl, hiddenLoading, getApi, appendProduct, setProduct, updateCount, updatePointInfinity, updatePaginate, createUrlFilter } = collectionService()
 
 
 if (infinityPoint) {
@@ -47,6 +47,7 @@ if (sortBy) {
 
         function callback(searchParams) {
             searchParams.set('sort_by', value)
+            // searchParams.set('section_id', sectionId)
         }
         const url = createUrl(callback, window.location.href.split('?')[1])
         history.pushState(null, null, url);
@@ -94,88 +95,62 @@ if (show) {
     })
 }
 
+
 if (filterForms) {
 
-    filterForms.forEach(
-        (filterForm) => {
-            filterForm.addEventListener("submit", (event) => {
-                event.preventDefault()
-                let url = ''
-                const data = new FormData(event.target);
-                for (let [name, value] of data) {
-                    if (value !== '') {
-                        url += `&${name}=${value}`
+    filterForms.forEach(input => {
+        input.addEventListener('change', event => {
+
+            const value = event.target.value;
+            const name = event.target.name;
+            function callback(checkedValues) {
+                if (event.target.checked) {
+                    if (!checkedValues[name]) {
+                        checkedValues[name] = [];
                     }
-                }
-                url = url.replace('&', "?")
-                getApi(url).then((data) => {
-                    setProduct(data.getElementProduct())
-                    updateCount(data.getProductCount())
-                    updatePointInfinity(data.getPointInfinity())
-                    updatePaginate(data.getPaginate())
-                })
-            })
-
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            const checkedValues = {};
-            const queryParams = new URLSearchParams(window.location.search);
-
-            const urlParams = new URLSearchParams();
-            queryParams.forEach((value, name) => {
-                if (!checkedValues[name]) {
                     checkedValues[name].push(value);
-                }
-                checkedValues[name].push(value);
-            });
-            console.log(checkedValues)
-            checkboxes.forEach((checkbox) => {
-                checkbox.addEventListener('change', event => {
-                    if (event.target.checked) {
-                        if (!checkedValues[event.target.name]) {
-                            checkedValues[event.target.name] = [];
-                        }
-                        checkedValues[event.target.name].push(event.target.value);
-                    } else {
-                        if (checkedValues[event.target.name]) {
-                            checkedValues[event.target.name] = checkedValues[event.target.name].filter(value => value !== event.target.value);
-                        }
+                } else {
+                    if (checkedValues[name]) {
+                        checkedValues[name] = checkedValues[name].filter(val => val !== value);
                     }
+                }
 
-                    Object.keys(checkedValues).forEach((name) => {
-                        checkedValues[name].forEach((value) => {
-                            urlParams.append(name, value);
-                        });
-                    });
-                    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
-                    history.pushState(null, null, newUrl);
-                });
-            });
-
-        }
-
-    )
-
-}
-
-
-if (paginateLinks) {
-    paginateLinks.forEach(paginateLink => {
-        paginateLink.addEventListener("click", (event) => {
-            const target = event.target
-            const url = target.dataset.url
-            const sectionId = target.dataset.sectionId
-
-            function callback(searchParams) {
-                searchParams.set('section_id', sectionId)
             }
-            const _url = createUrl(callback, url.split('?')[1])
-            getApi(_url).then((data) => {
-                setProduct(data.getElementProduct());
+
+            const url = createUrlFilter(callback, window.location.search)
+            history.pushState(null, null, url);
+            getApi(url).then((data) => {
+                setProduct(data.getElementProduct())
+                updateCount(data.getProductCount())
+                updatePointInfinity(data.getPointInfinity())
                 updatePaginate(data.getPaginate())
-                // remove listener
             })
         })
     })
+}
+
+paginateFuc(paginateLinks)
+
+function paginateFuc(paginateLinks) {
+    if (paginateLinks) {
+        paginateLinks.forEach(paginateLink => {
+            paginateLink.addEventListener("click", (event) => {
+                const target = event.target
+                const url = target.dataset.url
+                const sectionId = target.dataset.sectionId
+
+                function callback(searchParams) {
+                    searchParams.set('section_id', sectionId)
+                }
+                const _url = createUrl(callback, url.split('?')[1])
+                getApi(_url).then((data) => {
+                    setProduct(data.getElementProduct());
+                    updatePaginate(data.getPaginate())
+                    // remove listener
+                })
+            })
+        })
+    }
 }
 
 function collectionService() {
@@ -198,6 +173,28 @@ function collectionService() {
         return window.location.pathname + "?" + urlSearchParams.toString()
 
     }
+
+
+    function createUrlFilter(callback, search) {
+        const params = new URLSearchParams(search);
+        const checkedValues = {};
+        params.forEach(function (value, key) {
+            if (!checkedValues[key]) {
+                checkedValues[key] = [];
+            }
+            checkedValues[key].push(value);
+        });
+        callback(checkedValues);
+        const urlParams = new URLSearchParams();
+        Object.keys(checkedValues).forEach((name) => {
+            checkedValues[name].forEach((value) => {
+                urlParams.append(name, value);
+            });
+        });
+        const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
+        return newUrl
+    }
+
 
     function getApi(url, options, getResponse) {
         return fetch(url, options).then(res => getResponse?.(res) ?? res.text()).then(data => _extract(data))
@@ -234,6 +231,7 @@ function collectionService() {
         if (paginate) {
             paginate.parentNode.replaceChild(element, paginate)
             paginate = document.querySelector('.paginate')
+            paginateFuc(document.querySelectorAll('.paginate_link[data-url]'))
         }
     }
 
@@ -267,7 +265,8 @@ function collectionService() {
         updateCount,
         updatePointInfinity,
         createUrl,
-        updatePaginate
+        updatePaginate,
+        createUrlFilter
     }
     return services;
 }
