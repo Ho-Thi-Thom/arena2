@@ -4,6 +4,18 @@
   media="all"
 >
 
+<link
+  rel="stylesheet"
+  href="{{ 'collection-product.css' | asset_url }}"
+  media="all"
+>
+
+<link
+  rel="stylesheet"
+  href="{{ 'paginate_link.css' | asset_url }}"
+  media="all"
+>
+
 {% liquid
   assign products = collection.products
   assign productSize = collection.products_count
@@ -11,7 +23,7 @@
   assign collectionDescription = collection.description
   assign itemsPerPage = section.settings.items_per_page | default: 20 | times: 1
   assign itemPerRow = section.settings.items_per_row
-  assign itemsPerPageCustom = cart.attributes.IdCart | default: itemsPerPage | times: 1
+  assign itemsPerPageCustom = cart.attributes.items_per_page | default: itemsPerPage | times: 1
 %}
 {% if request.design_mode %}
   {% assign itemsPerPageCustom = itemsPerPage %}
@@ -36,7 +48,7 @@
       {% render 'collection-content',
         title: collectionTitle,
         description: collectionDescription,
-        productCount: productSize
+        productCount: collection.products_count
       %}
     </div>
     <div class="collection__header-content">
@@ -57,11 +69,8 @@
         {% render 'collection-sort',
           label: 'Sort by',
           options: collection.sort_options,
-          _id_select: 'sort_by',
-          _id_form: 'form_sort_by',
-          _name: 'sort_by',
           _sort: sort_by,
-          _function: 'handleChangeSortBy(event);'
+          _id_select: 'sort_by'
         %}
       </div>
 
@@ -70,11 +79,8 @@
         {% render 'collection-sort',
           label: 'Show',
           options: showingList,
-          _id_select: 'items_per_page',
-          _id_form: 'form_show',
-          _name: 'attributes[itemsPerPageCustom]',
           _sort: itemsPerPageCustom,
-          _function: 'handleChangeShow(event);'
+          _id_select: 'show'
         %}
       </div>
     </div>
@@ -158,5 +164,4 @@
 }
 {% endschema %}
 {{ 'collection.js' | asset_url | script_tag }}
-{{ 'filter.js' | asset_url | script_tag }}
-{{ 'infinity.js' | asset_url | script_tag }}
+{{ 'main-collection.js' | asset_url | script_tag }}

@@ -45,11 +45,15 @@
   max-height: 0;
   overflow: hidden;
   transition: all .3s;
+  margin-top: 20px;
 }
 
 .collection__toolbar__filter.active {
   max-height: 50vh;
   overflow: auto;
+  border-radius: 4px;
+  margin-block: 16px;
+  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
 }
 
 .collection__hr {

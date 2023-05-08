@@ -1,5 +1,5 @@
 .block {
-    &__filter {
+    &__filter__items {
         width: 100%;
     }
 }
@@ -7,7 +7,13 @@
 .filter {
     &-form {
         display: flex;
-        flex-wrap: wrap;
+        flex-direction: column;
+
+        &__item {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px
+        }
     }
 
     &-wrapper {
@@ -53,12 +59,13 @@
         }
     }
 
-    &-group-display__submit {
+    .filter-group-display__submit {
         display: flex;
         justify-content: end;
+        margin: 10px;
 
         input {
-            background-color: white;
+            background-color: #81f0ad;
             font-size: 20px;
             font-weight: 400;
             width: 120px;

@@ -4,13 +4,12 @@
   media="all"
 >
 
-<form class="form_wrapper" data-section-id="{{ section.id }}" id="{{_id_form}}">
-  <label for="{{ _idselect }}">{{ label }} </label>
+<div class="form_wrapper">
+  <label for="{{ _id_select }}">{{ label }} </label>
   <select
     name="{{ _name }}"
     id="{{ _id_select }}"
-    onchange="{{_function}}"
-    data-url="{{ collection.url }}"
+    data-section-id="{{ section.id }}"
   >
     {% for item in options %}
       {%- assign view = item | strip | times: 1 -%}
@@ -33,7 +32,7 @@
       </option>
     {% endfor %}
   </select>
-</form>
+</div>
 
 {% comment %}
   v1

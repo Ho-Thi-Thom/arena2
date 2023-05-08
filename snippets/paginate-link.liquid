@@ -1,10 +1,5 @@
-<link
-  rel="stylesheet"
-  href="{{ 'paginate_link.css' | asset_url }}"
-  media="all"
->
 {% if isLink %}
-  <a href="{{ link }}" class="paginate_link">
+  <button data-url="{{ link }}" data-section-id="{{ section.id}}" class="paginate_link">
     {% case value %}
       {% when 'previous' %}
         {% render 'arrow' %}
@@ -13,7 +8,7 @@
       {% else %}
         {{ value }}
     {% endcase %}
-  </a>
+  </button>
 {% else %}
   <button class="paginate_link active">{{ value }}</button>
 {% endif %}

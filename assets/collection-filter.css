@@ -2,9 +2,4 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: var(--flexDirection);
-  border-radius: 4px;
-  gap: 16px;
-  padding: 8px;
-  margin-block: 16px;
-  box-shadow: 0 2px 5px 2px rgba(0, 0, 0, 0.1);
 }

@@ -1,26 +1,37 @@
+<link
+  rel="stylesheet"
+  href="{{ 'paginate_link.css' | asset_url }}"
+  media="all"
+>
+
 {% case type %}
   {% when 'infinity' %}
     <div
       id="infinity_point"
       style="height: auto;"
-      data-url="{% if paginate.next %}{{paginate.next.url}}&section_id={{section.id}}{% endif %}"
+      {% if paginate.next.url %}
+        data-url="{{paginate.next.url}}"
+        data-section-id="{{ section.id}}"
+      {% endif %}
     ></div>
   {% else %}
-    {% if paginate.pages > 1 %}
-      {% if paginate.previous %}
-        {% render 'paginate-link', value: 'previous', link: paginate.previous.url, isLink: true %}
-      {% endif %}
-
-      {% for part in paginate.parts %}
-        {% if part.title == '&hellip;' %}
-          <span>...</span>
-        {% else %}
-          {% render 'paginate-link', value: part.title, link: part.url, isLink: part.is_link %}
+    <div class="paginate">
+      {% if paginate.pages > 1 %}
+        {% if paginate.previous %}
+          {% render 'paginate-link', value: 'previous', link: paginate.previous.url, isLink: true %}
         {% endif %}
-      {% endfor %}
 
-      {% if paginate.next %}
-        {% render 'paginate-link', value: 'next', link: paginate.next.url, isLink: true %}
+        {% for part in paginate.parts %}
+          {% if part.title == '&hellip;' %}
+            <span>...</span>
+          {% else %}
+            {% render 'paginate-link', value: part.title, link: part.url, isLink: part.is_link %}
+          {% endif %}
+        {% endfor %}
+
+        {% if paginate.next %}
+          {% render 'paginate-link', value: 'next', link: paginate.next.url, isLink: true %}
+        {% endif %}
       {% endif %}
-    {% endif %}
+    </div>
 {% endcase %}
