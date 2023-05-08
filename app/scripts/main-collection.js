@@ -46,10 +46,9 @@ if (sortBy) {
         const sectionId = event.target.dataset.sectionId
 
         function callback(searchParams) {
-            searchParams.set('section_id', sectionId)
             searchParams.set('sort_by', value)
         }
-        const url = createUrl(callback)
+        const url = createUrl(callback, window.location.href.split('?')[1])
         history.pushState(null, null, url);
         getApi(url).then((data) => {
             setProduct(data.getElementProduct())
@@ -81,6 +80,11 @@ if (show) {
                 .then(data => data.sections[sectionId])
 
         }
+        function callback(searchParams) {
+            searchParams.set('items_per_page', value)
+        }
+        const _url = createUrl(callback, window.location.href.split('?')[1])
+        history.pushState(null, null, _url)
 
         getApi(url, options, getResponse).then((data) => {
             setProduct(data.getElementProduct())
@@ -99,10 +103,11 @@ if (filterForms) {
                 let url = ''
                 const data = new FormData(event.target);
                 for (let [name, value] of data) {
-                    url += `&${name}=${value}`
+                    if (value !== '') {
+                        url += `&${name}=${value}`
+                    }
                 }
                 url = url.replace('&', "?")
-
                 getApi(url).then((data) => {
                     setProduct(data.getElementProduct())
                     updateCount(data.getProductCount())
@@ -113,31 +118,39 @@ if (filterForms) {
 
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             const checkedValues = {};
+            const queryParams = new URLSearchParams(window.location.search);
 
+            const urlParams = new URLSearchParams();
+            queryParams.forEach((value, name) => {
+                if (!checkedValues[name]) {
+                    checkedValues[name].push(value);
+                }
+                checkedValues[name].push(value);
+            });
+            console.log(checkedValues)
             checkboxes.forEach((checkbox) => {
-                checkbox.addEventListener('change', function () {
-                    if (this.checked) {
-                        if (!checkedValues[this.name]) {
-                            checkedValues[this.name] = [];
+                checkbox.addEventListener('change', event => {
+                    if (event.target.checked) {
+                        if (!checkedValues[event.target.name]) {
+                            checkedValues[event.target.name] = [];
                         }
-                        checkedValues[this.name].push(this.value);
+                        checkedValues[event.target.name].push(event.target.value);
                     } else {
-                        if (checkedValues[this.name]) {
-                            checkedValues[this.name] = checkedValues[this.name].filter(value => value !== this.value);
+                        if (checkedValues[event.target.name]) {
+                            checkedValues[event.target.name] = checkedValues[event.target.name].filter(value => value !== event.target.value);
                         }
                     }
 
-                    const urlParams = new URLSearchParams();
                     Object.keys(checkedValues).forEach((name) => {
                         checkedValues[name].forEach((value) => {
                             urlParams.append(name, value);
                         });
                     });
-                    const newUrl = window.location.pathname + '?' + urlParams.toString();
-                    console.log(newUrl)
+                    const newUrl = `${window.location.pathname}?${urlParams.toString()}`;
                     history.pushState(null, null, newUrl);
                 });
             });
+
         }
 
     )

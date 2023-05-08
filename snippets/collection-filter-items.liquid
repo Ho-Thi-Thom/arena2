@@ -18,8 +18,6 @@
               {%- when 'boolean', 'list' -%}
                 <ul class="filter-group-display__list" id="filter_list">
                   {%- for filter_value in filter.values -%}
-                    {{ filter_value.param_name }}
-                    {{ filter_value.value }}
                     <li class="filter-group-display__list-item">
                       <label for="Filter-{{ filter.param_name }}-{{ forloop.index }}">
                         <input
