@@ -2,6 +2,7 @@ const infinityPoint = document.querySelector('#infinity_point')
 const sortBy = document.querySelector('#sort_by')
 const show = document.querySelector('#show')
 const filterForms = document.querySelectorAll('input[type="checkbox"]')
+const filterPrice = document.querySelectorAll('input[type="number"]')
 const paginateLinks = document.querySelectorAll('.paginate_link[data-url]')
 
 const { loading, createUrl, hiddenLoading, getApi, appendProduct, setProduct, updateCount, updatePointInfinity, updatePaginate, createUrlFilter } = collectionService()
@@ -24,7 +25,7 @@ if (infinityPoint) {
                 loading(target);
                 getApi(_url)
                     .then((data) => {
-                        const infinityPoint = data.getPointInfinity()
+                        const infinityPoint = data.getElementPointInfinity()
                         appendProduct(data.getElementProduct())
                         updatePointInfinity(infinityPoint)
 
@@ -89,7 +90,7 @@ if (show) {
 
         getApi(url, options, getResponse).then((data) => {
             setProduct(data.getElementProduct())
-            updatePointInfinity(data.getPointInfinity())
+            updatePointInfinity(data.getElementPointInfinity())
             updatePaginate(data.getPaginate())
         })
     })
@@ -100,7 +101,6 @@ if (filterForms) {
 
     filterForms.forEach(input => {
         input.addEventListener('change', event => {
-
             const value = event.target.value;
             const name = event.target.name;
             function callback(checkedValues) {
@@ -122,13 +122,45 @@ if (filterForms) {
             getApi(url).then((data) => {
                 setProduct(data.getElementProduct())
                 updateCount(data.getProductCount())
-                updatePointInfinity(data.getPointInfinity())
+                updatePointInfinity(data.getElementPointInfinity())
                 updatePaginate(data.getPaginate())
             })
         })
     })
 }
 
+// if (filterPrice) {
+//     const params = {}
+//     filterPrice.forEach(input => {
+//         input.addEventListener('change', event => {
+//             const value = event.target.value;
+//             const name = event.target.name;
+//             params[name] = value;
+//             if (Object.keys(params).length === 2) {
+//                 function callback(checkedValues) {
+//                     for (const key in params) {
+
+//                         if (!checkedValues[key]) {
+//                             checkedValues[key] = [];
+//                         }
+//                         checkedValues[key].push(params[key]);
+//                     }
+
+//                 }
+//                 const url = createUrlFilter(callback, window.location.search)
+//                 history.pushState(null, null, url);
+//                 getApi(url).then((data) => {
+//                     setProduct(data.getElementProduct())
+//                     updateCount(data.getProductCount())
+//                     updatePointInfinity(data.getElementPointInfinity())
+//                     updatePaginate(data.getPaginate())
+//                 })
+//             }
+//         }
+
+//         )
+//     })
+// }
 paginateFuc(paginateLinks)
 
 function paginateFuc(paginateLinks) {
@@ -246,7 +278,7 @@ function collectionService() {
             getProductCount() {
                 return div.querySelector(".product_count")
             },
-            getPointInfinity() {
+            getElementPointInfinity() {
                 return div.querySelector("#infinity_point")
             },
             getPaginate() {

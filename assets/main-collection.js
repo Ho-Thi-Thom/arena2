@@ -4,6 +4,7 @@
   var sortBy = document.querySelector("#sort_by");
   var show = document.querySelector("#show");
   var filterForms = document.querySelectorAll('input[type="checkbox"]');
+  var filterPrice = document.querySelectorAll('input[type="number"]');
   var paginateLinks = document.querySelectorAll(".paginate_link[data-url]");
   var { loading, createUrl, hiddenLoading, getApi, appendProduct, setProduct, updateCount, updatePointInfinity, updatePaginate, createUrlFilter } = collectionService();
   if (infinityPoint) {
@@ -20,7 +21,7 @@
           const _url = createUrl(callback2, url.split("?")[1]);
           loading(target);
           getApi(_url).then((data) => {
-            const infinityPoint2 = data.getPointInfinity();
+            const infinityPoint2 = data.getElementPointInfinity();
             appendProduct(data.getElementProduct());
             updatePointInfinity(infinityPoint2);
             if (!infinityPoint2.dataset.url) {
@@ -76,7 +77,7 @@
       history.pushState(null, null, _url);
       getApi(url, options, getResponse).then((data2) => {
         setProduct(data2.getElementProduct());
-        updatePointInfinity(data2.getPointInfinity());
+        updatePointInfinity(data2.getElementPointInfinity());
         updatePaginate(data2.getPaginate());
       });
     });
@@ -103,7 +104,7 @@
         getApi(url).then((data) => {
           setProduct(data.getElementProduct());
           updateCount(data.getProductCount());
-          updatePointInfinity(data.getPointInfinity());
+          updatePointInfinity(data.getElementPointInfinity());
           updatePaginate(data.getPaginate());
         });
       });
@@ -206,7 +207,7 @@
         getProductCount() {
           return div.querySelector(".product_count");
         },
-        getPointInfinity() {
+        getElementPointInfinity() {
           return div.querySelector("#infinity_point");
         },
         getPaginate() {
